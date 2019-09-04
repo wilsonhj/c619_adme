@@ -6,6 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Learning-Fuze/c619_adme.git"
@@ -17,11 +28,73 @@
   },
   "homepage": "https://github.com/Learning-Fuze/c619_adme#readme",
   "devDependencies": {
-    "nodemon": "^1.19.2"
+    "nodemon": "^1.19.2",
+    "babel-eslint": "10.0.1",
+    "eslint": "5.16.0",
+    "eslint-config-standard": "12.0.0",
+    "eslint-plugin-import": "2.17.2",
+    "eslint-plugin-node": "9.0.1",
+    "eslint-plugin-promise": "4.1.1",
+    "eslint-plugin-standard": "4.0.0",
+    "husky": "2.2.0",
+    "lint-staged": "8.1.6"
   },
   "dependencies": {
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "mysql2": "^1.7.0"
-  }
+  },
+  "eslintIgnore": [
+    "server/public/main.js"
+  ],
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "parser": "babel-eslint",
+    "extends": [
+      "plugin:react/recommended",
+      "eslint:recommended",
+      "standard"
+    ],
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "rules": {
+      "semi": [
+        "error",
+        "always"
+      ],
+      "padded-blocks": 0,
+      "arrow-parens": [
+        "error",
+        "as-needed"
+      ],
+      "curly": [
+        "error",
+        "multi-line"
+      ],
+      "no-console": [
+        "error",
+        {
+          "allow": [
+            "warn",
+            "error"
+          ]
+        }
+      ],
+      "space-before-function-paren": [
+        "error",
+        {
+          "anonymous": "always",
+          "named": "never",
+          "asyncArrow": "always"
+        }
+      ]
+    }
+  },
+  "keywords": []
 }
