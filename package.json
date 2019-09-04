@@ -57,7 +57,8 @@
     "express": "^4.17.1",
     "mysql2": "^1.7.0",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "reactstrap": "^8.0.1"
   },
   "eslintIgnore": [
     "server/public/main.js"
