@@ -5,7 +5,7 @@ export default function Page(props) {
   return (
     <div>
       <h1>{props.title}</h1>
-      <button>Navigate</button>
+      <button onClick={props.setView}>Navigate</button>
     </div>
   );
 }

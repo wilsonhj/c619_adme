@@ -1,5 +1,7 @@
 import React from 'react';
+import AppContext from './context';
 import LandingPage from './containers/landing-page';
+import CompanyDashboard from './containers/company-dashboard';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,9 +24,23 @@ export default class App extends React.Component {
     });
   }
 
+  renderView() {
+    switch (this.state.view.name) {
+      case 'landing-page':
+        return <LandingPage />;
+      case 'company-dashboard':
+        return <CompanyDashboard />;
+    }
+  }
+
   render() {
+    const appContext = {
+      setView: this.setView
+    };
     return (
-      <LandingPage />
+      <AppContext.Provider value={appContext} >
+        {this.renderView()}
+      </AppContext.Provider>
     );
   }
 
