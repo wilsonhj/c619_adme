@@ -13,5 +13,5 @@ server.use('/api/companies', companies);
 server.use('/api/creators', creators);
 server.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log('its listening');
+  console.log('its listening closely');
 });
