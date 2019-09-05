@@ -3,8 +3,19 @@ import Page from '../components/page';
 import AppContext from '../context';
 
 export default class CompanyDashboard extends React.Component {
-  componentDidMount() {
-    fetch('api/companies/1')
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      view: {
+        id: '',
+        name: '',
+        logo: ''
+      }
+    };
+  }
+  componentDidMount(id) {
+    fetch(`api/companies/${id}`)
       .then(res => res.json())
       .then(response => {
         // eslint-disable-next-line no-console
