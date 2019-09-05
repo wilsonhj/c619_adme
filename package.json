@@ -9,7 +9,9 @@
     "start": "node .",
     "build": "webpack --mode=production",
     "dev": "npm-run-all --silent --parallel watch client",
-    "watch": "nodemon ."
+    "watch": "nodemon .",
+    "db-dump": ". ./.env; mysqldump -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE > database/$(date +%s)_dump.sql",
+    "db-import": ". ./.env; mysql -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE <"
   },
   "husky": {
     "hooks": {
