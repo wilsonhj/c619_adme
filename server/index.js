@@ -1,5 +1,5 @@
 require('dotenv/config');
-const connection = require('connection.js');
+const connection = require('./connection');
 const express = require('express');
 const companies = require('./companies');
 const creators = require('./creators');
