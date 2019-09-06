@@ -9,7 +9,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'creator-portfolio',
+        name: 'landing-page',
         params: {}
       }
     };
