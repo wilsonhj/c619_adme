@@ -1,13 +1,14 @@
 import React from 'react';
+import { Card, CardImg, Button } from 'reactstrap';
 
 export default function CompanyHeader(props) {
   return (
-    <div className="container d-flex justify-content-center">
-      <div className="row">
-        <img src={props.companyLogo} style={{ height: '200px', width: '200px' }}></img>
-        <h5>{props.companyName}</h5>
-        <button className="btn">Create New Campaign</button>
-      </div>
+    <div>
+      <Card className="text-center light" style={{ backgroundColor: '#242038' }}>
+        <h3 style={{ color: 'white' }} className="shadow">{props.companyName}</h3>
+        <CardImg src={'https://files.slack.com/files-pri/T1EHQUJ8J-FN3SSC17S/targetlogo.png'} className="rounded mx-auto shadow" style={{ width: '150px', height: '150px', backgroundSize:'contain' }}></CardImg>
+        <Button color="light" style={{ width: '250px' }} className="btn mx-auto mt-3 mb-3">Create Campaign</Button>{' '}
+      </Card>
     </div>
   );
 }
