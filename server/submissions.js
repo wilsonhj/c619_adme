@@ -1,5 +1,5 @@
 const express = require('express');
-// const connection = require('./connection');
+const connection = require('./connection');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
@@ -16,16 +16,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/', upload.single('submissionContent'), (req, res, next) => {
+  let params = [req.body.creatorID, req.body.typeOfContent, req.file.path, req.body.title, req.body.requestID, req.body.likes];
 
-  // connection.query('SELECT * FROM `creators` WHERE `creatorID` = `' + creatorID + '`', (err, rows, fields) => {
-  // if (err) throw err;
-  let response = {
-    requestBody: req.body,
-    requestFileStorageInfo: req.file
-  };
-  res.json(response);
+  connection.execute('INSERT INTO `submissions` ( `creatorID`, `typeOfContent`, `submissionContent`, `title`, `requestID`, `likes`) VALUES ( ?, ?, ?, ?, ?, ?);', params, (err, rows, fields) => {
 
-  // });
+    if (err) throw err;
+    let response = {
+      requestBody: req.body,
+      requestFileStorageInfo: req.file,
+      mySqlRows: rows
+    };
+    res.json(response);
+  });
 
 });
 
