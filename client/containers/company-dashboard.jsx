@@ -4,6 +4,7 @@ import AppContext from '../context';
 import CompanyHeader from '../components/company-header.jsx';
 
 export default class CompanyDashboard extends React.Component {
+
   constructor(props) {
     super(props);
     this.retrieveCompanyData = this.retrieveCompanyData.bind(this);
