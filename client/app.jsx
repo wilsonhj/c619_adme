@@ -2,6 +2,7 @@ import React from 'react';
 import AppContext from './context';
 import LandingPage from './containers/landing-page';
 import CompanyDashboard from './containers/company-dashboard';
+import CreateCampaign from './containers/create-campaign.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -30,12 +31,15 @@ export default class App extends React.Component {
         return <LandingPage />;
       case 'company-dashboard':
         return <CompanyDashboard />;
+      case 'create-campaign':
+        return <CreateCampaign />;
     }
   }
 
   render() {
     const appContext = {
-      setView: this.setView
+      setView: this.setView, 
+      
     };
     return (
       <AppContext.Provider value={appContext} >
