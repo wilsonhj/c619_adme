@@ -15,10 +15,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/', upload.single('campaignContent'), (req, res, next) => {
-  let params = [req.body.companyID, req.body.description, req.file.path, req.body.runSpace, req.body.requirements, req.body.rewards];
+router.post('/', upload.single('submissionContent'), (req, res, next) => {
+  let params = [req.body.creatorID, req.body.typeOfContent, req.file.path, req.body.title, req.body.requestID, req.body.likes];
 
-  connection.execute('INSERT INTO `requests` ( `companyID`, `description`, `campaignContent`, `runSpace`, `requirements`, `rewards`, `submissionsReceived`) VALUES ( ?, ?, ?, ?, ?, ?, 1);', params, (err, rows, fields) => {
+  connection.execute('INSERT INTO `submissions` ( `creatorID`, `typeOfContent`, `submissionContent`, `title`, `requestID`, `likes`) VALUES ( ?, ?, ?, ?, ?, ?);', params, (err, rows, fields) => {
 
     if (err) throw err;
     let response = {
