@@ -3,6 +3,7 @@ import AppContext from './context';
 import LandingPage from './containers/landing-page';
 import CompanyDashboard from './containers/company-dashboard';
 import CreateCampaign from './containers/create-campaign.jsx';
+import CreatorPortfolio from './containers/creator-portfolio';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -33,6 +34,8 @@ export default class App extends React.Component {
         return <CompanyDashboard />;
       case 'create-campaign':
         return <CreateCampaign />;
+      case 'creator-portfolio':
+        return <CreatorPortfolio />;
     }
   }
 
