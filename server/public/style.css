@@ -3,8 +3,17 @@
   color: #242038;
 }
 
-
 .creatorTab{
   border-left: 1px solid #dee2e6;
   border-right: 1px solid #dee2e6
+}
+
+.creatorSubmissionForm{
+  background-color: #CAC4CE;
+  color: #242038;
+}
+
+.creatorSubmitButton{
+  background-color: #9067C6;
+  border: none;
 }

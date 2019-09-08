@@ -40,15 +40,15 @@ export default class UploadSubmission extends React.Component {
 
   render() {
     return (
-      <Form className="p-4" onSubmit={this.handleSubmit}>
-        <h2>Upload Your Submission</h2>
+      <Form className="p-4 rounded m-3 creatorSubmissionForm" onSubmit={this.handleSubmit}>
+        <h4 className="mb-3 mx-auto">Upload Your Submission</h4>
         <FormGroup>
           <Label>Title </Label>
-          <Input type="text" name="title" onChange={this.handleChange}/>
+          <Input className="shadow-sm" type="text" name="title" onChange={this.handleChange}/>
         </FormGroup>
         <FormGroup>
           <Label>Select Content Type</Label>
-          <Input onChange={this.handleChange} type="select" name="typeOfContent" id="exampleSelect">
+          <Input className="shadow-sm" onChange={this.handleChange} type="select" name="typeOfContent">
             <option></option>
             <option value="Video">Video</option>
             <option value="Image">Image</option>
@@ -61,7 +61,7 @@ export default class UploadSubmission extends React.Component {
             Please select the file you would like to upload.
           </FormText>
         </FormGroup>
-        <Button>Submit</Button>
+        <Button className="shadow creatorSubmitButton">Submit</Button>
       </Form>
     );
   }
