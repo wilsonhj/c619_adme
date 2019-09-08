@@ -4,13 +4,14 @@ import LandingPage from './containers/landing-page';
 import CompanyDashboard from './containers/company-dashboard';
 import CreateCampaign from './containers/create-campaign.jsx';
 import CreatorPortfolio from './containers/creator-portfolio';
+import UploadSubmission from './containers/upload-submission';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'landing-page',
+        name: 'upload-submission',
         params: {}
       }
     };
@@ -36,13 +37,15 @@ export default class App extends React.Component {
         return <CreateCampaign />;
       case 'creator-portfolio':
         return <CreatorPortfolio />;
+      case 'upload-submission':
+        return <UploadSubmission />;
     }
   }
 
   render() {
     const appContext = {
-      setView: this.setView, 
-      
+      setView: this.setView
+
     };
     return (
       <AppContext.Provider value={appContext} >
