@@ -10,8 +10,8 @@ import {
 import CampaignIcon from './campaignIcon';
 import MessagesIcon from './messagesIcon';
 import NotificationIcon from './notificationIcon';
-import PortfolioIcon from './PortfolioIcon';
-import SettingsIcon from './SettingsIcon';
+import PortfolioIcon from './portfolioIcon';
+import SettingsIcon from './settingsIcon';
 
 export default class NavBar extends React.Component {
   constructor(props) {

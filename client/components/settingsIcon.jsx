@@ -23,9 +23,9 @@ export default class SettingsIcon extends React.Component {
   }
 
   render() {
-    let color = '#EEEEEE';
+    let color = '#242038';
     if (this.state.hoverStatus) {
-      color = '#00000';
+      color = '#EEEEEE';
     }
     return (
       <svg xmlns="http://www.w3.org/2000/svg" onMouseOver={() => { this.handleHoverOn(); }} onMouseLeave={() => { this.handleHoverOff(); }} viewBox="0 0 100 125">

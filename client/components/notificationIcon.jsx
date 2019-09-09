@@ -23,9 +23,9 @@ export default class NotificationIcon extends React.Component {
   }
 
   render() {
-    let color = '#EEEEEE';
+    let color = '#242038';
     if (this.state.hoverStatus) {
-      color = '#00000';
+      color = '#EEEEEE';
     }
     return (
       <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" onMouseOver={() => { this.handleHoverOn(); }} onMouseLeave={() => { this.handleHoverOff(); }} viewBox="0 0 51 63.8">
