@@ -5,7 +5,7 @@ import NavBar from './components/nav-bar';
 
 ReactDOM.render(
   <>
-  <NavBar/>,
+  <NavBar/>
   <App />
   </>,
   document.querySelector('#root')

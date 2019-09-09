@@ -23,7 +23,7 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserInfo() {
-    fetch('http://localhost:3000/api/creators/1')
+    fetch('http://localhost:3000/api/creators/2')
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -52,7 +52,7 @@ export default class CreatorPortfolio extends React.Component {
           <div className="row rounded my-3 shadow creatorInfoContainer">
             <div className="col-12 text-center">
               <div className="row">
-                <img className="rounded-circle shadow-sm w-50 mt-2 mx-auto" src={this.state.profilePicture} alt="profile picture"/>
+                <img className="rounded-circle shadow w-50 mt-2 mx-auto" src={this.state.profilePicture} alt="profile picture"/>
               </div>
               <div className="row">
                 <h4 className="font-weight-bold m-2 p-2 bg-white rounded d-inline-block mx-auto">
