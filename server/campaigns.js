@@ -26,7 +26,7 @@ router.post('/', upload.single('campaignContent'), (req, res, next) => {
       requestFileStorageInfo: req.file,
       mySqlRows: rows
     };
-    res.json(response);
+    res.statusCode(201).json(response);
   });
 
 });
