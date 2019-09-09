@@ -2,7 +2,7 @@ import React from 'react';
 import Page from '../components/page';
 import AppContext from '../context';
 import CompanyHeader from '../components/company-header.jsx';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 
 export default class CompanyDashboard extends React.Component {
@@ -62,14 +62,12 @@ export default class CompanyDashboard extends React.Component {
           </Nav>
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1">
-              <Row>
-                <Col sm="12 p-0" style={{ width: '100%' }}>
-                  <div className="bg-white p-1 vh-100 creatorTab" >Video Submissions</div>
-                </Col>
-              </Row>
+              {/* <Row> */}
+              <div className="bg-white p-1 vh-100 creatorTab" >Video Submissions</div>
+              {/* </Row> */}
             </TabPane>
             <TabPane tabId="2">
-              <div className="bg-white p-1 vh-100 creatorTab" style={{ width: '100%' }}>{this.state.bio}</div>
+              <div className="bg-white p-1 vh-100 creatorTab" >SDFAGSFGG</div>
             </TabPane>
           </TabContent>
         </div>
