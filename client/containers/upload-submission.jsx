@@ -27,12 +27,12 @@ export default class UploadSubmission extends React.Component {
           'Content-Type': 'application/json'
         },
         body: {
-          'typeOfContent': this.state.typeOfContent,
+          typeOfContent: this.state.typeOfContent,
           submissionContent: this.state.submissionContent,
           title: this.state.title,
           likes: 0,
           creatorID: 1,
-          requestID: null
+          requestID: 1
         }
       })
       .then(res => res.json());
@@ -41,7 +41,7 @@ export default class UploadSubmission extends React.Component {
   render() {
     return (
       <Form className="p-4 rounded m-3 creatorSubmissionForm" onSubmit={this.handleSubmit}>
-        <h4 className="mb-3 mx-auto">Upload Your Submission</h4>
+        <h4 className="mb-3 mx-auto font-weight-bold">Upload Your Submission</h4>
         <FormGroup>
           <Label>Title </Label>
           <Input className="shadow-sm" type="text" name="title" onChange={this.handleChange}/>
