@@ -23,7 +23,7 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserInfo() {
-    fetch('http://localhost:3000/api/creators/1')
+    fetch('http://localhost:3000/api/creators/2')
       .then(res => res.json())
       .then(res => {
         this.setState({
