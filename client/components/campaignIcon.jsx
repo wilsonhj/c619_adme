@@ -23,9 +23,9 @@ export default class CampaignIcon extends React.Component {
   }
 
   render() {
-    let color = '#841d9e';
+    let color = '#EEEEEE';
     if (this.state.hoverStatus) {
-      color = '#EEEEEE';
+      color = '#00000';
     }
     return (
       <svg onMouseOver={() => { this.handleHoverOn(); }} onMouseLeave={() => { this.handleHoverOff(); }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
