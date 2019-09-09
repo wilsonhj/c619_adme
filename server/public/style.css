@@ -17,4 +17,27 @@
 .creatorSubmitButton{
   background-color: #9067C6;
   border: none;
+
+.createCampaignButton:hover{
+  background-color: #9067C6;
+  border: 1px solid black;
+}
+
+@media (max-width: 500px) {
+  .companyHeader {
+    display: flex;
+    height: 100px
+  }
+  .tab-text{
+    font-size: 0.7rem;
+  }
+}
+
+@media (min-width: 500px) {
+  .companyHeader {
+    display: inline-block;
+    width: 101.84%;
+    height: 170px;
+    text-align:center
+  }
 }
