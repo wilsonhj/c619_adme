@@ -41,8 +41,8 @@ export default class App extends React.Component {
 
   render() {
     const appContext = {
-      setView: this.setView, 
-      
+      setView: this.setView
+
     };
     return (
       <AppContext.Provider value={appContext} >
