@@ -1,14 +1,22 @@
 .creatorInfoContainer{
   background-color: #CAC4CE;
   color: #242038;
+  font-family: Futura,Trebuchet MS,Arial,sans-serif;
 }
-
 
 .creatorTab{
   border-left: 1px solid #dee2e6;
   border-right: 1px solid #dee2e6
 }
 
+.creatorSubmissionForm{
+  background-color: #CAC4CE;
+  color: #242038;
+}
+
+.creatorSubmitButton{
+  background-color: #9067C6;
+  border: none;
 
 .createCampaignButton:hover{
   background-color: #9067C6;
@@ -32,5 +40,4 @@
     height: 170px;
     text-align:center
   }
-
 }

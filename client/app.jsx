@@ -4,6 +4,7 @@ import LandingPage from './containers/landing-page';
 import CompanyDashboard from './containers/company-dashboard';
 import CreateCampaign from './containers/create-campaign.jsx';
 import CreatorPortfolio from './containers/creator-portfolio';
+import UploadSubmission from './containers/upload-submission';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -36,6 +37,8 @@ export default class App extends React.Component {
         return <CreateCampaign />;
       case 'creator-portfolio':
         return <CreatorPortfolio />;
+      case 'upload-submission':
+        return <UploadSubmission />;
     }
   }
 
