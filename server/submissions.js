@@ -26,7 +26,9 @@ router.post('/', upload.single('submissionContent'), (req, res, next) => {
       requestFileStorageInfo: req.file,
       mySqlRows: rows
     };
-    res.json(response);
+    if (!err) {
+      res.json(response);
+    }
   });
 
 });
