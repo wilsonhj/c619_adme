@@ -1,22 +1,8 @@
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
+import React from 'react';
 
-const style = {};
-  style.image = {
-    backgroundSize: 'contain',
-    height: '75px'
-  };
-  style.div = {
-    color: '#9067C6'
-  };
-  style.button = {
-    height: '30px',
-    width: '130px',
-    backgroundColor: 'white',
-    fontSize: '0.75rem'
-  };
 export default class CompanyHeader extends React.Component {
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -45,6 +31,20 @@ export default class CompanyHeader extends React.Component {
     }
   }
   render() {
+    const style = {};
+    style.image = {
+      backgroundSize: 'contain',
+      height: '75px'
+    };
+    style.div = {
+      color: '#9067C6'
+    };
+    style.button = {
+      height: '30px',
+      width: '130px',
+      backgroundColor: 'white',
+      fontSize: '0.75rem'
+    };
     return (
       <div className="row background-light justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ backgroundImage: 'linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240))', paddingLeft: '3%', paddingRight: '3%' }}>
         <div className="row background-light justify-content-around align-items-center companyHeader">
@@ -62,8 +62,7 @@ export default class CompanyHeader extends React.Component {
               <NavLink
                 className={classnames({ active: this.state.activeTab === '1' })}
                 onClick={() => { this.toggle('1'); }}
-              >
-                Current Campaigns
+              >Current Campaigns
               </NavLink>
             </NavItem>
             <NavItem>
