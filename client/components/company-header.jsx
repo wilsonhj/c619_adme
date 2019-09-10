@@ -34,10 +34,10 @@ export default class CompanyHeader extends React.Component {
     return (
       <div className="row background-light justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ backgroundImage: 'linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240))', paddingLeft: '3%', paddingRight: '3%' }}>
         <div className="row background-light justify-content-around align-items-center companyHeader">
-          <img src={this.state.companyLogo} className="rounded-circle mt-1 shadow" style={{ backgroundSize: 'contain', height: '75px' }}></img>
+          <img src={this.state.companyLogo} className="rounded-circle shadow" style={{ backgroundSize: 'contain', height: '75px' }}></img>
           <div className="mt-1" style={{ color: '#9067C6' }}>
             <h4 className="mb-0 font-weight-bold" style={{ color: '#242038' }}>{this.state.companyName}</h4>
-            <p className="ml-1 my-2" style={{ fontSize: '1rem' }}>{this.state.companyType}</p>
+            <p className="ml-1 my-1" style={{ fontSize: '1rem' }}>{this.state.companyType}</p>
             <button className="btn shadow my-auto createCampaignButton" onClick={() => this.props.setView()} style={{ height: '30px', width: '130px', backgroundColor: 'white', fontSize: '0.75rem' }}>Create Campaign</button>
           </div>
         </div>

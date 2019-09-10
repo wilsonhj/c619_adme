@@ -23,7 +23,7 @@ export default class MessagesIcon extends React.Component {
   }
 
   render() {
-    let color = '#841d9e';
+    let color = '#242038';
     if (this.state.hoverStatus) {
       color = '#EEEEEE';
     }

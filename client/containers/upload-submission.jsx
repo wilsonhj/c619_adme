@@ -19,23 +19,20 @@ export default class UploadSubmission extends React.Component {
     );
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
+    var formData = new FormData(event.target);
+    formData.append('likes', '0');
+    formData.append('creatorID', '1');
+    formData.append('requestID', '1');
+
     fetch('http://localhost:3000/api/submissions',
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: {
-          typeOfContent: this.state.typeOfContent,
-          submissionContent: this.state.submissionContent,
-          title: this.state.title,
-          likes: 0,
-          creatorID: 1,
-          requestID: 1
-        }
+        body: formData
+
       })
-      .then(res => res.json());
+      .then(res => res.json()).catch(err => { throw err; });
   }
 
   render() {
@@ -56,7 +53,7 @@ export default class UploadSubmission extends React.Component {
         </FormGroup>
         <FormGroup>
           <Label for="exampleFile">File</Label>
-          <Input onChange={this.handleChange} type="file" name="file" id="exampleFile" required/>
+          <Input onChange={this.handleChange} type="file" name="submissionContent" id="exampleFile" required/>
           <FormText color="muted">
             Please select the file you would like to upload.
           </FormText>

@@ -10,8 +10,8 @@ import {
 import CampaignIcon from './campaignIcon';
 import MessagesIcon from './messagesIcon';
 import NotificationIcon from './notificationIcon';
-import PortfolioIcon from './PortfolioIcon';
-import SettingsIcon from './SettingsIcon';
+import PortfolioIcon from './portfolioIcon';
+import SettingsIcon from './settingsIcon';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -32,10 +32,10 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#A298A5' }} light expand="md">
+        <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
           <div style={{
             'height': '3rem',
-            'color': '#841D9E',
+            'color': '#EEEEEE',
             'fontSize': '3em',
             'fontFamily': 'Modak, cursive',
             'lineHeight': '100%',
