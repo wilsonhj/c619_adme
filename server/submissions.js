@@ -22,6 +22,13 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/:id', (req, res, next) => {
+  connection.query('SELECT * FROM `submissions` WHERE `submissionID` = ' + req.params.submissionID, (err, rows, fields) => {
+    if (err) throw err;
+    res.send(rows);
+  });
+});
+
 router.post('/likes', upload.single(''), (req, res, next) => {
   connection.execute('UPDATE submissions SET `likes` = likes + 1 WHERE `submissionID` = ?', [req.body.submissionID], (err, rows, fields) => {
     if (err) throw err;
