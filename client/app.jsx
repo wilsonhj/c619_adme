@@ -5,6 +5,7 @@ import CompanyDashboard from './containers/company-dashboard';
 import CreateCampaign from './containers/create-campaign.jsx';
 import CreatorPortfolio from './containers/creator-portfolio';
 import UploadSubmission from './containers/upload-submission';
+import NavBar from './components/nav-bar';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -49,7 +50,10 @@ export default class App extends React.Component {
     };
     return (
       <AppContext.Provider value={appContext} >
+        <>
+          <NavBar />
         {this.renderView()}
+        </>
       </AppContext.Provider>
     );
   }
