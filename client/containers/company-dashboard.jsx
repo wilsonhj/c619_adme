@@ -2,42 +2,14 @@ import React from 'react';
 
 import AppContext from '../context';
 import CompanyHeader from '../components/company-header.jsx';
-import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
-import classnames from 'classnames';
 
 export default class CompanyDashboard extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.retrieveCompanyData = this.retrieveCompanyData.bind(this);
-    this.state = {
-      companyID: '',
-      companyName: '',
-      companyLogo: '',
-      companyType: '',
-      activeTab: '1'
-    };
-    this.toggle = this.toggle.bind(this);
-  }
-  componentDidMount() {
-    this.retrieveCompanyData(1);
-  }
-  retrieveCompanyData(id) {
-    fetch(`/api/companies/${id}`)
-      .then(res => res.json())
-      .then(res => this.setState({ companyID: res.companyID, companyName: res.companyName, companyLogo: res.companyLogo, companyType: res.companyType }));
-  }
-  toggle(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab
-      });
-    }
-  }
   render() {
 
     const goToCreateCampaign = () => this.context.setView('create-campaign', {});
     return (
+    <>
       <div style={{ width: '100%' }}>
 
         <CompanyHeader companyID={this.state.companyID} companyName={this.state.companyName} companyLogo={this.state.companyLogo} companyType={this.state.companyType} setView={goToCreateCampaign}></CompanyHeader>
@@ -71,7 +43,12 @@ export default class CompanyDashboard extends React.Component {
             </TabPane>
           </TabContent>
         </div>
+      <div className="p-3 shadow" style={{ width: '100%' }}>
+        <CompanyHeader setView={goToCreateCampaign}></CompanyHeader>
+
+
       </div>
+        </>
     );
   }
 

@@ -1,5 +1,5 @@
 .creatorInfoContainer{
-  background-color: #CAC4CE;
+  background-image: linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240));
   color: #242038;
   font-family: Futura,Trebuchet MS,Arial,sans-serif;
 }
@@ -9,14 +9,16 @@
   border-right: 1px solid #dee2e6
 }
 
+
 .creatorSubmissionForm{
-  background-color: #CAC4CE;
+  background-image: linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240));
   color: #242038;
 }
 
 .creatorSubmitButton{
   background-color: #9067C6;
   border: none;
+}
 
 .createCampaignButton:hover{
   background-color: #9067C6;
@@ -24,6 +26,10 @@
 }
 
 @media (max-width: 500px) {
+  .companyHeaderContainer{
+    display:block;
+    width: 100%;
+  }
   .companyHeader {
     display: flex;
     height: 100px
@@ -35,8 +41,8 @@
 
 @media (min-width: 500px) {
   .companyHeader {
-    display: inline-block;
-    width: 101.84%;
+    display: block;
+    width: 100%;
     height: 170px;
     text-align:center
   }
