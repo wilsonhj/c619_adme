@@ -16,9 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/', upload.single('campaignContent'), (req, res, next) => {
-  let params = [req.body.companyID, req.body.description, req.file.path, req.body.runSpace, req.body.requirements, req.body.rewards];
-
-  connection.execute('INSERT INTO `requests` ( `companyID`, `description`, `campaignContent`, `runSpace`, `requirements`, `rewards`, `submissionsReceived`) VALUES ( ?, ?, ?, ?, ?, ?, 1);', params, (err, rows, fields) => {
+  let params = [req.body.companyID, req.body.title, req.body.description, req.body.preferredContentType, req.file.path, req.body.runSpace, req.body.requirements, req.body.rewards];
+  connection.execute('INSERT INTO `requests` ( `companyID`,`title`, `description`, `preferredContentType`, `campaignContent`, `runSpace`, `requirements`, `rewards`, `submissionsReceived`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?);', params, (err, rows, fields) => {
 
     if (err) throw err;
     let response = {
