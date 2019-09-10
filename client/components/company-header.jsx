@@ -1,22 +1,23 @@
+import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 
 const style = {};
-  style.image = {
-    backgroundSize: 'contain',
-    height: '75px'
-  };
-  style.div = {
-    color: '#9067C6'
-  };
-  style.button = {
-    height: '30px',
-    width: '130px',
-    backgroundColor: 'white',
-    fontSize: '0.75rem'
-  };
+style.image = {
+  backgroundSize: 'contain',
+  height: '75px'
+};
+style.div = {
+  color: '#9067C6'
+};
+style.button = {
+  height: '30px',
+  width: '130px',
+  backgroundColor: 'white',
+  fontSize: '0.75rem'
+};
 export default class CompanyHeader extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {

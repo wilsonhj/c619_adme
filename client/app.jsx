@@ -50,10 +50,10 @@ export default class App extends React.Component {
     };
     return (
       <AppContext.Provider value={appContext} >
-        <>
-          <NavBar />
+
+        <NavBar />
         {this.renderView()}
-        </>
+
       </AppContext.Provider>
     );
   }
