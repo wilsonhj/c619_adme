@@ -33,6 +33,7 @@ export default class UploadSubmission extends React.Component {
 
       })
       .then(res => res.json()).catch(err => { throw err; });
+
   }
 
   render() {
