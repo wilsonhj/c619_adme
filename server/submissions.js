@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
   });
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:submissionID', (req, res, next) => {
   connection.query('SELECT * FROM `submissions` WHERE `submissionID` = ' + req.params.submissionID, (err, rows, fields) => {
     if (err) throw err;
     res.send(rows);
@@ -37,9 +37,9 @@ router.post('/likes', upload.single(''), (req, res, next) => {
 });
 
 router.post('/', upload.fields([{ name: 'submissionThumbnail' }, { name: 'submissionContent' }]), (req, res, next) => {
-  let params = [req.body.creatorID, req.body.typeOfContent, req.files.submissionThumbnail[0].path, req.files.submissionContent[0].path, req.body.title, req.body.requestID, req.body.likes, req.body.submissionDescription];
+  let params = [req.body.creatorID, req.body.typeOfContent, req.files.submissionThumbnail[0].path, req.files.submissionContent[0].path, req.body.title, req.body.campaignID, req.body.likes, req.body.submissionDescription];
 
-  connection.execute('INSERT INTO `submissions` ( `creatorID`, `typeOfContent`, `submissionThumbnail`, `submissionContent`, `title`, `requestID`, `likes`, `submissionDescription`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);', params, (err, rows, fields) => {
+  connection.execute('INSERT INTO `submissions` ( `creatorID`, `typeOfContent`, `submissionThumbnail`, `submissionContent`, `title`, `campaignID`, `likes`, `submissionDescription`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);', params, (err, rows, fields) => {
 
     if (err) throw err;
     let response = {

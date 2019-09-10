@@ -1,40 +1,76 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
+// import { ClientHttp2Session } from 'http2';
 
 export default class CreatorPortfolio extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      creatorID: null,
-      email: '',
-      first_name: '',
-      last_name: '',
-      bio: '',
-      profilePicture: '',
-      activeTab: '1'
+      activeTab: '1',
+      creatorInfo: {
+        creatorID: null,
+        email: '',
+        first_name: '',
+        last_name: '',
+        bio: '',
+        profilePicture: ''
+      },
+      submissionsInfo: [{
+        requestID: null,
+        submissionContent: '',
+        submissionDescription: '',
+        submissionID: null,
+        submissionThumbnail: '',
+        title: '',
+        typeOfContent: ''
+      }]
     };
     this.toggle = this.toggle.bind(this);
+    this.getUserSubmissions = this.getUserSubmissions.bind(this);
+
   }
 
   componentDidMount() {
     this.getUserInfo();
+    this.getUserSubmissions();
   }
 
   getUserInfo() {
     fetch('http://localhost:3000/api/creators/2')
       .then(res => res.json())
       .then(res => {
-        this.setState({
+        this.setState({ creatorInfo: {
           creatorID: res[0].creatorID,
           email: res[0].email,
           first_name: res[0].first_name,
           last_name: res[0].last_name,
           bio: res[0].bio,
           profilePicture: res[0].profilePicture
+        }
         });
       });
+  }
+
+  getUserSubmissions() {
+    fetch('http://localhost:3000/api/creators/2/submissions').then(res => res.json()).then(res => {
+      var creatorSubmissionsArray = [];
+      res.map(currentEntry => {
+        var newSubmissionContent = currentEntry.submissionContent.substring(currentEntry.submissionContent.indexOf('uploads'));
+        var submissionObject = {
+          requestID: currentEntry.requestID,
+          submissionContent: newSubmissionContent,
+          submissionDescription: currentEntry.submissionDescription,
+          submissionID: currentEntry.submissionID,
+          submissionThumbnail: currentEntry.submissionThumbnail,
+          title: currentEntry.title,
+          typeOfContent: currentEntry.typeOfContent
+        };
+        creatorSubmissionsArray.push(submissionObject);
+      });
+      this.setState({ submissionsInfo: creatorSubmissionsArray });
+    });
   }
 
   toggle(tab) {
@@ -52,11 +88,11 @@ export default class CreatorPortfolio extends React.Component {
           <div className="row rounded my-3 shadow creatorInfoContainer">
             <div className="col-12 text-center">
               <div className="row">
-                <img className="rounded-circle shadow mt-2 mx-auto" style={{ backgroundSize: 'contain', height: '23vh' }} src={this.state.profilePicture} alt="profile picture" />
+                <img className="rounded-circle shadow mt-2 mx-auto" style={{ backgroundSize: 'contain', height: '23vh' }} src={this.state.creatorInfo.profilePicture} alt="profile picture" />
               </div>
               <div className="row">
                 <h4 className="font-weight-bold m-2 p-2 d-inline-block mx-auto" style={{ 'color': 'rgba(0, 0, 0, 0.7)' }}>
-                  {this.state.first_name} {this.state.last_name}
+                  {this.state.creatorInfo.first_name} {this.state.creatorInfo.last_name}
                 </h4>
               </div>
             </div>
@@ -83,12 +119,18 @@ export default class CreatorPortfolio extends React.Component {
                 <TabPane tabId="1">
                   <Row>
                     <Col sm="12">
-                      <div className="bg-white p-1 vh-100 creatorTab">Video Submissions</div>
+                      <div className="d-flex flex-wrap justify-content-center bg-white p-1 vh-100 pt-0 creatorTab">
+                        <div>{this.state.submissionsInfo[0].title + ' '} {this.state.submissionsInfo[0].submissionDescription}</div>
+                        <video src={this.state.submissionsInfo[0].submissionContent} controls style={{ height: '56vmin', width: '89vmin' }}>
+                        </video>
+
+                      </div>
+
                     </Col>
                   </Row>
                 </TabPane>
                 <TabPane tabId="2">
-                  <div className="bg-white p-1 vh-100 creatorTab">{this.state.bio}</div>
+                  <div className="bg-white p-1 vh-100 creatorTab">{this.state.creatorInfo.bio}</div>
                 </TabPane>
               </TabContent>
             </div>
