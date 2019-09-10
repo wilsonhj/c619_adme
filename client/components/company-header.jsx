@@ -1,7 +1,6 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
-import React from 'react';
 
 export default class CompanyHeader extends React.Component {
   constructor(props) {

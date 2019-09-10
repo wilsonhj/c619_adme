@@ -1,7 +1,6 @@
 import React from 'react';
 import AppContext from '../context';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import Axios from 'axios';
 
 export default class CreateCampaign extends React.Component {
   constructor(props) {
@@ -12,12 +11,10 @@ export default class CreateCampaign extends React.Component {
       requirements: '',
       runSpace: '',
       rewards: '',
-      campaignContent: ''
+      preferredContentType: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
-    this.fileUploadHandler = this.fileUploadHandler.bind(this);
   }
 
   handleChange(event) {
@@ -25,25 +22,6 @@ export default class CreateCampaign extends React.Component {
       { [event.target.name]: event.target.value }
     );
   }
-
-  fileSelectedHandler(event) {
-    this.setState({
-      campaignContent: event.target.files[0]
-    });
-  }
-  fileUploadHandler() {
-    const formdata = {};
-    formdata.append('image', this.state.selectedFile, this.state.selectedFile.name);
-    Axios.post('http://localhost:3000/api/campaigns', formdata, {
-      onUploadProgress: progressEvent => {
-        console.log('Upload Progress: ' + (progressEvent.loaded / progressEvent.total * 100) + '%');
-      }
-    })
-      .then(res => {
-        console.log(res);
-      });
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     var data = new FormData(event.target);
@@ -60,7 +38,7 @@ export default class CreateCampaign extends React.Component {
 
   render() {
     return (
-      <Form className="p-4 rounded m-3 creatorSubmissionForm" onSubmit={this.fileUploadHandler}>
+      <Form className="p-4 rounded m-3 creatorSubmissionForm" onSubmit={this.handleSubmit}>
         <h4 className="mb-3 mx-auto font-weight-bold">Create Campaign</h4>
         <FormGroup>
           <Label>Campaign Title </Label>
@@ -83,8 +61,16 @@ export default class CreateCampaign extends React.Component {
           <Input className="shadow-sm" onChange={this.handleChange} type="text" name="rewards" required/>
         </FormGroup>
         <FormGroup>
+          <Label>Specify type of media to be uploaded by content creators</Label>
+          <Input className="shadow-sm" onChange={this.handleChange} type="select" name="preferredContentType" required>
+            <option></option>
+            <option value="Video">Video</option>
+            <option value="Image">Image</option>
+          </Input>
+        </FormGroup>
+        <FormGroup>
           <Label for="file">Upload Campaign Image</Label>
-          <Input onChange={this.fileUploadHandler} type="file" name="campaignContent" id="file" required/>
+          <Input onChange={this.handleChange} type="file" name="campaignContent" id="file" required/>
           <FormText color="muted">
             Upload an Image:
           </FormText>
@@ -94,11 +80,4 @@ export default class CreateCampaign extends React.Component {
     );
   }
 }
-
 CreateCampaign.contextType = AppContext;
-
-{/* <FormGroup>
-          <Label for="mov-file">Upload Campaign Video</Label>
-          <Input onChange={this.fileSelectedHandler} type="file" name="campaignContent" id="mov-file"></Input>
-          <FormText>Upload a Video:</FormText>
-        </FormGroup> */}
