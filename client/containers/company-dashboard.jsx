@@ -1,5 +1,5 @@
 import React from 'react';
-import Page from '../components/page';
+
 import AppContext from '../context';
 import CompanyHeader from '../components/company-header.jsx';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
@@ -35,11 +35,11 @@ export default class CompanyDashboard extends React.Component {
     }
   }
   render() {
-    const setView = () => this.context.setView('landing-page', {});
+
     const goToCreateCampaign = () => this.context.setView('create-campaign', {});
     return (
       <div style={{ width: '100%' }}>
-        <Page title='Company Dashboard' setView={setView} />
+
         <CompanyHeader companyID={this.state.companyID} companyName={this.state.companyName} companyLogo={this.state.companyLogo} companyType={this.state.companyType} setView={goToCreateCampaign}></CompanyHeader>
         <div className="col light tab-text p-0" style={{ backgroundColor: '#CAC4CE' }}>
           <Nav tab>
