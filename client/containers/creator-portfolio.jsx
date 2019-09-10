@@ -52,7 +52,7 @@ export default class CreatorPortfolio extends React.Component {
           <div className="row rounded my-3 shadow creatorInfoContainer">
             <div className="col-12 text-center">
               <div className="row">
-                <img className="rounded-circle shadow-sm w-50 mt-2 mx-auto" src={this.state.profilePicture} alt="profile picture"/>
+                <img className="rounded-circle shadow mt-2 mx-auto" style={{ backgroundSize: 'contain', height: '23vh' }} src={this.state.profilePicture} alt="profile picture"/>
               </div>
               <div className="row">
                 <h4 className="font-weight-bold m-2 p-2 bg-white rounded d-inline-block mx-auto">
