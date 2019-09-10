@@ -12,6 +12,8 @@ import MessagesIcon from './messagesIcon';
 import NotificationIcon from './notificationIcon';
 import PortfolioIcon from './portfolioIcon';
 import SettingsIcon from './settingsIcon';
+import CompanyIcon from './company-dashboard-icon';
+import AppContext from '../context';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -30,6 +32,18 @@ export default class NavBar extends React.Component {
   }
 
   render() {
+    const goToLandingPage = () => {
+      this.setState({
+        collapsed: !this.state.collapsed
+      });
+      this.context.setView('landing-page', {});
+    };
+    const goToCreatorPortfolio = () => {
+      this.setState({
+        collapsed: !this.state.collapsed
+      });
+      this.context.setView('creator-portfolio', {});
+    };
     return (
       <div>
         <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
@@ -41,8 +55,26 @@ export default class NavBar extends React.Component {
             'lineHeight': '100%',
             'display': 'inline-block',
             'cursor': 'pointer'
-          }}>AdMe</div>
+          }} onClick={goToLandingPage}>AdMe</div>
           <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
+            <NavItem style={{ 'bottom': '10%' }}>
+              <NavLink style={{
+                'padding': '0rem .5rem',
+                'height': '3rem',
+                'width': '4rem',
+                'backgroundRepeat': 'no-repeat',
+                'cursor': 'pointer'
+              }}><CompanyIcon style={{
+                  'bottom': '10%'
+                }} />
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink style={{
+                'height': '3rem',
+                'width': '2rem'
+              }}></NavLink>
+            </NavItem>
             <NavItem style={{ 'bottom': '10%' }}>
               <NavLink style={{
                 'padding': '0rem .5rem',
@@ -58,7 +90,7 @@ export default class NavBar extends React.Component {
             <NavItem>
               <NavLink style={{
                 'height': '3rem',
-                'width': '4rem'
+                'width': '2rem'
               }}></NavLink>
             </NavItem>
             <NavItem style={{ 'bottom': '10%' }}>
@@ -76,7 +108,7 @@ export default class NavBar extends React.Component {
             <NavItem>
               <NavLink style={{
                 'height': '3rem',
-                'width': '4rem'
+                'width': '2rem'
               }}></NavLink>
             </NavItem>
             <NavItem style={{ 'bottom': '10%' }}>
@@ -94,7 +126,7 @@ export default class NavBar extends React.Component {
             <NavItem>
               <NavLink style={{
                 'height': '3rem',
-                'width': '4rem'
+                'width': '2rem'
               }}></NavLink>
             </NavItem>
             <NavItem style={{ 'bottom': '10%' }}>
@@ -112,7 +144,7 @@ export default class NavBar extends React.Component {
             <NavItem>
               <NavLink style={{
                 'height': '3rem',
-                'width': '4rem'
+                'width': '2rem'
               }}></NavLink>
             </NavItem>
             <NavItem style={{ 'bottom': '10%' }}>
@@ -130,15 +162,15 @@ export default class NavBar extends React.Component {
             <NavItem>
               <NavLink style={{
                 'height': '3rem',
-                'width': '4rem'
+                'width': '2rem'
               }}></NavLink>
             </NavItem>
           </Nav>
         </Navbar>
-        <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#A298A5', 'width': '100%', 'textAlign': 'center', 'padding': '0' }} light>
+        <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100%', 'textAlign': 'center', 'padding': '0' }} light>
           <div style={{
             'height': '3rem',
-            'color': '#841D9E',
+            'color': '#EEEEEE',
             'fontSize': '3em',
             'fontFamily': 'Modak, cursive',
             'paddingBottom': '10%',
@@ -148,11 +180,11 @@ export default class NavBar extends React.Component {
           <NavbarToggler style={{ 'float': 'right' }} onClick={this.toggleNavbar} className="mr-2" />
           <Collapse style={{ 'padding': '0' }} isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
-              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                <NavLink href="">Home</NavLink>
+              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
+                <NavLink onClick={goToLandingPage}>Home</NavLink>
               </NavItem>
-              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                <NavLink href="">Portfolio</NavLink>
+              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
+                <NavLink onClick={goToCreatorPortfolio}>Portfolio</NavLink>
               </NavItem>
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
                 <NavLink href="">Messages</NavLink>
@@ -160,7 +192,7 @@ export default class NavBar extends React.Component {
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
                 <NavLink href="">Campaigns</NavLink>
               </NavItem >
-              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
+              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
                 <NavLink href="">Settings</NavLink>
               </NavItem>
             </Nav>
@@ -170,3 +202,4 @@ export default class NavBar extends React.Component {
     );
   }
 }
+NavBar.contextType = AppContext;
