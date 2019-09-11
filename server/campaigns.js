@@ -16,9 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/', upload.single('campaignContent'), (req, res, next) => {
-  let params = [req.body.companyID, req.body.description, req.file.path, req.body.runSpace, req.body.requirements, req.body.rewards];
-
-  connection.execute('INSERT INTO `requests` ( `companyID`, `description`, `campaignContent`, `runSpace`, `requirements`, `rewards`, `submissionsReceived`) VALUES ( ?, ?, ?, ?, ?, ?, 1);', params, (err, rows, fields) => {
+  let params = [req.body.companyID, req.body.title, req.body.description, req.body.preferredContentType, req.file.path, req.body.runSpace, req.body.requirements, req.body.rewards];
+  connection.execute('INSERT INTO `campaigns` ( `companyID`,`title`, `description`, `preferredContentType`, `campaignContent`, `runSpace`, `requirements`, `rewards`, `submissionsReceived`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, 0);', params, (err, rows, fields) => {
 
     if (err) throw err;
     let response = {
@@ -29,6 +28,20 @@ router.post('/', upload.single('campaignContent'), (req, res, next) => {
     res.json(response);
   });
 
+});
+
+router.get('/company/:id', (req, res, next) => {
+  connection.execute('SELECT * FROM `campaigns` WHERE companyID = ? ', [req.params.id], (err, rows, fields) => {
+    if (err) throw err;
+    res.json(rows);
+  });
+});
+
+router.get('/', (req, res, next) => {
+  connection.query('SELECT * FROM `campaigns`', (err, rows, fields) => {
+    if (err) throw err;
+    res.json(rows);
+  });
 });
 
 module.exports = router;
