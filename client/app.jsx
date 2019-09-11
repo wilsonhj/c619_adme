@@ -13,7 +13,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'submission-details',
+        name: 'landing-page',
         params: {}
       }
     };
