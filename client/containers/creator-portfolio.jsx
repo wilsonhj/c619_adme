@@ -96,7 +96,7 @@ export default class CreatorPortfolio extends React.Component {
                 </h4>
               </div>
             </div>
-            <div className="col">
+            <div className="col pb-3">
               <Nav tabs>
                 <NavItem>
                   <NavLink
@@ -119,10 +119,18 @@ export default class CreatorPortfolio extends React.Component {
                 <TabPane tabId="1">
                   <Row>
                     <Col sm="12">
-                      <div className="d-flex flex-wrap justify-content-center bg-white p-1 vh-100 pt-0 creatorTab">
-                        <div>{this.state.submissionsInfo[0].title + ' '} {this.state.submissionsInfo[0].submissionDescription}</div>
-                        <video src={this.state.submissionsInfo[0].submissionContent} controls style={{ height: '56vmin', width: '89vmin' }}>
-                        </video>
+                      <div className="d-flex flex-wrap justify-content-center bg-white p-1 pt-0 creatorTab">
+                        {this.state.submissionsInfo.map(currentEntry => {
+                          return (
+                            <React.Fragment key={currentEntry.submissionID}>
+                              <div>{currentEntry.title + ' '} {currentEntry.submissionDescription}
+                              </div>
+                              <video className = "pb-4" src={currentEntry.submissionContent} controls
+                                style={{ height: '56vmin', width: '89vmin' }}>
+                              </video>
+                            </React.Fragment>
+                          );
+                        })}
 
                       </div>
 
