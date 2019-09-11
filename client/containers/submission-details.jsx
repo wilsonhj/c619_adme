@@ -19,7 +19,7 @@ export default class ViewSubmissionDetails extends React.Component {
   }
 
   getSubmissionData() {
-    fetch('http://localhost:3000/api/submissions/1')
+    fetch(`http://localhost:3000/api/submissions/${this.props.pageID}`)
       .then(res => res.json())
       .then(res => {
         var newSubmissionContent = res[0].submissionContent.substring(res[0].submissionContent.indexOf('uploads'));

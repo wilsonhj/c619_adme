@@ -18,6 +18,11 @@ export default class App extends React.Component {
       }
     };
     this.setView = this.setView.bind(this);
+    this.goToSubmissionDetails = this.goToSubmissionDetails.bind(this);
+  }
+
+  goToSubmissionDetails() {
+    this.setView('submission-details', { submissionID: event.target.getAttribute('name') });
   }
 
   setView(name, params) {
@@ -38,19 +43,19 @@ export default class App extends React.Component {
       case 'create-campaign':
         return <CreateCampaign />;
       case 'creator-portfolio':
-        return <CreatorPortfolio />;
+        return <CreatorPortfolio goToSubmissionDetails={this.goToSubmissionDetails}/>;
       case 'upload-submission':
         return <UploadSubmission />;
       case 'submission-details':
-        return <ViewSubmissionDetails />;
+        return <ViewSubmissionDetails pageID={this.state.view.params.submissionID}/>;
     }
   }
 
   render() {
     const appContext = {
       setView: this.setView
-
     };
+
     return (
       <AppContext.Provider value={appContext} >
 
