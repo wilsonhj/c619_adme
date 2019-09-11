@@ -31,14 +31,14 @@ router.post('/', upload.single('campaignContent'), (req, res, next) => {
 });
 
 router.get('/company/:id', (req, res, next) => {
-  connection.execute('SELECT * FROM `requests` WHERE companyID = ? ', [req.params.id], (err, rows, fields) => {
+  connection.execute('SELECT * FROM `campaigns` WHERE companyID = ? ', [req.params.id], (err, rows, fields) => {
     if (err) throw err;
     res.json(rows);
   });
 });
 
 router.get('/', (req, res, next) => {
-  connection.query('SELECT * FROM `requests`', (err, rows, fields) => {
+  connection.query('SELECT * FROM `campaigns`', (err, rows, fields) => {
     if (err) throw err;
     res.json(rows);
   });
