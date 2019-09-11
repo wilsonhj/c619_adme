@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
   });
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:submissionID', (req, res, next) => {
   connection.query('SELECT * FROM `submissions` WHERE `submissionID` = ' + req.params.submissionID, (err, rows, fields) => {
     if (err) throw err;
     res.send(rows);
