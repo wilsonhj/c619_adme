@@ -1,16 +1,23 @@
 import React from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardSubtitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 
 export default class CompanyHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      companyID: '',
-      companyName: '',
-      companyLogo: '',
-      companyType: '',
-      activeTab: '1'
+      companyInfo: {
+        companyID: '',
+        companyName: '',
+        companyLogo: '',
+        companyType: '',
+        activeTab: '1'
+      },
+      campaignsInfo: [{
+        title: '',
+        submissionThumbnail: '',
+        submissionContent: ''
+      }]
     };
     this.toggle = this.toggle.bind(this);
     this.retrieveCompanyData = this.retrieveCompanyData.bind(this);
@@ -21,7 +28,15 @@ export default class CompanyHeader extends React.Component {
   retrieveCompanyData(id) {
     fetch(`/api/companies/${id}`)
       .then(res => res.json())
-      .then(res => this.setState({ companyID: res.companyID, companyName: res.companyName, companyLogo: res.companyLogo, companyType: res.companyType }));
+      .then(res => this.setState({ 
+        companyInfo: {
+          companyID: res.companyID,
+          companyName: res.companyName,
+          companyLogo: res.companyLogo,
+          companyType: res.companyType }
+      }));
+      // create fetch request to submissions table 
+      // setState submissionContent submissionThumbnail
   }
   toggle(tab) {
     if (this.state.activeTab !== tab) {
@@ -44,6 +59,30 @@ export default class CompanyHeader extends React.Component {
       width: '130px',
       backgroundColor: 'white',
       fontSize: '0.75rem'
+    };
+    style.logo = {
+      height: '40px',
+      width: '40px'
+    };
+    style.card = {
+      width: '100%',
+      backgroundColor: '#242038'
+    };
+    style.text = {
+      color: 'white',
+      textAlign: 'center',
+      
+    };
+    style.link = {
+      color: '#0070c9',
+      textAlign: 'center',
+      cursor: 'pointer',
+      fontWeight: '400',
+      paddingBottom: '4px',
+    };
+    style.video = {
+      height: '65vmin',
+      width: '100%'
     };
     return (
       <div className="row background-light justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ backgroundImage: 'linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240))', paddingLeft: '3%', paddingRight: '3%' }}>
@@ -76,7 +115,23 @@ export default class CompanyHeader extends React.Component {
           </Nav>
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1">
-              <div className="bg-white p-1 vh-100 creatorTab" >Video Submissions</div>
+              <Row>
+                <Col sm='12'>
+                  <div className="creatorTab justify-content-around rounded" style={style.card}>
+                    <h3 style={style.text} className="justify-content-around">
+                      <img src={this.state.companyInfo.companyLogo} style={style.logo}/> 
+                      {this.state.companyInfo.companyName}
+                    </h3>
+                    <h6 style={style.text} className="">{this.state.companyInfo.companyType}</h6>
+                    <video className = "pb-4" src={'server/public/uploads/2019-09-10T23:42:42.254ZSampleVideo_1280x720_30mb.mp4'} controls
+                      style={style.video}>
+                    </video>
+                    <NavLink style={style.link}>
+                      View More <i className="fas fa-plus-circle"></i>
+                    </NavLink>
+                  </div>
+                </Col>
+              </Row>
             </TabPane>
             <TabPane tabId="2">
               <div className="bg-white p-1 vh-100 creatorTab" >SDFAGSFGG</div>
