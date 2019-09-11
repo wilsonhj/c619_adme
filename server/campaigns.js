@@ -30,4 +30,18 @@ router.post('/', upload.single('campaignContent'), (req, res, next) => {
 
 });
 
+router.get('/company/:id', (req, res, next) => {
+  connection.execute('SELECT * FROM `requests` WHERE companyID = ? ', [req.params.id], (err, rows, fields) => {
+    if (err) throw err;
+    res.json(rows);
+  });
+});
+
+router.get('/', (req, res, next) => {
+  connection.query('SELECT * FROM `requests`', (err, rows, fields) => {
+    if (err) throw err;
+    res.json(rows);
+  });
+});
+
 module.exports = router;
