@@ -47,3 +47,14 @@
     text-align:center
   }
 }
+
+/* .scroller::-webkit-scrollbar {display:none;}; */
+::-webkit-scrollbar{
+        height: .75rem;
+        width: 2rem;
+
+    }
+    ::-webkit-scrollbar-thumb:horizontal{
+        background: rgba(139, 8, 179, 0.63);
+        border-radius: 10px;
+    }
