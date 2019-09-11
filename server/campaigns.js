@@ -31,8 +31,14 @@ router.post('/', upload.single('campaignContent'), (req, res, next) => {
 });
 
 router.get('/company/:id', (req, res, next) => {
-  connection.execute('SELECT * FROM `campaigns` WHERE companyID = ? ', [req.params.id], (err, rows, fields) => {
+
+  connection.execute('SELECT co.companyID, ca.campaignTitle, co.companyName, co.companyLogo, co.companyType, GROUP_CONCAT(DISTINCT s.submissionThumbnail) AS submissionThumbnails, GROUP_CONCAT(DISTINCT s.submissionContent) AS submissionsContent FROM `campaigns` AS ca JOIN `submissions` AS s ON ca.campaignID = s.campaignID JOIN `companies` co ON co.companyID = ca.companyID WHERE ca.companyID = 1 GROUP BY ca.campaignTitle', [req.params.id], (err, rows, fields) => {
     if (err) throw err;
+    // console.log(rows);
+    var submissionThumbnailArray = rows[0].submissionThumbnails.split(',');
+    var submissionsContextArray = rows[0].submissionsContent.split(',');
+    rows[0].submissionThumbnails = submissionThumbnailArray;
+    rows[0].submissionsContent = submissionsContextArray;
     res.json(rows);
   });
 });
