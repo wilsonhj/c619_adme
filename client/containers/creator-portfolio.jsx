@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
-import classnames from 'classnames';
 import AppContext from '../context';
+import classnames from 'classnames';
 // import { ClientHttp2Session } from 'http2';
 
 export default class CreatorPortfolio extends React.Component {
@@ -124,7 +124,7 @@ export default class CreatorPortfolio extends React.Component {
                         {this.state.submissionsInfo.map(currentEntry => {
                           return (
                             <React.Fragment key={currentEntry.submissionID}>
-                              <h5 className="mx-auto" name={currentEntry.submissionID} onClick={this.props.goToSubmissionDetails}>{currentEntry.title}
+                              <h5 className="mx-auto" name={currentEntry.submissionID} onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }}>{currentEntry.title}
                               </h5>
 
                               <video className = "pb-4 mx-auto" src={currentEntry.submissionContent} controls
@@ -149,5 +149,6 @@ export default class CreatorPortfolio extends React.Component {
       </React.Fragment>
     );
   }
+
 }
 CreatorPortfolio.contextType = AppContext;
