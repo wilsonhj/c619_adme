@@ -7,6 +7,7 @@ import CreatorPortfolio from './containers/creator-portfolio';
 import UploadSubmission from './containers/upload-submission';
 import NavBar from './components/nav-bar';
 import ViewSubmissionDetails from './containers/submission-details';
+import SwitchUserPage from './containers/switch-user-page';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -43,6 +44,8 @@ export default class App extends React.Component {
         return <UploadSubmission />;
       case 'submission-details':
         return <ViewSubmissionDetails pageID={this.state.view.params.submissionID}/>;
+      case 'settings':
+        return <SwitchUserPage />;
     }
   }
 
