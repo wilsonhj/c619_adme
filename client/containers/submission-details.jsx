@@ -33,22 +33,32 @@ export default class ViewSubmissionDetails extends React.Component {
   }
 
   updateLikes() {
-    fetch('http://localhost:3000/api/submissions/likes',
-      {
-        method: 'POST',
-        headers: {
-          contentType: 'application/json'
-        },
-        body: {
-          submissionID: 1
-        }
-      })
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          isLikedByThisUser: !this.state.isLikedByThisUser
+    if (!this.state.isLikedByThisUser) {
+      fetch('http://localhost:3000/api/submissions/likes/' + this.props.pageID,
+        {
+          method: 'POST'
+        })
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            likes: this.state.likes + 1,
+            isLikedByThisUser: !this.state.isLikedByThisUser
+          });
         });
-      });
+    } else if (this.state.isLikedByThisUser) {
+      fetch('http://localhost:3000/api/submissions/dislikes/' + this.props.pageID,
+        {
+          method: 'POST'
+        })
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            likes: this.state.likes - 1,
+            isLikedByThisUser: !this.state.isLikedByThisUser
+          });
+        });
+
+    }
   }
 
   render() {
