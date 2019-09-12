@@ -32,20 +32,54 @@ router.post('/', upload.single('campaignContent'), (req, res, next) => {
 
 router.get('/company/:id', (req, res, next) => {
 
-  connection.execute('SELECT co.companyID, ca.campaignTitle, co.companyName, co.companyLogo, co.companyType, GROUP_CONCAT(DISTINCT s.submissionThumbnail) AS submissionThumbnails, GROUP_CONCAT(DISTINCT s.submissionContent) AS submissionsContent FROM `campaigns` AS ca LEFT JOIN `submissions` AS s ON ca.campaignID = s.campaignID JOIN `companies` co ON co.companyID = ca.companyID WHERE ca.companyID = 1 GROUP BY ca.campaignTitle', [req.params.id], (err, rows, fields) => {
+  const query = `
+    SELECT co.companyID,
+           ca.campaignTitle,
+           co.companyName,
+           co.companyLogo,
+           co.companyType,
+           GROUP_CONCAT(DISTINCT s.submissionThumbnail) AS submissionThumbnails,
+           GROUP_CONCAT(DISTINCT s.submissionContent) AS submissionsContent,
+           GROUP_CONCAT(DISTINCT s.submissionID) AS submissionIDs
+      FROM campaigns AS ca
+ LEFT JOIN submissions AS s
+        ON ca.campaignID = s.campaignID
+      JOIN companies AS co 
+        ON co.companyID = ca.companyID
+     WHERE ca.companyID = 1 
+  GROUP BY ca.campaignTitle
+  `;
+
+  connection.execute(query, [req.params.id], (err, rows, fields) => {
+    // console.log(rows[0]);
     if (err) throw err;
-    if (rows[0].submissionThumbnails) {
-      var submissionThumbnailArray = rows[0].submissionThumbnails.split(',');
-      rows[0].submissionThumbnails = submissionThumbnailArray;
-    }
-    if (rows[0].submissionsContent) {
-      var submissionsContextArray = rows[0].submissionsContent.split(',');
-      rows[0].submissionsContent = submissionsContextArray;
-    }
-    res.json(rows);
+    // sendingObj = {
+    //   companyInfo: {
+    //     companyName: rows[]
+    //   }
+    // }
+    rows.forEach(row => {
+      if (row.submissionThumbnails !== null) {
+        var submissionThumbnailArray = row.submissionThumbnails.split(',');
+        row.submissionThumbnails = submissionThumbnailArray;
+      }
+      if (row.submissionsContent !== null) {
+        var submissionsContextArray = row.submissionsContent.split(',');
+        row.submissionsContent = submissionsContextArray;
+      }
+      if (row.submissionIDs !== null) {
+        var submissionidsArray = row.submissionIDs.split(',');
+        row.submissionIDs = submissionidsArray;
+      }
+    });
+
+    res.send(rows);
   });
 });
-
+/**
+ *
+ * 'SELECT co.companyID, ca.campaignTitle, co.companyName, co.companyLogo, co.companyType, GROUP_CONCAT(DISTINCT s.submissionThumbnail) AS submissionThumbnails, GROUP_CONCAT(DISTINCT s.submissionContent) AS submissionsContent, GROUP_CONCAT(DISTINCT s.submissionID) AS submissionIDs FROM `campaigns` AS ca LEFT JOIN `submissions` AS s ON ca.campaignID = s.campaignID JOIN `companies` co ON co.companyID = ca.companyID WHERE ca.companyID = 1 GROUP BY ca.campaignTitle'
+ */
 router.get('/', (req, res, next) => {
   connection.query('SELECT * FROM `campaigns`', (err, rows, fields) => {
     if (err) throw err;
