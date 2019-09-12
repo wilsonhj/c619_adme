@@ -1,6 +1,5 @@
 import React from 'react';
-import CompanyHeader from '../components/company-header.jsx';
-import {TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col} from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 
 export default class CurrentCampaign extends React.Component {
