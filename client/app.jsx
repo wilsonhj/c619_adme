@@ -19,11 +19,6 @@ export default class App extends React.Component {
       }
     };
     this.setView = this.setView.bind(this);
-    this.goToSubmissionDetails = this.goToSubmissionDetails.bind(this);
-  }
-
-  goToSubmissionDetails() {
-    this.setView('submission-details', { submissionID: event.target.getAttribute('name') });
   }
 
   setView(name, params) {
@@ -44,9 +39,13 @@ export default class App extends React.Component {
       case 'create-campaign':
         return <CreateCampaign />;
       case 'creator-portfolio':
+<<<<<<< HEAD
         return <CreatorPortfolio goToSubmissionDetails={this.goToSubmissionDetails}/>;
       case 'company-header':
         return <CompanyHeader/>;
+=======
+        return <CreatorPortfolio />;
+>>>>>>> 00610a6b337b8846bf95acb7e20d067d6ae42052
       case 'upload-submission':
         return <UploadSubmission />;
       case 'submission-details':
