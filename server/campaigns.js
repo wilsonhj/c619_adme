@@ -44,4 +44,11 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/campaignsLP', (req, res, next) => {
+  connection.query('SELECT * FROM `campaigns` ORDER BY `campaignID` LIMIT 10', (err, rows, fields) => {
+    if (err) throw err;
+    res.json(rows);
+  });
+});
+
 module.exports = router;

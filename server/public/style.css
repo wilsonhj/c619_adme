@@ -48,7 +48,6 @@
   }
 }
 
-/* .scroller::-webkit-scrollbar {display:none;}; */
 ::-webkit-scrollbar{
         height: .75rem;
         width: 2rem;
@@ -58,3 +57,14 @@
         background: rgba(139, 8, 179, 0.63);
         border-radius: 10px;
     }
+
+::-webkit-scrollbar:vertical{
+        display: none;
+}
+
+.glassCard{
+  border: rgba(139, 8, 179, 0.63) solid 2px;
+  -moz-box-shadow:    inset 0 0 10px rgba(139, 8, 179, 0.63);
+   -webkit-box-shadow: inset 0 0 10px rgba(139, 8, 179, 0.63);
+   box-shadow: inset 0 0 20px #000000, 0 8px 6px 2px black;
+}

@@ -29,6 +29,15 @@ router.get('/:submissionID', (req, res, next) => {
   });
 });
 
+router.get('/trendingSubmissions', (req, res, next) => {
+  const query = 'SELECT c.creatorID, c.first_name AS firstName, c.last_name AS lastName, c.profilePicture AS profilePicture, s.submissionID AS subID, s.creatorID, s.title AS title, s.likes, s.submissionThumbnail FROM `creators` AS c JOIN `submissions` AS s ON s.creatorID = c.creatorID';
+
+  connection.query(query, (err, rows, fields) => {
+    if (err) throw err;
+    res.send(rows);
+  });
+});
+
 router.post('/likes', upload.single(''), (req, res, next) => {
   connection.execute('UPDATE submissions SET `likes` = likes + 1 WHERE `submissionID` = ?', [req.body.submissionID], (err, rows, fields) => {
     if (err) throw err;
