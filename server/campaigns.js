@@ -107,7 +107,11 @@ router.get('/:id', (req, res, next) => {
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {
     if (err) throw err;
-    connection.execute('SELECT likes FROM submissions ');
+    // connection.execute('SELECT likes FROM submissions', (err, rows, fields) => {
+
+    // });
+
+    rows[0].submissions = [];
     if (rows[0].submissionThumbnails !== null) {
       rows[0].submissionThumbnails = rows[0].submissionThumbnails.split(',');
       rows[0].submissionThumbnails.forEach(thumbnail => {
@@ -121,6 +125,17 @@ router.get('/:id', (req, res, next) => {
       rows[0].submissionsContent.forEach(subs => {
         subs = subs.substring(subs.indexOf('uploads'));
       });
+      for (var i = 0; i < rows[0].submissionsContent.length; i++) {
+        rows[0].submissions[i] = {
+          submissionThumbnail: '',
+          submissionID: '',
+          submissionContent: '',
+          submissionDescription: '',
+          likes: '',
+          submissionTitle: '',
+          submissionTimeCreated: ''
+        };
+      }
     } else {
       rows[0].submissionsContent = '';
     }
@@ -133,7 +148,8 @@ router.get('/:id', (req, res, next) => {
       rows[0].submissionIDs = '';
     }
     if (rows[0].submissionDescriptions !== null) {
-      rows[0].submissionDescriptions = rows[0].submissionDescriptions.split(',');
+      rows[0].submissionDescriptions = rows[0].submissionDescriptions.split('\n');
+
     } else {
       rows[0].submissionDescriptions = '';
     }
@@ -147,9 +163,24 @@ router.get('/:id', (req, res, next) => {
     } else {
       rows[0].submissionTimeCreated = '';
     }
-
-    // rows[0].likes = rows[0].likes.split(',');
-
+    if (rows[0].submissions) {
+      rows[0].submissions.forEach((submission, index) => {
+        submission.submissionThumbnail = rows[0].submissionThumbnails[index];
+        submission.submissionContent = rows[0].submissionsContent[index];
+        submission.submissionID = rows[0].submissionIDs[index];
+        submission.submissionDescription = rows[0].submissionDescriptions[index];
+        submission.likes = rows[0].likes[index];
+        submission.submissionTitle = rows[0].submissionTitles[index];
+        submission.submissionTimeCreated = rows[0].submissionTimeCreated[index];
+      });
+    }
+    delete rows[0].submissionThumbnails;
+    delete rows[0].submissionsContent;
+    delete rows[0].submissionIDs;
+    delete rows[0].submissionDescriptions;
+    delete rows[0].likes;
+    delete rows[0].submissionTitles;
+    delete rows[0].submissionTimeCreated;
     res.send(rows[0]);
   });
 });
