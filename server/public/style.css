@@ -1,4 +1,4 @@
-.creatorInfoContainer{
+.creatorInfoContainer, .switchUserContainer{
   background-image: linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240));
   color: #242038;
   font-family: Futura,Trebuchet MS,Arial,sans-serif;
@@ -46,4 +46,8 @@
     height: 170px;
     text-align:center
   }
+}
+
+.switchUserDropDown{
+  color: #242038;
 }

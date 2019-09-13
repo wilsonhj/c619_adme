@@ -44,6 +44,20 @@ export default class NavBar extends React.Component {
       });
       this.context.setView('creator-portfolio', {});
     };
+    const goToSwitchUser = () => {
+      event.preventDefault();
+      this.setState({
+        collapsed: !this.state.collapsed
+      });
+      this.context.setView('settings', {});
+    };
+    const goToCompanyDashboard = () => {
+      event.preventDefault();
+      this.setState({
+        collapsed: !this.state.collapsed
+      });
+      this.context.setView('company-dashboard', {});
+    };
     return (
       <div>
         <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
@@ -129,8 +143,8 @@ export default class NavBar extends React.Component {
                 'width': '2rem'
               }}></NavLink>
             </NavItem>
-            <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink style={{
+            {this.context.currentUser.creatorID ? <NavItem style={{ 'bottom': '10%' }}>
+              <NavLink onClick={goToCreatorPortfolio} style={{
                 'padding': '0rem .5rem',
                 'height': '3rem',
                 'width': '4rem',
@@ -140,7 +154,19 @@ export default class NavBar extends React.Component {
                   'bottom': '10%'
                 }} />
               </NavLink>
-            </NavItem>
+            </NavItem> : <NavItem style={{ 'bottom': '10%' }}>
+              <NavLink onClick={goToCompanyDashboard} style={{
+                'padding': '0rem .5rem',
+                'height': '3rem',
+                'width': '4rem',
+                'backgroundRepeat': 'no-repeat',
+                'cursor': 'pointer'
+              }}><PortfolioIcon style={{
+                  'bottom': '10%'
+                }} />
+              </NavLink>
+            </NavItem>}
+
             <NavItem>
               <NavLink style={{
                 'height': '3rem',
@@ -148,7 +174,7 @@ export default class NavBar extends React.Component {
               }}></NavLink>
             </NavItem>
             <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink style={{
+              <NavLink onClick={goToSwitchUser} style={{
                 'padding': '0rem .5rem',
                 'height': '3rem',
                 'width': '4rem',
@@ -193,7 +219,7 @@ export default class NavBar extends React.Component {
                 <NavLink href="">Campaigns</NavLink>
               </NavItem >
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
-                <NavLink href="">Settings</NavLink>
+                <NavLink onClick={goToSwitchUser}href="">Settings</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
