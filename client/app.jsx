@@ -7,6 +7,7 @@ import CreatorPortfolio from './containers/creator-portfolio';
 import UploadSubmission from './containers/upload-submission';
 import NavBar from './components/nav-bar';
 import ViewSubmissionDetails from './containers/submission-details';
+import CompanyHeader from './containers/company-header.jsx';
 import SwitchUserPage from './containers/switch-user-page';
 
 export default class App extends React.Component {
@@ -53,11 +54,13 @@ export default class App extends React.Component {
       case 'landing-page':
         return <LandingPage />;
       case 'company-dashboard':
-        return <CompanyDashboard />;
+        return <CompanyDashboard/>;
       case 'create-campaign':
         return <CreateCampaign />;
       case 'creator-portfolio':
         return <CreatorPortfolio />;
+      case 'company-header':
+        return <CompanyHeader/>;
       case 'upload-submission':
         return <UploadSubmission />;
       case 'submission-details':
