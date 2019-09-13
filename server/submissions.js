@@ -3,6 +3,8 @@ const connection = require('./connection');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -25,12 +27,25 @@ router.get('/', (req, res, next) => {
 router.get('/:submissionID', (req, res, next) => {
   connection.query('SELECT * FROM `submissions` WHERE `submissionID` = ' + req.params.submissionID, (err, rows, fields) => {
     if (err) throw err;
+    if (rows[0].submissionThumbnail) {
+      rows[0].submissionThumbnail = rows[0].submissionThumbnail.substring(rows[0].submissionThumbnail.indexOf('uploads'));
+    }
+    if (rows[0].submissionContent) {
+      rows[0].submissionContent = rows[0].submissionContent.substring(rows[0].submissionContent.indexOf('uploads'));
+    }
     res.send(rows);
   });
 });
 
-router.post('/likes', upload.single(''), (req, res, next) => {
-  connection.execute('UPDATE submissions SET `likes` = likes + 1 WHERE `submissionID` = ?', [req.body.submissionID], (err, rows, fields) => {
+router.post('/likes/:submissionID', jsonParser, (req, res, next) => {
+  connection.execute('UPDATE submissions SET `likes` = likes + 1 WHERE `submissionID` = ?', [req.params.submissionID], (err, rows, fields) => {
+    if (err) throw err;
+    res.send(rows);
+  });
+});
+
+router.post('/dislikes/:submissionID', jsonParser, (req, res, next) => {
+  connection.execute('UPDATE submissions SET `likes` = likes - 1 WHERE `submissionID` = ?', [req.params.submissionID], (err, rows, fields) => {
     if (err) throw err;
     res.send(rows);
   });
