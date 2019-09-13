@@ -73,7 +73,7 @@ export default class Campaign extends React.Component {
               No Current Video Submissions!
             </video>
             <NavLink style={style.link} onClick={event => {
-              this.context.setView('submission-details', { submissionID: this.props.submissionID });
+              this.context.setView('campaign-details', { campaignID: this.context.campaignID });
             }}>
               View More <i className="fas fa-plus-circle mb-5"></i>
             </NavLink>
