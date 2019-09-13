@@ -110,7 +110,6 @@ router.get('/:id', (req, res, next) => {
                                   GROUP_CONCAT(DISTINCT s.submissionContent) AS submissionsContent,
                                   GROUP_CONCAT(DISTINCT s.submissionID) AS submissionIDs,
                                   GROUP_CONCAT(DISTINCT s.title) AS submissionTitles,
-                                  GROUP_CONCAT(DISTINCT s.likes) AS likes,
                                   GROUP_CONCAT(DISTINCT s.submissionDescription) AS submissionDescriptions,
                                   GROUP_CONCAT(DISTINCT s.timeCreated) AS submissionTimeCreated
                         FROM      campaigns AS ca  
@@ -121,6 +120,7 @@ router.get('/:id', (req, res, next) => {
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {
     if (err) throw err;
+    connection.execute('SELECT * ');
     if (rows[0].submissionThumbnails !== null) {
       rows[0].submissionThumbnails = rows[0].submissionThumbnails.split(',');
       rows[0].submissionThumbnails.forEach(thumbnail => {
