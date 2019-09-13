@@ -76,6 +76,9 @@ router.get('/company/:id', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   var query = `SELECT  
+                                  co.companyName,
+                                  co.companyLogo,
+                                  co.companyType,
                                   ca.campaignTitle,
                                   ca.campaignID,
                                   ca.description,
@@ -96,6 +99,8 @@ router.get('/:id', (req, res, next) => {
                         FROM      campaigns AS ca  
                    LEFT JOIN      submissions AS s
                           ON      ca.campaignID = s.campaignID
+                        JOIN      companies AS co 
+                          ON      co.companyID = ca.companyID
                        WHERE      ca.campaignID = ?
                     GROUP BY      ca.campaignID`;
 
@@ -142,7 +147,7 @@ router.get('/:id', (req, res, next) => {
       rows[0].submissionTimeCreated = '';
     }
 
-    rows[0].likes = rows[0].likes.split(',');
+    // rows[0].likes = rows[0].likes.split(',');
 
     res.send(rows[0]);
   });
