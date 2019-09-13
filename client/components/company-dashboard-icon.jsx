@@ -24,13 +24,12 @@ export default class CompanyIcon extends React.Component {
   }
 
   render() {
-    const goToCompanyDashboard = () => this.context.setView('company-dashboard', {});
     let color = '#EEEEEE';
     if (this.state.hoverStatus) {
       color = '#000000';
     }
     return (
-      <svg onMouseOver={() => { this.handleHoverOn(); }} onMouseLeave={() => { this.handleHoverOff(); }} onClick={goToCompanyDashboard} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 847 1058.75" fillRule="evenodd" clipRule="evenodd" shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality">
+      <svg onMouseOver={() => { this.handleHoverOn(); }} onMouseLeave={() => { this.handleHoverOff(); }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 847 1058.75" fillRule="evenodd" clipRule="evenodd" shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality">
         <defs>
           <style>
             {` .str0{stroke: ${color};stroke-width:8.46;stroke-linecap:round;stroke-linejoin:round}.fil0{fill: none}`}

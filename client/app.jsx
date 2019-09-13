@@ -14,7 +14,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'settings',
+        name: 'upload-submission',
         params: {}
       },
       currentUser: {},
