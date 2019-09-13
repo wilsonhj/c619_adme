@@ -1,5 +1,4 @@
 import React from 'react';
-import AppContext from '../context';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 export default class CreateCampaign extends React.Component {
@@ -80,4 +79,7 @@ export default class CreateCampaign extends React.Component {
     );
   }
 }
+<<<<<<< HEAD
 CreateCampaign.contextType = AppContext;
+=======
+>>>>>>> 71db3c7ecc08aa137cdd3b10e99c74f900ee22cc

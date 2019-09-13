@@ -27,6 +27,12 @@ router.get('/', (req, res, next) => {
 router.get('/:submissionID', (req, res, next) => {
   connection.query('SELECT * FROM `submissions` WHERE `submissionID` = ' + req.params.submissionID, (err, rows, fields) => {
     if (err) throw err;
+    if (rows[0].submissionThumbnail) {
+      rows[0].submissionThumbnail = rows[0].submissionThumbnail.substring(rows[0].submissionThumbnail.indexOf('uploads'));
+    }
+    if (rows[0].submissionContent) {
+      rows[0].submissionContent = rows[0].submissionContent.substring(rows[0].submissionContent.indexOf('uploads'));
+    }
     res.send(rows);
   });
 });
