@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:submissionID', (req, res, next) => {
-  connection.query('SELECT * FROM `submissions` WHERE `submissionID` = ' + req.params.submissionID, (err, rows, fields) => {
+  connection.query('SELECT * FROM `submissions` AS s JOIN `creators` AS c ON s.creatorID = c.creatorID WHERE s.submissionID = ' + req.params.submissionID, (err, rows, fields) => {
     if (err) throw err;
     if (rows[0].submissionThumbnail) {
       rows[0].submissionThumbnail = rows[0].submissionThumbnail.substring(rows[0].submissionThumbnail.indexOf('uploads'));

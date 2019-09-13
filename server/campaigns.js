@@ -16,8 +16,19 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/', upload.single('campaignContent'), (req, res, next) => {
-  let params = [req.body.companyID, req.body.title, req.body.description, req.body.preferredContentType, req.file.path, req.body.runSpace, req.body.requirements, req.body.rewards];
-  connection.execute('INSERT INTO `campaigns` ( `companyID`,`title`, `description`, `preferredContentType`, `campaignContent`, `runSpace`, `requirements`, `rewards`, `submissionsReceived`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, 0);', params, (err, rows, fields) => {
+  let params = [
+    req.body.companyID,
+    req.body.title,
+    req.body.description,
+    req.body.preferredContentType,
+    req.file.path,
+    req.body.runSpace,
+    req.body.requirements,
+    req.body.rewards
+  ];
+  connection.execute(`INSERT INTO campaigns 
+                        ( companyID,title, description, preferredContentType, campaignContent, runSpace, requirements, rewards, submissionsReceived) 
+                      VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, 0);`, params, (err, rows, fields) => {
 
     if (err) throw err;
     let response = {
@@ -51,7 +62,6 @@ router.get('/company/:id', (req, res, next) => {
   `;
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {
-    // console.log(rows[0]);
     if (err) throw err;
     rows.forEach(row => {
       if (row.submissionThumbnails !== null) {
@@ -78,10 +88,7 @@ router.get('/company/:id', (req, res, next) => {
     res.send(rows);
   });
 });
-/**
- *
- * 'SELECT co.companyID, ca.campaignTitle, co.companyName, co.companyLogo, co.companyType, GROUP_CONCAT(DISTINCT s.submissionThumbnail) AS submissionThumbnails, GROUP_CONCAT(DISTINCT s.submissionContent) AS submissionsContent, GROUP_CONCAT(DISTINCT s.submissionID) AS submissionIDs FROM `campaigns` AS ca LEFT JOIN `submissions` AS s ON ca.campaignID = s.campaignID JOIN `companies` co ON co.companyID = ca.companyID WHERE ca.companyID = 1 GROUP BY ca.campaignTitle'
- */
+
 router.get('/', (req, res, next) => {
   connection.query('SELECT * FROM `campaigns`', (err, rows, fields) => {
     if (err) throw err;
