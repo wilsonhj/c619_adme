@@ -46,33 +46,35 @@ router.get('/company/:id', (req, res, next) => {
         ON ca.campaignID = s.campaignID
       JOIN companies AS co 
         ON co.companyID = ca.companyID
-     WHERE ca.companyID = 1 
+     WHERE ca.companyID = ? 
   GROUP BY ca.campaignTitle
   `;
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {
     // console.log(rows[0]);
     if (err) throw err;
-    // sendingObj = {
-    //   companyInfo: {
-    //     companyName: rows[]
-    //   }
-    // }
     rows.forEach(row => {
       if (row.submissionThumbnails !== null) {
         var submissionThumbnailArray = row.submissionThumbnails.split(',');
-        row.submissionThumbnails = submissionThumbnailArray;
+        row.submissionThumbnails = submissionThumbnailArray[0];
+        row.submissionThumbnails = row.submissionThumbnails.substring(rows.submissionThumbnails.indexOf('uploads'));
+      } else {
+        row.submissionThumbnails = '';
       }
       if (row.submissionsContent !== null) {
         var submissionsContextArray = row.submissionsContent.split(',');
-        row.submissionsContent = submissionsContextArray;
+        row.submissionsContent = submissionsContextArray[0];
+        row.submissionsContent = row.submissionsContent.substring(rows.submissionsContent.indexOf('uploads'));
+      } else {
+        row.submissionsContent = '';
       }
       if (row.submissionIDs !== null) {
         var submissionidsArray = row.submissionIDs.split(',');
-        row.submissionIDs = submissionidsArray;
+        row.submissionIDs = submissionidsArray[0];
+      } else {
+        row.submissionIDs = '';
       }
     });
-
     res.send(rows);
   });
 });
