@@ -18,16 +18,17 @@ export default class ViewCampaignDetails extends React.Component {
         rewards: '',
         requirements: '',
         runSpace: '',
-        preferredContentType: ''
+        preferredContentType: '',
+        submissionsReceived: ''
       },
       submissions: [{
-        submissionThumbnails: '',
-        submissionsReceived: '',
-        submissionsContent: '',
-        submissionIDs: '',
-        submissionTitles: '',
+        submissionThumbnail: '',
+        submissionContent: '',
+        submissionID: '',
+        submissionTitle: '',
         likes: '',
-        submissionDescriptions: ''
+        submissionDescription: '',
+        submissionTimeCreated: ''
       }]
     };
     this.getCampaignData = this.getCampaignData.bind(this);
@@ -48,7 +49,7 @@ export default class ViewCampaignDetails extends React.Component {
             companyType: res.companyType
           },
           campaignDetails: {
-            campaignTitle: res.campaignDetails,
+            campaignTitle: res.campaignTitle,
             campaignID: res.campaignID,
             description: res.description,
             campaignContent: res.campaignContent,
@@ -57,30 +58,29 @@ export default class ViewCampaignDetails extends React.Component {
             runSpace: res.runSpace,
             preferredContentType: res.preferredContentType
           },
-          submissions: [{
-            submissionDetails: res.submissionDetails,
-            submissionsReceived: res.submissionDetails,
-            submissionsContent: res.submissionContent,
-            submissionIDs: res.submissionIDs,
-            submissionTitles: res.submissionTitles,
-            likes: res.likes,
-            submissionDescriptions: res.submissionDescriptions
-          }]
+          submissions: res.submissions
         });
       });
   }
 
   render() {
+    const submissions = this.state.submissions.map(submissionObj => {
+      return (
+        <React.Fragment key={submissionObj.submissionID}>
+          <h1>{submissionObj.submissionTitle}</h1>
+          <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
+            className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
+          </video>
+          <div>{submissionObj.submissionDescription}</div>
+          <div>{submissionObj.likes}</div>
+        </React.Fragment>
+      );
+    });
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
-        <h4 className="text-center mt-2">{this.state.companyInfo.campaignTitle}</h4>
+        <h4 className="text-center mt-2">{this.state.campaignDetails.campaignTitle}</h4>
         <p>{this.state.campaignDetails.description}</p>
-        <video src={this.state.submissions.submissionContent} className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
-        </video>
-        <div className="py-2 mx-4">
-          <div>{this.state.submissions.submissionDetails}</div>
-
-        </div>
+        {submissions}
       </div>
     );
   }
