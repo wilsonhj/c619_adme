@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../context';
 
 export default class ViewSubmissionDetails extends React.Component {
   constructor(props) {
@@ -63,6 +64,14 @@ export default class ViewSubmissionDetails extends React.Component {
   render() {
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
+        {this.context.currentUser.creatorID
+          ? <i className="ml-2 fas fa-window-close" onClick = {() => {
+            this.context.setView('creator-portfolio', {});
+          }} style={{ fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></i>
+          : <i className="ml-2 fas fa-window-close" onClick={() => {
+            this.context.setView('company-dashboard', {});
+          }} style={{ fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></i>
+        }
         <h4 className="text-center mt-2">{this.state.title}</h4>
         <video src={this.state.submissionContent} className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
         </video>
@@ -70,9 +79,9 @@ export default class ViewSubmissionDetails extends React.Component {
           <div>{this.state.submissionDescription}</div>
           <div className="text-right">{this.state.likes}
             {this.state.isLikedByThisUser ? (
-              <i className="ml-1 fas fa-heart" onClick={this.updateLikes}></i>
+              <i className="ml-1 fas fa-heart" onClick={this.updateLikes} style={{ color: 'rgb(132, 29, 158)' }}></i>
             ) : (
-              <i className="ml-1 far fa-heart" onClick={this.updateLikes}></i>
+              <i className="ml-1 far fa-heart" onClick={this.updateLikes} style={{ color: 'rgb(132, 29, 158)' }}></i>
             )}
           </div>
         </div>
@@ -80,3 +89,5 @@ export default class ViewSubmissionDetails extends React.Component {
     );
   }
 }
+
+ViewSubmissionDetails.contextType = AppContext;
