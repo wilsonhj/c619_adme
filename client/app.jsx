@@ -7,11 +7,8 @@ import CreatorPortfolio from './containers/creator-portfolio';
 import UploadSubmission from './containers/upload-submission';
 import NavBar from './components/nav-bar';
 import ViewSubmissionDetails from './containers/submission-details';
-<<<<<<< HEAD
 import CompanyHeader from './containers/company-header.jsx';
-=======
 import SwitchUserPage from './containers/switch-user-page';
->>>>>>> 71db3c7ecc08aa137cdd3b10e99c74f900ee22cc
 
 export default class App extends React.Component {
   constructor(props) {
