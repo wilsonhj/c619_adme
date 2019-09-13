@@ -71,18 +71,7 @@ export default class NavBar extends React.Component {
             'cursor': 'pointer'
           }} onClick={goToLandingPage}>AdMe</div>
           <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
-            <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink style={{
-                'padding': '0rem .5rem',
-                'height': '3rem',
-                'width': '4rem',
-                'backgroundRepeat': 'no-repeat',
-                'cursor': 'pointer'
-              }}><CompanyIcon style={{
-                  'bottom': '10%'
-                }} />
-              </NavLink>
-            </NavItem>
+
             <NavItem>
               <NavLink style={{
                 'height': '3rem',
@@ -161,7 +150,7 @@ export default class NavBar extends React.Component {
                 'width': '4rem',
                 'backgroundRepeat': 'no-repeat',
                 'cursor': 'pointer'
-              }}><PortfolioIcon style={{
+              }}><CompanyIcon style={{
                   'bottom': '10%'
                 }} />
               </NavLink>
@@ -209,9 +198,11 @@ export default class NavBar extends React.Component {
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
                 <NavLink onClick={goToLandingPage}>Home</NavLink>
               </NavItem>
-              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                <NavLink onClick={goToCreatorPortfolio}>Portfolio</NavLink>
-              </NavItem>
+              {this.context.currentUser.creatorID ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
+                <NavLink onClick={goToCreatorPortfolio}>Creator Portfolio</NavLink>
+              </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
+                <NavLink onClick={goToCompanyDashboard}>Company Dashboard</NavLink>
+              </NavItem>}
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
                 <NavLink href="">Messages</NavLink>
               </NavItem>
