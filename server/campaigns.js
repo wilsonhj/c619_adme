@@ -91,6 +91,7 @@ router.get('/:id', (req, res, next) => {
                                   ca.campaignContent,
                                   ca.timeCreated AS campaignTimeCreated,
                                   GROUP_CONCAT(DISTINCT s.submissionThumbnail) AS submissionThumbnails,
+                                  JSON_ARRAYAGG(s.likes) AS likes,
                                   GROUP_CONCAT(DISTINCT s.submissionContent) AS submissionsContent,
                                   GROUP_CONCAT(DISTINCT s.submissionID) AS submissionIDs,
                                   GROUP_CONCAT(DISTINCT s.title) AS submissionTitles,
