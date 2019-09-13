@@ -101,6 +101,7 @@ export default class CreatorPortfolio extends React.Component {
                 <NavItem>
                   <NavLink
                     className={classnames({ active: this.state.activeTab === '1' })}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => { this.toggle('1'); }}
                   >
                     Experience
@@ -109,6 +110,7 @@ export default class CreatorPortfolio extends React.Component {
                 <NavItem>
                   <NavLink
                     className={classnames({ active: this.state.activeTab === '2' })}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => { this.toggle('2'); }}
                   >
                     Bio
