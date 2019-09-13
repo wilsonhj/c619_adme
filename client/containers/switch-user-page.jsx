@@ -1,7 +1,14 @@
 import React from 'react';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import AppContext from '../context';
 
 export default class SwitchUserPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userOptions: []
+    };
+  }
 
   render() {
     return (
@@ -14,7 +21,10 @@ export default class SwitchUserPage extends React.Component {
         Creator
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem>Tim H.</DropdownItem>
+                <DropdownItem onClick={() => {
+                  this.context.setUser(0);
+                  this.context.setView('creator-portfolio', {});
+                }}>Tim H.</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
 
@@ -23,7 +33,10 @@ export default class SwitchUserPage extends React.Component {
           Company
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem>Target</DropdownItem>
+                <DropdownItem onClick={() => {
+                  this.context.setUser(1);
+                  this.context.setView('company-dashboard', {});
+                }}>Target</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
@@ -33,3 +46,5 @@ export default class SwitchUserPage extends React.Component {
   }
 
 }
+
+SwitchUserPage.contextType = AppContext;

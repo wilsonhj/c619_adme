@@ -14,11 +14,29 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'landing-page',
+        name: 'settings',
         params: {}
-      }
+      },
+      currentUser: {},
+      userOptions: {}
     };
     this.setView = this.setView.bind(this);
+    this.setUser = this.setUser.bind(this);
+  }
+  componentDidMount() {
+    fetch('http://localhost:3000/api/user')
+      .then(res => res.json())
+      .then(res => {
+        var newUserOptionsArray = [];
+        res.map(currentArray => {
+          newUserOptionsArray.push(currentArray);
+        });
+        this.setState({ userOptions: newUserOptionsArray });
+      });
+  }
+
+  setUser(userID) {
+    this.setState({ currentUser: this.state.userOptions[userID] });
   }
 
   setView(name, params) {
@@ -45,13 +63,15 @@ export default class App extends React.Component {
       case 'submission-details':
         return <ViewSubmissionDetails pageID={this.state.view.params.submissionID}/>;
       case 'settings':
-        return <SwitchUserPage />;
+        return <SwitchUserPage setUser = {this.setUser}/>;
     }
   }
 
   render() {
     const appContext = {
-      setView: this.setView
+      setView: this.setView,
+      setUser: this.setUser,
+      currentUser: this.state.currentUser
     };
 
     return (
