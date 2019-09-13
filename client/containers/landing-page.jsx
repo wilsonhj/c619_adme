@@ -19,27 +19,45 @@ export default class LandingPage extends React.Component {
   }
 
   getCampaigns() {
-    fetch('http://localhost:3000/api/campaigns/campaignsLP').then(res => res.json())
+    fetch('http://localhost:3000/api/campaigns').then(res => res.json())
       .then(res => {
         this.setState({
           recentCampaigns: res
         });
-        console.log(this.state.recentCampaigns);
       });
   }
 
   getTrending() {
-    fetch('http://localhost:3000/api/submissions').then(res => res.json())
+    fetch('http://localhost:3000/api/submissions/trending/submissions').then(res => res.json())
       .then(res => {
         this.setState({
           trendingAds: res
         });
-        console.log(this.state.trendingAds);
       });
   }
 
   render() {
-    let trending = this.state.trendingAds;
+    let trending = this.state.trendingAds.map(ads => {
+      return (
+        <div className='glassCard' style={{ display: 'inline-block', width: '25em', height: '20em', backgroundColor: 'white', margin: '1rem', borderRadius: '10%' }} key={ads.subID} >
+
+          <div style={{ marginLeft: '8%', marginTop: '7%', border: 'solid .12em #841D9E', height: '5em', width: '5em', borderRadius: '10%', backgroundImage: 'url(' + ads.profilePicture + ')', backgroundSize: 'contain', display: 'inline-block' }}>
+          </div>
+          <div className="row" style={{ marginTop: '10%', verticalAlign: 'top', display: 'inline-block' }}>
+            <div style={{ marginLeft: '40%', display: 'inline-block' }}>
+              {ads.firstName} {ads.lastName}
+            </div>
+            <div style={{ marginTop: '5%', marginLeft: '40%' }}>
+              {ads.title}
+            </div>
+          </div>
+          <div className="container" style={{ backgroundImage: 'url(' + ads.profilePicture + ')', height: '50%', width: '80%', marginTop: '4%', backgroundSize: '100%', backgroundRepeat: 'no-repeat' }}>
+            <div className="playButton" style={{ marginLeft: '40%', verticalAlign: 'center' }}></div>
+          </div>
+        </div>
+      );
+
+    });
     let campaigns = this.state.recentCampaigns.map(campaign => {
       return (
         <div className=' glassCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%' }} key={campaign.campaignID}>
@@ -60,7 +78,9 @@ export default class LandingPage extends React.Component {
 
     return (
       <div className="container" >
-        <div className="row" style={{ 'height': '10vh' }}></div>
+        <div style={{ textAlign: 'center', lineHeight: '300%', fontSize: '2rem', fontFamily: 'Patua One, cursive' }}>
+          Recent Campaigns
+        </div>
         <div className='scroller' style={{
           'overflowX': 'scroll',
           'fontSize': '14px',
@@ -70,24 +90,23 @@ export default class LandingPage extends React.Component {
         }}>
           {campaigns}
         </div>
-        <div className="row" style={{ 'height': '10vh' }}></div>
+
+        <div style={{ textAlign: 'center', lineHeight: '300%', fontSize: '2rem', fontFamily: 'Patua One, cursive' }}>
+          Trending Ads
+        </div>
         <div className='scroller' style={{
           'overflowX': 'scroll',
           'fontSize': '14px',
           'backgroundColor': 'white',
           'height': '24em',
           'whiteSpace': 'nowrap'
-
         }}>
-          <div className='glassCard' style={{ 'display': 'inline-block', 'width': '25em', 'height': '20em', 'backgroundColor': 'white', 'margin': '1rem', 'border': 'solid .25em #841D9E', 'borderRadius': '10%' }} >
-
-            <div className='row' style={{ 'width': '95%', 'paddingLeft': '8%', 'paddingTop': '3%' }}>
-              <div style={{ 'border': 'solid .12em #841D9E', 'height': '5em', 'width': '5em', 'borderRadius': '10%' }}></div>
-
-            </div>
-          </div>
+          {trending}
         </div>
-        <div className="row" style={{ 'height': '10vh' }}></div>
+
+        <div style={{ textAlign: 'center', lineHeight: '300%', fontSize: '2rem', fontFamily: 'Patua One, cursive' }}>
+          Recent Winners
+        </div>
         <div className='scroller' style={{
           'overflowX': 'scroll',
           'fontSize': '14px',

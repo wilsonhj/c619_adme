@@ -6,6 +6,7 @@ import CreateCampaign from './containers/create-campaign.jsx';
 import CreatorPortfolio from './containers/creator-portfolio';
 import UploadSubmission from './containers/upload-submission';
 import NavBar from './components/nav-bar';
+import ViewSubmissionDetails from './containers/submission-details';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -40,14 +41,16 @@ export default class App extends React.Component {
         return <CreatorPortfolio />;
       case 'upload-submission':
         return <UploadSubmission />;
+      case 'submission-details':
+        return <ViewSubmissionDetails pageID={this.state.view.params.submissionID}/>;
     }
   }
 
   render() {
     const appContext = {
       setView: this.setView
-
     };
+
     return (
       <AppContext.Provider value={appContext} >
         <>

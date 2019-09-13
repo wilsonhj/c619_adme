@@ -1,5 +1,6 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
+import AppContext from '../context';
 import classnames from 'classnames';
 // import { ClientHttp2Session } from 'http2';
 
@@ -119,14 +120,15 @@ export default class CreatorPortfolio extends React.Component {
                 <TabPane tabId="1">
                   <Row>
                     <Col sm="12">
-                      <div className="d-flex flex-wrap justify-content-center bg-white p-1 pt-0 creatorTab">
+                      <div className="d-flex flex-column justify-content-center bg-white p-1 pt-0 creatorTab">
                         {this.state.submissionsInfo.map(currentEntry => {
                           return (
                             <React.Fragment key={currentEntry.submissionID}>
-                              <div>{currentEntry.title + ' '} {currentEntry.submissionDescription}
-                              </div>
-                              <video className = "pb-4" src={currentEntry.submissionContent} controls
-                                style={{ height: '56vmin', width: '89vmin' }}>
+                              <h5 className="mx-auto" name={currentEntry.submissionID} onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }}>{currentEntry.title}
+                              </h5>
+
+                              <video className = "pb-4 mx-auto" src={currentEntry.submissionContent} controls
+                                style={{ width: '90%' }}>
                               </video>
                             </React.Fragment>
                           );
@@ -149,3 +151,4 @@ export default class CreatorPortfolio extends React.Component {
   }
 
 }
+CreatorPortfolio.contextType = AppContext;
