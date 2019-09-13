@@ -88,7 +88,6 @@ export default class ViewSubmissionDetails extends React.Component {
         <video src={this.state.submissionContent} className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
         </video>
         <div className="py-2 mx-4">
-          <div>{this.state.submissionDescription}</div>
           <div className="text-right">{this.state.likes}
             {this.state.isLikedByThisUser ? (
               <i className="ml-1 fas fa-heart" onClick={this.updateLikes} style={{ color: 'rgb(132, 29, 158)' }}></i>
@@ -96,6 +95,8 @@ export default class ViewSubmissionDetails extends React.Component {
               <i className="ml-1 far fa-heart" onClick={this.updateLikes} style={{ color: 'rgb(132, 29, 158)' }}></i>
             )}
           </div>
+          <div>{this.state.submissionDescription}</div>
+
         </div>
       </div>
     );
