@@ -65,12 +65,12 @@ export default class ViewSubmissionDetails extends React.Component {
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
         {this.context.currentUser.creatorID
-          ? <i className="ml-2 fas fa-window-close" onClick = {() => {
+          ? <div className="d-inline ml-2 fas fa-arrow-left" onClick = {() => {
             this.context.setView('creator-portfolio', {});
-          }} style={{ fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></i>
-          : <i className="ml-2 fas fa-window-close" onClick={() => {
+          }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
+          : <div className="d-inline ml-2 fas fa-arrow-left" onClick={() => {
             this.context.setView('company-dashboard', {});
-          }} style={{ fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></i>
+          }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
         }
         <h4 className="text-center mt-2">{this.state.title}</h4>
         <video src={this.state.submissionContent} className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
