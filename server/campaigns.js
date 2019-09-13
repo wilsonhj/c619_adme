@@ -46,7 +46,7 @@ router.get('/company/:id', (req, res, next) => {
         ON ca.campaignID = s.campaignID
       JOIN companies AS co 
         ON co.companyID = ca.companyID
-     WHERE ca.companyID = ? 
+     WHERE ca.companyID = 1 
   GROUP BY ca.campaignTitle
   `;
 
@@ -57,14 +57,14 @@ router.get('/company/:id', (req, res, next) => {
       if (row.submissionThumbnails !== null) {
         var submissionThumbnailArray = row.submissionThumbnails.split(',');
         row.submissionThumbnails = submissionThumbnailArray[0];
-        row.submissionThumbnails = row.submissionThumbnails.substring(rows.submissionThumbnails.indexOf('uploads'));
+        row.submissionThumbnails = row.submissionThumbnails.substring(row.submissionThumbnails.indexOf('uploads'));
       } else {
         row.submissionThumbnails = '';
       }
       if (row.submissionsContent !== null) {
         var submissionsContextArray = row.submissionsContent.split(',');
         row.submissionsContent = submissionsContextArray[0];
-        row.submissionsContent = row.submissionsContent.substring(rows.submissionsContent.indexOf('uploads'));
+        row.submissionsContent = row.submissionsContent.substring(row.submissionsContent.indexOf('uploads'));
       } else {
         row.submissionsContent = '';
       }

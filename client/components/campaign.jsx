@@ -63,18 +63,19 @@ export default class Campaign extends React.Component {
       <Row>
         <Col sm='12'>
           <div className="creatorTab justify-content-around rounded" style={style.card}>
-            <h3 style={style.text} className="justify-content-around">
-              <img src={this.props.imageSource} style={style.logo}/>
-              {this.props.companyName}
-            </h3>
-            <h6 style={style.text}>{this.props.campaignTitle}</h6>
-            <video className = "pb-4" src={this.props.submissionContent} controls
-              style={style.video} poster={this.props.submissionThumbnail}>
+            <h2 style={style.text} className="mb-3">
+              <img src={this.props.imageSource} style={style.logo} className="mr-3"/>
+              {this.props.campaignTitle}
+            </h2>
+            <video className = "pb-4" src={(this.props.submissionContent) ? this.props.submissionContent : 'uploads/2019-09-12T00:28:15.578Z720.mp4'}
+              controls
+              style={style.video} poster={(this.props.submissionThumbnail) ? this.props.submissionThumbnail : 'uploads/2019-09-12T00:28:15.575Znodejs.png'}>
+              No Current Video Submissions!
             </video>
             <NavLink style={style.link} onClick={event => {
               this.context.setView('submission-details', { submissionID: this.props.submissionID });
             }}>
-              View More <i className="fas fa-plus-circle"></i>
+              View More <i className="fas fa-plus-circle mb-5"></i>
             </NavLink>
           </div>
         </Col>
