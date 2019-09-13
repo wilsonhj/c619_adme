@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import Campaign from '../components/campaign.jsx';
 
@@ -16,9 +16,8 @@ export default class CompanyHeader extends React.Component {
       },
       campaignsInfo: [{
         campaignTitle: '',
-        submissionThumbnails: '',
-        submissionsContent: '',
-        submissionID: ''
+        campaignContent: '',
+        campaignID: ''
       }]
     };
     this.toggle = this.toggle.bind(this);
@@ -34,9 +33,8 @@ export default class CompanyHeader extends React.Component {
         const campaignsArr = res.map(campaign => {
           const campaignObj = {
             campaignTitle: campaign.campaignTitle,
-            submissionThumbnails: campaign.submissionThumbnails,
-            submissionsContent: campaign.submissionsContent,
-            submissionID: campaign.submissionIDs
+            submissionsContent: campaign.campaignContent,
+            campaignID: campaign.campaignID
           };
           return campaignObj;
         });
@@ -83,15 +81,15 @@ export default class CompanyHeader extends React.Component {
     };
     style.text = {
       color: 'white',
-      textAlign: 'center',
-      
+      textAlign: 'center'
+
     };
     style.link = {
       color: '#0070c9',
       textAlign: 'center',
       cursor: 'pointer',
       fontWeight: '400',
-      paddingBottom: '4px',
+      paddingBottom: '4px'
     };
     style.video = {
       height: '60vmin',
@@ -128,20 +126,23 @@ export default class CompanyHeader extends React.Component {
           </Nav>
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1">
-              {this.state.campaignsInfo.map((campaignObj, idx) => {
-                return (
-                  <Campaign key={idx}
-                    imageSource={this.state.companyInfo.companyLogo}
-                    companyName={this.state.companyInfo.companyName}
-                    companyType={this.state.companyInfo.companyType}
-                    campaignTitle={campaignObj.campaignTitle}
-                    submissionThumbnail={campaignObj.submissionThumbnails}
-                    submissionContent={campaignObj.submissionsContent}
-                    submissionID={campaignObj.submissionID}
-                    campaignsInfo={this.state.campaignsInfo}></Campaign>
-
-                );
-              })}
+              <Row >
+                <Col sm='12' >
+                  {this.state.campaignsInfo.map((campaignObj, idx) => {
+                    return (
+                      <Campaign key={idx}
+                        imageSource={this.state.companyInfo.companyLogo}
+                        companyName={this.state.companyInfo.companyName}
+                        companyType={this.state.companyInfo.companyType}
+                        campaignTitle={campaignObj.campaignTitle}
+                        campaignContent={campaignObj.submissionsContent}
+                        campaignID={campaignObj.campaignID}
+                        campaignsInfo={this.state.campaignsInfo}>
+                      </Campaign>
+                    );
+                  })}
+                </Col>
+              </Row>
             </TabPane>
             <TabPane tabId="2">
               <div className="bg-white p-1 vh-100 creatorTab" >SDFAGSFGG</div>
