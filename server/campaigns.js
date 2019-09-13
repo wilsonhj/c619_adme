@@ -48,43 +48,24 @@ router.get('/company/:id', (req, res, next) => {
   const query = `
     SELECT co.companyID,
            ca.campaignTitle,
+           ca.campaignContent,
+           ca.campaignID,
            co.companyName,
            co.companyLogo,
-           co.companyType,
-           GROUP_CONCAT(DISTINCT s.submissionThumbnail) AS submissionThumbnails,
-           GROUP_CONCAT(DISTINCT s.submissionContent) AS submissionsContent,
-           GROUP_CONCAT(DISTINCT s.submissionID) AS submissionIDs
+           co.companyType
       FROM campaigns AS ca
- LEFT JOIN submissions AS s
-        ON ca.campaignID = s.campaignID
       JOIN companies AS co 
         ON co.companyID = ca.companyID
-     WHERE ca.companyID = ? 
-  GROUP BY ca.campaignTitle
+     WHERE ca.companyID = 1 
   `;
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {
     if (err) throw err;
     rows.forEach(row => {
-      if (row.submissionThumbnails !== null) {
-        var submissionThumbnailArray = row.submissionThumbnails.split(',');
-        row.submissionThumbnails = submissionThumbnailArray[0];
-        row.submissionThumbnails = row.submissionThumbnails.substring(rows.submissionThumbnails.indexOf('uploads'));
+      if (row.campaignContent !== null) {
+        row.campaignContent = row.campaignContent.substring(row.campaignContent.indexOf('uploads'));
       } else {
-        row.submissionThumbnails = '';
-      }
-      if (row.submissionsContent !== null) {
-        var submissionsContextArray = row.submissionsContent.split(',');
-        row.submissionsContent = submissionsContextArray[0];
-        row.submissionsContent = row.submissionsContent.substring(rows.submissionsContent.indexOf('uploads'));
-      } else {
-        row.submissionsContent = '';
-      }
-      if (row.submissionIDs !== null) {
-        var submissionidsArray = row.submissionIDs.split(',');
-        row.submissionIDs = submissionidsArray[0];
-      } else {
-        row.submissionIDs = '';
+        row.campaignContent = '';
       }
     });
     res.send(rows);

@@ -58,10 +58,9 @@ export default class CreatorPortfolio extends React.Component {
     fetch('http://localhost:3000/api/creators/2/submissions').then(res => res.json()).then(res => {
       var creatorSubmissionsArray = [];
       res.map(currentEntry => {
-        var newSubmissionContent = currentEntry.submissionContent.substring(currentEntry.submissionContent.indexOf('uploads'));
         var submissionObject = {
           requestID: currentEntry.requestID,
-          submissionContent: newSubmissionContent,
+          submissionContent: currentEntry.submissionContent,
           submissionDescription: currentEntry.submissionDescription,
           submissionID: currentEntry.submissionID,
           submissionThumbnail: currentEntry.submissionThumbnail,
@@ -102,6 +101,7 @@ export default class CreatorPortfolio extends React.Component {
                 <NavItem>
                   <NavLink
                     className={classnames({ active: this.state.activeTab === '1' })}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => { this.toggle('1'); }}
                   >
                     Experience
@@ -110,6 +110,7 @@ export default class CreatorPortfolio extends React.Component {
                 <NavItem>
                   <NavLink
                     className={classnames({ active: this.state.activeTab === '2' })}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => { this.toggle('2'); }}
                   >
                     Bio
@@ -124,12 +125,12 @@ export default class CreatorPortfolio extends React.Component {
                         {this.state.submissionsInfo.map(currentEntry => {
                           return (
                             <React.Fragment key={currentEntry.submissionID}>
-                              <h5 className="mx-auto" name={currentEntry.submissionID} onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }}>{currentEntry.title}
+                              <h5 className="mx-auto" name={currentEntry.submissionID} >{currentEntry.title}
                               </h5>
 
-                              <video className = "pb-4 mx-auto" src={currentEntry.submissionContent} controls
+                              <img className="pb-4 mx-auto" src={currentEntry.submissionThumbnail} onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }} controls
                                 style={{ width: '90%' }}>
-                              </video>
+                              </img>
                             </React.Fragment>
                           );
                         })}
