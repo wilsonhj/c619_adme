@@ -165,8 +165,8 @@ router.get('/:id', (req, res, next) => {
     }
     if (rows[0].submissions) {
       rows[0].submissions.forEach((submission, index) => {
-        submission.submissionThumbnail = rows[0].submissionThumbnails[index];
-        submission.submissionContent = rows[0].submissionsContent[index];
+        submission.submissionThumbnail = rows[0].submissionThumbnails[index].substring(rows[0].submissionThumbnails[index].indexOf('uploads'));
+        submission.submissionContent = rows[0].submissionsContent[index].substring(rows[0].submissionsContent[index].indexOf('uploads'));
         submission.submissionID = rows[0].submissionIDs[index];
         submission.submissionDescription = rows[0].submissionDescriptions[index];
         submission.likes = rows[0].likes[index];
