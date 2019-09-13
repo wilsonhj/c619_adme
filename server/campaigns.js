@@ -106,7 +106,9 @@ router.get('/:id', (req, res, next) => {
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {
     if (err) throw err;
-    connection.execute('SELECT likes FROM submissions ');
+    // connection.execute('SELECT likes FROM submissions', (err, rows, fields) => {
+
+    // });
     if (rows[0].submissionThumbnails !== null) {
       rows[0].submissionThumbnails = rows[0].submissionThumbnails.split(',');
       rows[0].submissionThumbnails.forEach(thumbnail => {
