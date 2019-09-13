@@ -204,10 +204,10 @@ export default class NavBar extends React.Component {
                 <NavLink onClick={goToCompanyDashboard}>Company Dashboard</NavLink>
               </NavItem>}
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                <NavLink href="">Messages</NavLink>
+                <NavLink >Messages</NavLink>
               </NavItem>
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                <NavLink href="">Campaigns</NavLink>
+                <NavLink >Campaigns</NavLink>
               </NavItem >
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
                 <NavLink onClick={goToSwitchUser}href="">Settings</NavLink>
