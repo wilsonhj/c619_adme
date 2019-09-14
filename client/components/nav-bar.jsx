@@ -188,7 +188,7 @@ export default class NavBar extends React.Component {
             'color': '#EEEEEE',
             'fontSize': '3em',
             'fontFamily': 'Modak, cursive',
-            'paddingBottom': '10%',
+            'paddingBottom': '20%',
             'display': 'inline-block',
             'textAlign': 'center'
           }}>AdMe</div>
