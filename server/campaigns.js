@@ -75,14 +75,14 @@ router.get('/company/:id', (req, res, next) => {
 // campaign details page
 
 router.get('/:id', (req, res, next) => {
-  var query = `SELECT  
+  var query = `SELECT
                                   co.companyName,
                                   co.companyLogo,
                                   co.companyType,
                                   ca.campaignTitle,
                                   ca.campaignID,
                                   ca.description,
-                                  ca.companyID, 
+                                  ca.companyID,
                                   ca.preferredContentType,
                                   ca.requirements,
                                   ca.runSpace,
@@ -97,10 +97,10 @@ router.get('/:id', (req, res, next) => {
                                   GROUP_CONCAT(DISTINCT s.title) AS submissionTitles,
                                   GROUP_CONCAT(DISTINCT s.submissionDescription) AS submissionDescriptions,
                                   GROUP_CONCAT(DISTINCT s.timeCreated) AS submissionTimeCreated
-                        FROM      campaigns AS ca  
+                        FROM      campaigns AS ca
                    LEFT JOIN      submissions AS s
                           ON      ca.campaignID = s.campaignID
-                        JOIN      companies AS co 
+                        JOIN      companies AS co
                           ON      co.companyID = ca.companyID
                        WHERE      ca.campaignID = ?
                     GROUP BY      ca.campaignID`;
@@ -110,78 +110,80 @@ router.get('/:id', (req, res, next) => {
     // connection.execute('SELECT likes FROM submissions', (err, rows, fields) => {
 
     // });
+    if (rows[0]) {
 
-    rows[0].submissions = [];
-    if (rows[0].submissionThumbnails !== null) {
-      rows[0].submissionThumbnails = rows[0].submissionThumbnails.split(',');
-      rows[0].submissionThumbnails.forEach(thumbnail => {
-        thumbnail = thumbnail.substring(thumbnail.indexOf('uploads'));
-      });
-    } else {
-      rows[0].submissionThumbnails = '';
-    }
-    if (rows[0].submissionsContent !== null) {
-      rows[0].submissionsContent = rows[0].submissionsContent.split(',');
-      rows[0].submissionsContent.forEach(subs => {
-        subs = subs.substring(subs.indexOf('uploads'));
-      });
-      for (var i = 0; i < rows[0].submissionsContent.length; i++) {
-        rows[0].submissions[i] = {
-          submissionThumbnail: '',
-          submissionID: '',
-          submissionContent: '',
-          submissionDescription: '',
-          likes: '',
-          submissionTitle: '',
-          submissionTimeCreated: ''
-        };
+      rows[0].submissions = [];
+      if (rows[0].submissionThumbnails !== null) {
+        rows[0].submissionThumbnails = rows[0].submissionThumbnails.split(',');
+        rows[0].submissionThumbnails.forEach(thumbnail => {
+          thumbnail = thumbnail.substring(thumbnail.indexOf('uploads'));
+        });
+      } else {
+        rows[0].submissionThumbnails = '';
       }
-    } else {
-      rows[0].submissionsContent = '';
-    }
-    if (rows[0].submissionIDs !== null) {
-      rows[0].submissionIDs = rows[0].submissionIDs.split(',');
-      rows[0].submissionIDs.forEach(ids => {
-        ids = parseInt(ids);
-      });
-    } else {
-      rows[0].submissionIDs = '';
-    }
-    if (rows[0].submissionDescriptions !== null) {
-      rows[0].submissionDescriptions = rows[0].submissionDescriptions.split('\n');
+      if (rows[0].submissionsContent !== null) {
+        rows[0].submissionsContent = rows[0].submissionsContent.split(',');
+        rows[0].submissionsContent.forEach(subs => {
+          subs = subs.substring(subs.indexOf('uploads'));
+        });
+        for (var i = 0; i < rows[0].submissionsContent.length; i++) {
+          rows[0].submissions[i] = {
+            submissionThumbnail: '',
+            submissionID: '',
+            submissionContent: '',
+            submissionDescription: '',
+            likes: '',
+            submissionTitle: '',
+            submissionTimeCreated: ''
+          };
+        }
+      } else {
+        rows[0].submissionsContent = '';
+      }
+      if (rows[0].submissionIDs !== null) {
+        rows[0].submissionIDs = rows[0].submissionIDs.split(',');
+        rows[0].submissionIDs.forEach(ids => {
+          ids = parseInt(ids);
+        });
+      } else {
+        rows[0].submissionIDs = '';
+      }
+      if (rows[0].submissionDescriptions !== null) {
+        rows[0].submissionDescriptions = rows[0].submissionDescriptions.split('\n');
 
-    } else {
-      rows[0].submissionDescriptions = '';
+      } else {
+        rows[0].submissionDescriptions = '';
+      }
+      if (rows[0].submissionTitles !== null) {
+        rows[0].submissionTitles = rows[0].submissionTitles.split(',');
+      } else {
+        rows[0].submissionTitles = '';
+      }
+      if (rows[0].submissionTimeCreated !== null) {
+        rows[0].submissionTimeCreated = rows[0].submissionTimeCreated.split(',');
+      } else {
+        rows[0].submissionTimeCreated = '';
+      }
+      if (rows[0].submissions) {
+        rows[0].submissions.forEach((submission, index) => {
+          submission.submissionThumbnail = rows[0].submissionThumbnails[index].substring(rows[0].submissionThumbnails[index].indexOf('uploads'));
+          submission.submissionContent = rows[0].submissionsContent[index].substring(rows[0].submissionsContent[index].indexOf('uploads'));
+          submission.submissionID = rows[0].submissionIDs[index];
+          submission.submissionDescription = rows[0].submissionDescriptions[index];
+          submission.likes = rows[0].likes[index];
+          submission.submissionTitle = rows[0].submissionTitles[index];
+          submission.submissionTimeCreated = rows[0].submissionTimeCreated[index];
+        });
+      }
+      delete rows[0].submissionThumbnails;
+      delete rows[0].submissionsContent;
+      delete rows[0].submissionIDs;
+      delete rows[0].submissionDescriptions;
+      delete rows[0].likes;
+      delete rows[0].submissionTitles;
+      delete rows[0].submissionTimeCreated;
+      res.send(rows[0]);
     }
-    if (rows[0].submissionTitles !== null) {
-      rows[0].submissionTitles = rows[0].submissionTitles.split(',');
-    } else {
-      rows[0].submissionTitles = '';
-    }
-    if (rows[0].submissionTimeCreated !== null) {
-      rows[0].submissionTimeCreated = rows[0].submissionTimeCreated.split(',');
-    } else {
-      rows[0].submissionTimeCreated = '';
-    }
-    if (rows[0].submissions) {
-      rows[0].submissions.forEach((submission, index) => {
-        submission.submissionThumbnail = rows[0].submissionThumbnails[index].substring(rows[0].submissionThumbnails[index].indexOf('uploads'));
-        submission.submissionContent = rows[0].submissionsContent[index].substring(rows[0].submissionsContent[index].indexOf('uploads'));
-        submission.submissionID = rows[0].submissionIDs[index];
-        submission.submissionDescription = rows[0].submissionDescriptions[index];
-        submission.likes = rows[0].likes[index];
-        submission.submissionTitle = rows[0].submissionTitles[index];
-        submission.submissionTimeCreated = rows[0].submissionTimeCreated[index];
-      });
-    }
-    delete rows[0].submissionThumbnails;
-    delete rows[0].submissionsContent;
-    delete rows[0].submissionIDs;
-    delete rows[0].submissionDescriptions;
-    delete rows[0].likes;
-    delete rows[0].submissionTitles;
-    delete rows[0].submissionTimeCreated;
-    res.send(rows[0]);
   });
 });
 

@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import Campaign from '../components/campaign.jsx';
 import AppContext from '../context';
 
-
 export default class CompanyHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -29,6 +28,7 @@ export default class CompanyHeader extends React.Component {
     this.retrieveCompanyData();
   }
   retrieveCompanyData() {
+
     fetch('/api/campaigns/company/' + this.context.currentUser.companyID)
       .then(res => res.json())
       .then(res => {

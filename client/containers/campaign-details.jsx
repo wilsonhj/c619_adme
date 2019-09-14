@@ -39,7 +39,7 @@ export default class ViewCampaignDetails extends React.Component {
   }
 
   getCampaignData() {
-    fetch(`http://localhost:3000/api/campaigns/1`)
+    fetch('http://localhost:3000/api/campaigns/' + this.context.campaignID)
       .then(res => res.json())
       .then(res => {
         this.setState({

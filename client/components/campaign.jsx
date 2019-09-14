@@ -44,7 +44,8 @@ export default class Campaign extends React.Component {
           <img className = "pb-4" src={this.props.campaignContent} style={style.video}/>
         </div>
         <NavLink style={style.link} onClick={event => {
-          this.context.setView('campaign-details', { campaignID: this.context.campaignID });
+
+          this.context.setView('campaign-details', { campaignID: this.props.campaignID });
         }}>
               View More <i className="fas fa-plus-circle"></i>
         </NavLink>

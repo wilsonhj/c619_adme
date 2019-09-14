@@ -78,7 +78,8 @@ export default class App extends React.Component {
       setView: this.setView,
       setUser: this.setUser,
       viewParams: this.state.view.params,
-      currentUser: this.state.currentUser
+      currentUser: this.state.currentUser,
+      campaignID: this.state.view.params.campaignID
     };
 
     return (
