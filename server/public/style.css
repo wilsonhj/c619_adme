@@ -100,3 +100,8 @@
   font-size: 2.2rem;
   }
 }
+
+.submissionTitle:hover{
+  color: white;
+  cursor: pointer;
+}

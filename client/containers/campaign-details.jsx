@@ -70,7 +70,10 @@ export default class ViewCampaignDetails extends React.Component {
         counter++;
         return (
           <div style={{ width: '150%' }} key={submissionObj.submissionID}>
-            <h4 className="mt-5 text-center">{submissionObj.submissionTitle}</h4>
+            <h2 className="mt-5 text-center">Top submission</h2>
+            <h4 className="mt-1 submissionTitle" onClick={() => {
+              this.context.setView('submission-details', { submissionID: submissionObj.submissionID });
+            }}>{submissionObj.submissionTitle}</h4>
             <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
               className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
             </video>
@@ -80,12 +83,15 @@ export default class ViewCampaignDetails extends React.Component {
                 <span> </span>{submissionObj.likes}
               </div>
             </div>
+            <h2 className="mt-5 text-center">Other submissions</h2>
           </div>
         );
       } else {
         return (
           <div className="" key={submissionObj.submissionID} style={{ width: '33.33%' }}>
-            <h4 className="mt-5 text-center submission-details-author-name">{submissionObj.submissionTitle}</h4>
+            <h4 className="mt-5 submission-details-author-name submissionTitle" onClick={() => {
+              this.context.setView('submission-details', { submissionID: submissionObj.submissionID });
+            }}>{submissionObj.submissionTitle}</h4>
             <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
               className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
             </video>
