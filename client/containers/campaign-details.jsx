@@ -64,19 +64,41 @@ export default class ViewCampaignDetails extends React.Component {
   }
 
   render() {
+    var counter = 0;
     const submissions = this.state.submissions.map(submissionObj => {
-      return (
-        <React.Fragment key={submissionObj.submissionID}>
-          <h4 className="mt-5 text-center">{submissionObj.submissionTitle}</h4>
-          <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
-            className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
-          </video>
-          <p>{submissionObj.submissionDescription}</p>
-          <div className="p-3 fas fa-heart text-right" style={{ color: 'rgb(132, 29, 158)' }}>
-            {submissionObj.likes}
+      if (!counter) {
+        counter++;
+        return (
+          <div style={{ width: '150%' }} key={submissionObj.submissionID}>
+            <h4 className="mt-5 text-center">{submissionObj.submissionTitle}</h4>
+            <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
+              className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
+            </video>
+            <div className=" d-flex justify-content-between">
+              <p>{submissionObj.submissionDescription}</p>
+              <div className="p-3 fas fa-heart text-right" style={{ color: 'rgb(132, 29, 158)' }}>
+                <span> </span>{submissionObj.likes}
+              </div>
+            </div>
           </div>
-        </React.Fragment>
-      );
+        );
+      } else {
+        return (
+          <div className="" key={submissionObj.submissionID} style={{ width: '33.33%' }}>
+            <h4 className="mt-5 text-center submission-details-author-name">{submissionObj.submissionTitle}</h4>
+            <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
+              className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
+            </video>
+            <div className="d-flex justify-content-end">
+              <div className="p-3 fas fa-heart text-right" style={{ color: 'rgb(132, 29, 158)' }}>
+                <span> </span>{submissionObj.likes}
+              </div>
+            </div>
+
+          </div>
+        );
+      }
+
     });
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
@@ -88,9 +110,17 @@ export default class ViewCampaignDetails extends React.Component {
             this.context.setView('company-dashboard', {});
           }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
         }
-        <h1 className="text-center mt-2 submission-details-title">{this.state.campaignDetails.campaignTitle}</h1>
-        <p className="text-center mt-2 ">{this.state.campaignDetails.description}</p>
-        {submissions}
+        <div className="container bg-white glassCard rounded">
+          <h1 className="text-center mt-2 submission-details-title">{this.state.campaignDetails.campaignTitle}</h1>
+          <p className="text-center mt-1 ">Decription: {this.state.campaignDetails.description}</p>
+          <p className="text-center mt-1 ">Requirements: {this.state.campaignDetails.requirements}</p>
+          <p className="text-center mt-1 ">This ad will be run on: {this.state.campaignDetails.runSpace}</p>
+          <p className="text-center mt-1 ">Reward: {this.state.campaignDetails.rewards}</p>
+          <p className="text-center mt-1 ">{this.state.campaignDetails.preferredContentType}s will be accepted</p>
+        </div>
+        <div className="d-inline-flex flex-wrap container">
+          {submissions}
+        </div>
       </div>
     );
   }
