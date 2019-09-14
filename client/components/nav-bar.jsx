@@ -42,7 +42,7 @@ export default class NavBar extends React.Component {
       this.setState({
         collapsed: !this.state.collapsed
       });
-      this.context.setView('creator-portfolio', {});
+      this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.creatorID });
     };
     const goToSwitchUser = () => {
       event.preventDefault();
@@ -56,7 +56,7 @@ export default class NavBar extends React.Component {
       this.setState({
         collapsed: !this.state.collapsed
       });
-      this.context.setView('company-dashboard', {});
+      this.context.setView('company-dashboard', { companyID: this.context.currentUser.companyID });
     };
     return (
       <div>

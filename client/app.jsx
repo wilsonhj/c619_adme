@@ -9,6 +9,7 @@ import NavBar from './components/nav-bar';
 import ViewSubmissionDetails from './containers/submission-details';
 import CompanyHeader from './containers/company-header.jsx';
 import SwitchUserPage from './containers/switch-user-page';
+import ViewCampaignDetails from './containers/campaign-details';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -65,6 +66,8 @@ export default class App extends React.Component {
         return <UploadSubmission />;
       case 'submission-details':
         return <ViewSubmissionDetails pageID={this.state.view.params.submissionID}/>;
+      case 'campaign-details':
+        return <ViewCampaignDetails pageID={this.state.view.params.campaignID}/>;
       case 'settings':
         return <SwitchUserPage setUser = {this.setUser}/>;
     }
@@ -74,6 +77,7 @@ export default class App extends React.Component {
     const appContext = {
       setView: this.setView,
       setUser: this.setUser,
+      viewParams: this.state.view.params,
       currentUser: this.state.currentUser
     };
 

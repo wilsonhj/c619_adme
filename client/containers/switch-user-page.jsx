@@ -22,9 +22,17 @@ export default class SwitchUserPage extends React.Component {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem onClick={() => {
-                  this.context.setUser(0);
-                  this.context.setView('creator-portfolio', {});
+                  this.context.setUser(1);
+                  this.context.setView('creator-portfolio', { creatorID: 2 });
                 }}>Tim H.</DropdownItem>
+                <DropdownItem onClick={() => {
+                  this.context.setUser(0);
+                  this.context.setView('creator-portfolio', { creatorID: 1 });
+                }}>Daniel Paschal</DropdownItem>
+                <DropdownItem onClick={() => {
+                  this.context.setUser(2);
+                  this.context.setView('creator-portfolio', { creatorID: 3 });
+                }}>Sam Durant</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
 
@@ -34,9 +42,13 @@ export default class SwitchUserPage extends React.Component {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem onClick={() => {
-                  this.context.setUser(1);
-                  this.context.setView('company-dashboard', {});
+                  this.context.setUser(3);
+                  this.context.setView('company-dashboard', { companyID: 1 });
                 }}>Target</DropdownItem>
+                <DropdownItem onClick={() => {
+                  this.context.setUser(4);
+                  this.context.setView('company-dashboard', { companyID: 2 });
+                }}>San Diego Zoo</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
