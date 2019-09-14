@@ -26,8 +26,8 @@ router.post('/', upload.single('campaignContent'), (req, res, next) => {
     req.body.requirements,
     req.body.rewards
   ];
-  connection.execute(`INSERT INTO campaigns 
-                        ( companyID,title, description, preferredContentType, campaignContent, runSpace, requirements, rewards, submissionsReceived) 
+  connection.execute(`INSERT INTO campaigns
+                        ( companyID,campaignTitle, description, preferredContentType, campaignContent, runSpace, requirements, rewards, submissionsReceived)
                       VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, 0);`, params, (err, rows, fields) => {
 
     if (err) throw err;
@@ -54,9 +54,9 @@ router.get('/company/:id', (req, res, next) => {
            co.companyLogo,
            co.companyType
       FROM campaigns AS ca
-      JOIN companies AS co 
+      JOIN companies AS co
         ON co.companyID = ca.companyID
-     WHERE ca.companyID = 1 
+     WHERE ca.companyID = ${req.params.id}
   `;
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {

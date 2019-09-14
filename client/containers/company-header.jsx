@@ -2,7 +2,8 @@ import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import Campaign from '../components/campaign.jsx';
-import AppContext from '../context.js';
+import AppContext from '../context';
+
 
 export default class CompanyHeader extends React.Component {
   constructor(props) {
@@ -25,10 +26,10 @@ export default class CompanyHeader extends React.Component {
     this.retrieveCompanyData = this.retrieveCompanyData.bind(this);
   }
   componentDidMount() {
-    this.retrieveCompanyData(1);
+    this.retrieveCompanyData();
   }
-  retrieveCompanyData(id) {
-    fetch(`/api/campaigns/company/${id}`)
+  retrieveCompanyData() {
+    fetch('/api/campaigns/company/' + this.context.currentUser.companyID)
       .then(res => res.json())
       .then(res => {
         const campaignsArr = res.map(campaign => {

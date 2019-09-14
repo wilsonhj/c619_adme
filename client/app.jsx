@@ -77,6 +77,7 @@ export default class App extends React.Component {
     const appContext = {
       setView: this.setView,
       setUser: this.setUser,
+      viewParams: this.state.view.params,
       currentUser: this.state.currentUser
     };
 
