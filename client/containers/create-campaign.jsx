@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import AppContext from '../context.js';
 
-
 export default class CreateCampaign extends React.Component {
   constructor(props) {
     super(props);

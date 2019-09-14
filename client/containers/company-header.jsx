@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import Campaign from '../components/campaign.jsx';
 import AppContext from '../context';
 
+
 export default class CompanyHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -103,7 +104,7 @@ export default class CompanyHeader extends React.Component {
           <div className="mt-1" style={style.div}>
             <h4 className="mb-0 font-weight-bold" style={{ color: '#242038' }}>{this.state.companyInfo.companyName}</h4>
             <p className="ml-1 my-1" style={{ fontSize: '1rem' }}>{this.state.companyInfo.companyType}</p>
-            <button className="btn shadow my-auto createCampaignButton" onClick={() => this.props.setView()} style={style.button}>Create Campaign</button>
+            <button className="btn shadow my-auto createCampaignButton" onClick={() => this.context.setView('create-campaign', {})} style={style.button}>Create Campaign</button>
           </div>
         </div>
 
@@ -155,5 +156,4 @@ export default class CompanyHeader extends React.Component {
     );
   }
 }
-
 CompanyHeader.contextType = AppContext;
