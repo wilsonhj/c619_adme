@@ -7,17 +7,37 @@ import CreatorPortfolio from './containers/creator-portfolio';
 import UploadSubmission from './containers/upload-submission';
 import NavBar from './components/nav-bar';
 import ViewSubmissionDetails from './containers/submission-details';
+import CompanyHeader from './containers/company-header.jsx';
+import SwitchUserPage from './containers/switch-user-page';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'landing-page',
+        name: 'settings',
         params: {}
-      }
+      },
+      currentUser: {},
+      userOptions: {}
     };
     this.setView = this.setView.bind(this);
+    this.setUser = this.setUser.bind(this);
+  }
+  componentDidMount() {
+    fetch('http://localhost:3000/api/user')
+      .then(res => res.json())
+      .then(res => {
+        var newUserOptionsArray = [];
+        res.map(currentArray => {
+          newUserOptionsArray.push(currentArray);
+        });
+        this.setState({ userOptions: newUserOptionsArray });
+      });
+  }
+
+  setUser(userID) {
+    this.setState({ currentUser: this.state.userOptions[userID] });
   }
 
   setView(name, params) {
@@ -34,21 +54,27 @@ export default class App extends React.Component {
       case 'landing-page':
         return <LandingPage />;
       case 'company-dashboard':
-        return <CompanyDashboard />;
+        return <CompanyDashboard/>;
       case 'create-campaign':
         return <CreateCampaign />;
       case 'creator-portfolio':
         return <CreatorPortfolio />;
+      case 'company-header':
+        return <CompanyHeader/>;
       case 'upload-submission':
         return <UploadSubmission />;
       case 'submission-details':
         return <ViewSubmissionDetails pageID={this.state.view.params.submissionID}/>;
+      case 'settings':
+        return <SwitchUserPage setUser = {this.setUser}/>;
     }
   }
 
   render() {
     const appContext = {
-      setView: this.setView
+      setView: this.setView,
+      setUser: this.setUser,
+      currentUser: this.state.currentUser
     };
 
     return (

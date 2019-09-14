@@ -1,7 +1,7 @@
-.creatorInfoContainer{
+.creatorInfoContainer, .switchUserContainer{
   background-image: linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240));
-  color: #242038;
-  font-family: Futura,Trebuchet MS,Arial,sans-serif;
+  color: #11071be1;
+  font-family: 'Patua One', cursive;
 }
 
 .creatorTab{
@@ -75,7 +75,28 @@
   border-top: 40px solid transparent;
   border-bottom: 40px solid transparent;
   cursor: pointer;
-  border-left: 40px solid whitesmoke;
+  border-left: 40px solid rgba(139, 8, 179, 0.63);
   display: inline-block;
   margin-top: 15%;
+}
+.switchUserDropDown{
+  color: #242038;
+}
+
+@media(max-width: 500px){
+.submission-details-author-name{
+  font-size: 1rem;
+  }
+.submission-details-title {
+  font-size: 1.3rem;
+  }
+}
+
+@media(min-width: 500px){
+.submission-details-author-name{
+  font-size: 1.7rem;
+  }
+  .submission-details-title {
+  font-size: 2.2rem;
+  }
 }

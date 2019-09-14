@@ -44,14 +44,14 @@ export default class LandingPage extends React.Component {
           <div style={{ marginLeft: '8%', marginTop: '7%', border: 'solid .12em #841D9E', height: '5em', width: '5em', borderRadius: '10%', backgroundImage: 'url(' + ads.profilePicture + ')', backgroundSize: 'contain', display: 'inline-block' }}>
           </div>
           <div className="row" style={{ marginTop: '10%', verticalAlign: 'top', display: 'inline-block' }}>
-            <div style={{ marginLeft: '40%', display: 'inline-block' }}>
+            <div style={{ marginLeft: '20%', display: 'inline-block' }}>
               {ads.firstName} {ads.lastName}
             </div>
-            <div style={{ marginTop: '5%', marginLeft: '40%' }}>
+            <div style={{ marginTop: '5%', marginLeft: '20%', textOverflow: 'ellipsis' }}>
               {ads.title}
             </div>
           </div>
-          <div className="container" style={{ backgroundImage: 'url(' + ads.profilePicture + ')', height: '50%', width: '80%', marginTop: '4%', backgroundSize: '100%', backgroundRepeat: 'no-repeat' }}>
+          <div className="container" style={{ backgroundImage: 'url(' + ads.submissionThumbnail + ')', height: '50%', width: '80%', marginTop: '4%', backgroundSize: '100%', backgroundRepeat: 'no-repeat', border: 'solid .12em #841D9E' }}>
             <div className="playButton" style={{ marginLeft: '40%', verticalAlign: 'center' }}></div>
           </div>
         </div>
@@ -63,7 +63,7 @@ export default class LandingPage extends React.Component {
         <div className=' glassCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%' }} key={campaign.campaignID}>
           <div className='row' style={{ 'width': '95%', 'paddingLeft': '8%', 'paddingTop': '3%' }}>
             <div className="col" style={{ 'textAlign': 'center', 'fontSize': '2em' }}>
-              {campaign.title}
+              {campaign.campaignTitle}
             </div>
           </div>
           <div className="container">
@@ -74,7 +74,6 @@ export default class LandingPage extends React.Component {
         </div>
       );
     });
-    let winners = [];
 
     return (
       <div className="container" >
