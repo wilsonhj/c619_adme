@@ -41,7 +41,7 @@ export default class LandingPage extends React.Component {
       return (
         <div className='glassCard' style={{ display: 'inline-block', width: '25em', height: '20em', backgroundColor: 'white', margin: '1rem', borderRadius: '10%' }} key={ads.subID} >
 
-          <div style={{ marginLeft: '8%', marginTop: '7%', border: 'solid .12em #841D9E', height: '5em', width: '5em', borderRadius: '10%', backgroundImage: 'url(' + ads.profilePicture + ')', backgroundSize: 'contain', display: 'inline-block' }}>
+          <div style={{ marginLeft: '8%', marginTop: '7%', border: 'solid .12em #841D9E', height: '5em', width: '5em', borderRadius: '10%', backgroundImage: 'url(' + ads.profilePicture + ')', backgroundSize: 'contain', display: 'inline-block', backgroundRepeat: 'no-repeat' }}>
           </div>
           <div className="row" style={{ marginTop: '10%', verticalAlign: 'top', display: 'inline-block' }}>
             <div style={{ marginLeft: '20%', display: 'inline-block' }}>
