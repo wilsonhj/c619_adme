@@ -84,7 +84,12 @@ export default class ViewSubmissionDetails extends React.Component {
 
         </div>
 
-        <div className="text-center mt-2 submission-details-title">{this.state.title}</div>
+        <div className="d-flex mt-2 submission-details-title justify-content-between align-items-center">
+          <p>{this.state.title}</p>
+          <div className="fas fa-star mr-2 pickWinner" style={{ color: 'white' }}>
+
+          </div>
+        </div>
         <video src={this.state.submissionContent} className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
         </video>
         <div className="py-2 mx-4">

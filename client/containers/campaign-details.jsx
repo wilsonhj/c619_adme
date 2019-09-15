@@ -71,9 +71,16 @@ export default class ViewCampaignDetails extends React.Component {
         return (
           <div style={{ width: '150%' }} key={submissionObj.submissionID}>
             <h2 className="mt-5 text-center">Top submission</h2>
-            <h4 className="mt-1 submissionTitle" onClick={() => {
-              this.context.setView('submission-details', { submissionID: submissionObj.submissionID });
-            }}>{submissionObj.submissionTitle}</h4>
+            <div className="d-flex justify-content-between align-items-center">
+              <h4 className="mt-1 submissionTitle" onClick={() => {
+                this.context.setView('submission-details', { submissionID: submissionObj.submissionID });
+              }}>{submissionObj.submissionTitle}</h4>
+              <div className="fas fa-star pickWinner" style={{ color: 'white' }} onClick={() => {
+
+              }}>
+
+              </div>
+            </div>
             <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
               className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
             </video>
