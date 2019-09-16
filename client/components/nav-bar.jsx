@@ -79,7 +79,7 @@ export default class NavBar extends React.Component {
               }}></NavLink>
             </NavItem>
             <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink style={{
+              <NavLink onClick = {() => { this.context.setView('all-campaigns-page', {}); }} style={{
                 'padding': '0rem .5rem',
                 'height': '3rem',
                 'width': '4rem',
@@ -207,7 +207,7 @@ export default class NavBar extends React.Component {
                 <NavLink >Messages</NavLink>
               </NavItem>
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                <NavLink >Campaigns</NavLink>
+                <NavLink onClick={() => { this.context.setView('all-campaigns-page', {}); }} >Campaigns</NavLink>
               </NavItem >
               <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
                 <NavLink onClick={goToSwitchUser}href="">Settings</NavLink>
