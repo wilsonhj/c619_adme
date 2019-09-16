@@ -68,10 +68,14 @@ export default class CompanyHeader extends React.Component {
       color: '#9067C6'
     };
     style.button = {
-      height: '30px',
-      width: '130px',
-      backgroundColor: 'white',
-      fontSize: '0.75rem'
+      backgroundColor: '#0070c9',
+      color: 'white',
+      fontSize: '0.75rem',
+      cursor: 'pointer',
+      textAlign: 'center',
+      fontWeight: '400',
+      display: 'inline-block',
+      whiteSpace: 'nowrap'
     };
     style.logo = {
       height: '40px',
@@ -97,23 +101,26 @@ export default class CompanyHeader extends React.Component {
       height: '60vmin',
       width: '100%'
     };
+    style.tabs = {
+      padding: '.3rem .3rem'
+    };
     return (
-      <div className="row background-light justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ backgroundImage: 'linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240))', paddingLeft: '3%', paddingRight: '3%' }}>
+      <div className="row background-primary justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ backgroundImage: 'linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240))', paddingLeft: '3%', paddingRight: '3%' }}>
         <div className="row background-light justify-content-around align-items-center companyHeader">
           <img src={this.state.companyInfo.companyLogo} className="rounded-circle shadow" style={style.image}></img>
-          <div className="mt-1" style={style.div}>
-            <h4 className="mb-0 font-weight-bold" style={{ color: '#242038' }}>{this.state.companyInfo.companyName}</h4>
-            <p className="ml-1 my-1" style={{ fontSize: '1rem' }}>{this.state.companyInfo.companyType}</p>
-            <button className="btn shadow my-auto createCampaignButton" onClick={() => this.context.setView('create-campaign', {})} style={style.button}>Create Campaign</button>
+          <div className="flex-wrap" style={style.div}>
+            <h4 className="mb-2 font-weight-bold" style={{ color: '#242038' }}>{this.state.companyInfo.companyName}</h4>
+            <button className="btn shadow mb-3 p-1 createCampaignButton" onClick={() => this.context.setView('create-campaign', {})} style={style.button}>Create Campaign</button>
           </div>
         </div>
 
-        <div className="col light tab-text p-0">
+        <div className="col light tab-text">
           <Nav tabs>
             <NavItem>
               <NavLink
                 className={classnames({ active: this.state.activeTab === '1' })}
                 onClick={() => { this.toggle('1'); }}
+                style={style.tabs}
               >Current Campaigns
               </NavLink>
             </NavItem>
@@ -121,6 +128,7 @@ export default class CompanyHeader extends React.Component {
               <NavLink
                 className={classnames({ active: this.state.activeTab === '2' })}
                 onClick={() => { this.toggle('2'); }}
+                style={style.tabs}
               >
                 Previous Campaigns
               </NavLink>

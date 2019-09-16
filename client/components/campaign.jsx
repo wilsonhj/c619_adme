@@ -19,7 +19,7 @@ export default class Campaign extends React.Component {
     const style = {};
     style.card = {
       width: '100%',
-      backgroundColor: '#ffffff'
+      backgroundColor: '#f8f9fa'
     };
     style.text = {
       color: 'black',

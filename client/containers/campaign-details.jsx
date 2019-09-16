@@ -64,14 +64,23 @@ export default class ViewCampaignDetails extends React.Component {
   }
 
   render() {
+    const style = {};
+    style.text = {
+      display: 'block',
+      marginBlockStart: '1em',
+      marginInlineStart: '0px',
+      transform: 'matrix(1,0,0,1,0,0)'
+    };
     const submissions = this.state.submissions.map(submissionObj => {
       return (
         <React.Fragment key={submissionObj.submissionID}>
-          <h4 className="mt-5 text-center">{submissionObj.submissionTitle}</h4>
+          <h4 className="m-1 text-center">{submissionObj.submissionTitle}</h4>
           <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
             className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
           </video>
-          <p>{submissionObj.submissionDescription}</p>
+          <div className="container">
+            <p className style={style.text}>{submissionObj.submissionDescription}</p>
+          </div>
           <div className="p-3 fas fa-heart text-right" style={{ color: 'rgb(132, 29, 158)' }}>
             {submissionObj.likes}
           </div>
@@ -88,8 +97,6 @@ export default class ViewCampaignDetails extends React.Component {
             this.context.setView('company-dashboard', {});
           }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
         }
-        <h1 className="text-center mt-2 submission-details-title">{this.state.campaignDetails.campaignTitle}</h1>
-        <p className="text-center mt-2 ">{this.state.campaignDetails.description}</p>
         {submissions}
       </div>
     );
