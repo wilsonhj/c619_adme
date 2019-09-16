@@ -94,6 +94,7 @@ export default class ViewCampaignDetails extends React.Component {
               }}>{submissionObj.submissionTitle}</h4>
               <div className="fas fa-star pickWinner" style={{ color: 'white' }} onClick={() => {
                 this.chooseWinner(submissionObj.submissionID);
+
               }}>
 
               </div>
