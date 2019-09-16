@@ -28,8 +28,7 @@ export default class CompanyHeader extends React.Component {
     this.retrieveCompanyData();
   }
   retrieveCompanyData() {
-
-    fetch('/api/campaigns/company/' + this.context.currentUser.companyID)
+    fetch('/api/campaigns/company/' + this.context.currentUser.id.companyID)
       .then(res => res.json())
       .then(res => {
         const campaignsArr = res.map(campaign => {

@@ -59,8 +59,24 @@ export default class ViewSubmissionDetails extends React.Component {
             isLikedByThisUser: !this.state.isLikedByThisUser
           });
         });
-
     }
+  }
+
+  chooseWinner(id) {
+
+    const init = {
+      method: 'POST'
+    };
+    fetch(`http://localhost:3000/api/winningAds/${id}`, init)
+      .then(res => res.json())
+      .then(res => {
+        // eslint-disable-next-line no-console
+        console.log(res);
+      })
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      });
   }
 
   render() {
@@ -84,7 +100,14 @@ export default class ViewSubmissionDetails extends React.Component {
 
         </div>
 
-        <div className="text-center mt-2 submission-details-title">{this.state.title}</div>
+        <div className="d-flex mt-2 submission-details-title justify-content-between align-items-center">
+          <p className="ml-2 my-auto">{this.state.title}</p>
+          <div className="fas fa-star mr-2 pickWinner" style={{ color: 'white' }} onClick={() => {
+            this.chooseWinner(this.props.pageID);
+          }}>
+
+          </div>
+        </div>
         <video src={this.state.submissionContent} className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
         </video>
         <div className="py-2 mx-4">
