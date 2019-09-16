@@ -63,6 +63,23 @@ export default class ViewCampaignDetails extends React.Component {
       });
   }
 
+  chooseWinner(id) {
+
+    const init = {
+      method: 'POST'
+    };
+    fetch(`http://localhost:3000/api/winningAds/${id}`, init)
+      .then(res => res.json())
+      .then(res => {
+        // eslint-disable-next-line no-console
+        console.log(res);
+      })
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      });
+  }
+
   render() {
     var counter = 0;
     const submissions = this.state.submissions.map(submissionObj => {
@@ -76,7 +93,7 @@ export default class ViewCampaignDetails extends React.Component {
                 this.context.setView('submission-details', { submissionID: submissionObj.submissionID });
               }}>{submissionObj.submissionTitle}</h4>
               <div className="fas fa-star pickWinner" style={{ color: 'white' }} onClick={() => {
-
+                this.chooseWinner(submissionObj.submissionID);
               }}>
 
               </div>
