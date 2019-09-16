@@ -56,7 +56,7 @@ router.get('/company/:id', (req, res, next) => {
       FROM campaigns AS ca
       JOIN companies AS co
         ON co.companyID = ca.companyID
-     WHERE ca.companyID = ${req.params.id}
+     WHERE ca.companyID = ?
   `;
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {

@@ -79,6 +79,11 @@
   display: inline-block;
   margin-top: 15%;
 }
+
+.campaignCard, .profilePicSmall {
+  cursor: pointer;
+}
+
 .switchUserDropDown{
   color: #242038;
 }

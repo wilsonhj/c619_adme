@@ -60,7 +60,8 @@ export default class NavBar extends React.Component {
     };
     return (
       <div>
-        <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
+        <>
+        <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E', width: '100%', position: 'fixed', zIndex: '1' }} light expand="md">
           <div style={{
             'height': '3rem',
             'color': '#EEEEEE',
@@ -182,6 +183,8 @@ export default class NavBar extends React.Component {
             </NavItem>
           </Nav>
         </Navbar>
+          <div className='d-none d-md-block' style={{ height: '3rem', width: '100vw' }}></div>
+          </>
         <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100%', 'textAlign': 'center', 'padding': '0' }} light>
           <div style={{
             'height': '3rem',
