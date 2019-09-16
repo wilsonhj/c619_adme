@@ -42,7 +42,7 @@ export default class NavBar extends React.Component {
       this.setState({
         collapsed: !this.state.collapsed
       });
-      this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.creatorID });
+      this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
     };
     const goToSwitchUser = () => {
       event.preventDefault();
@@ -56,167 +56,171 @@ export default class NavBar extends React.Component {
       this.setState({
         collapsed: !this.state.collapsed
       });
-      this.context.setView('company-dashboard', { companyID: this.context.currentUser.companyID });
+      this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
     };
-    return (
-      <div>
-        <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
-          <div style={{
-            'height': '3rem',
-            'color': '#EEEEEE',
-            'fontSize': '3em',
-            'fontFamily': 'Modak, cursive',
-            'lineHeight': '100%',
-            'display': 'inline-block',
-            'cursor': 'pointer'
-          }} onClick={goToLandingPage}>AdMe</div>
-          <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
+    if (this.context.currentUser.type === 'company' || this.context.currentUser.type === 'creator') {
+      return (
+        <div>
+          <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
+            <div style={{
+              'height': '3rem',
+              'color': '#EEEEEE',
+              'fontSize': '3em',
+              'fontFamily': 'Modak, cursive',
+              'lineHeight': '100%',
+              'display': 'inline-block',
+              'cursor': 'pointer'
+            }} onClick={goToLandingPage}>AdMe</div>
+            <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
 
-            <NavItem>
-              <NavLink style={{
-                'height': '3rem',
-                'width': '2rem'
-              }}></NavLink>
-            </NavItem>
-            <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink onClick = {() => { this.context.setView('all-campaigns-page', {}); }} style={{
-                'padding': '0rem .5rem',
-                'height': '3rem',
-                'width': '4rem',
-                'backgroundRepeat': 'no-repeat',
-                'cursor': 'pointer'
-              }}><CampaignIcon style={{
-                  'bottom': '10%'
-                }}/>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink style={{
-                'height': '3rem',
-                'width': '2rem'
-              }}></NavLink>
-            </NavItem>
-            <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink style={{
-                'padding': '0rem .5rem',
-                'height': '3rem',
-                'width': '4rem',
-                'backgroundRepeat': 'no-repeat',
-                'cursor': 'pointer'
-              }}><MessagesIcon style={{
-                  'bottom': '10%'
-                }} />
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink style={{
-                'height': '3rem',
-                'width': '2rem'
-              }}></NavLink>
-            </NavItem>
-            <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink style={{
-                'padding': '0rem .5rem',
-                'height': '3rem',
-                'width': '4rem',
-                'backgroundRepeat': 'no-repeat',
-                'cursor': 'pointer'
-              }}><NotificationIcon style={{
-                  'bottom': '10%'
-                }} />
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink style={{
-                'height': '3rem',
-                'width': '2rem'
-              }}></NavLink>
-            </NavItem>
-            {this.context.currentUser.creatorID ? <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink onClick={goToCreatorPortfolio} style={{
-                'padding': '0rem .5rem',
-                'height': '3rem',
-                'width': '4rem',
-                'backgroundRepeat': 'no-repeat',
-                'cursor': 'pointer'
-              }}><PortfolioIcon style={{
-                  'bottom': '10%'
-                }} />
-              </NavLink>
-            </NavItem> : <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink onClick={goToCompanyDashboard} style={{
-                'padding': '0rem .5rem',
-                'height': '3rem',
-                'width': '4rem',
-                'backgroundRepeat': 'no-repeat',
-                'cursor': 'pointer'
-              }}><CompanyIcon style={{
-                  'bottom': '10%'
-                }} />
-              </NavLink>
-            </NavItem>}
-
-            <NavItem>
-              <NavLink style={{
-                'height': '3rem',
-                'width': '2rem'
-              }}></NavLink>
-            </NavItem>
-            <NavItem style={{ 'bottom': '10%' }}>
-              <NavLink onClick={goToSwitchUser} style={{
-                'padding': '0rem .5rem',
-                'height': '3rem',
-                'width': '4rem',
-                'backgroundRepeat': 'no-repeat',
-                'cursor': 'pointer'
-              }}><SettingsIcon style={{
-                  'bottom': '10%'
-                }} />
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink style={{
-                'height': '3rem',
-                'width': '2rem'
-              }}></NavLink>
-            </NavItem>
-          </Nav>
-        </Navbar>
-        <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100%', 'textAlign': 'center', 'padding': '0' }} light>
-          <div style={{
-            'height': '3rem',
-            'color': '#EEEEEE',
-            'fontSize': '3em',
-            'fontFamily': 'Modak, cursive',
-            'paddingBottom': '20%',
-            'display': 'inline-block',
-            'textAlign': 'center'
-          }}>AdMe</div>
-          <NavbarToggler style={{ 'float': 'right' }} onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse style={{ 'padding': '0' }} isOpen={!this.state.collapsed} navbar>
-            <Nav navbar>
-              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                <NavLink onClick={goToLandingPage}>Home</NavLink>
+              <NavItem>
+                <NavLink style={{
+                  'height': '3rem',
+                  'width': '2rem'
+                }}></NavLink>
               </NavItem>
-              {this.context.currentUser.creatorID ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                <NavLink onClick={goToCreatorPortfolio}>Creator Portfolio</NavLink>
-              </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                <NavLink onClick={goToCompanyDashboard}>Company Dashboard</NavLink>
+              <NavItem style={{ 'bottom': '10%' }}>
+                <NavLink onClick = {() => { this.context.setView('all-campaigns-page', {}); }} style={{
+                  'padding': '0rem .5rem',
+                  'height': '3rem',
+                  'width': '4rem',
+                  'backgroundRepeat': 'no-repeat',
+                  'cursor': 'pointer'
+                }}><CampaignIcon style={{
+                    'bottom': '10%'
+                  }}/>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink style={{
+                  'height': '3rem',
+                  'width': '2rem'
+                }}></NavLink>
+              </NavItem>
+              <NavItem style={{ 'bottom': '10%' }}>
+                <NavLink style={{
+                  'padding': '0rem .5rem',
+                  'height': '3rem',
+                  'width': '4rem',
+                  'backgroundRepeat': 'no-repeat',
+                  'cursor': 'pointer'
+                }}><MessagesIcon style={{
+                    'bottom': '10%'
+                  }} />
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink style={{
+                  'height': '3rem',
+                  'width': '2rem'
+                }}></NavLink>
+              </NavItem>
+              <NavItem style={{ 'bottom': '10%' }}>
+                <NavLink style={{
+                  'padding': '0rem .5rem',
+                  'height': '3rem',
+                  'width': '4rem',
+                  'backgroundRepeat': 'no-repeat',
+                  'cursor': 'pointer'
+                }}><NotificationIcon style={{
+                    'bottom': '10%'
+                  }} />
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink style={{
+                  'height': '3rem',
+                  'width': '2rem'
+                }}></NavLink>
+              </NavItem>
+              {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'bottom': '10%' }}>
+                <NavLink onClick={goToCreatorPortfolio} style={{
+                  'padding': '0rem .5rem',
+                  'height': '3rem',
+                  'width': '4rem',
+                  'backgroundRepeat': 'no-repeat',
+                  'cursor': 'pointer'
+                }}><PortfolioIcon style={{
+                    'bottom': '10%'
+                  }} />
+                </NavLink>
+              </NavItem> : <NavItem style={{ 'bottom': '10%' }}>
+                <NavLink onClick={goToCompanyDashboard} style={{
+                  'padding': '0rem .5rem',
+                  'height': '3rem',
+                  'width': '4rem',
+                  'backgroundRepeat': 'no-repeat',
+                  'cursor': 'pointer'
+                }}><CompanyIcon style={{
+                    'bottom': '10%'
+                  }} />
+                </NavLink>
               </NavItem>}
-              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                <NavLink >Messages</NavLink>
+
+              <NavItem>
+                <NavLink style={{
+                  'height': '3rem',
+                  'width': '2rem'
+                }}></NavLink>
               </NavItem>
-              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                <NavLink onClick={() => { this.context.setView('all-campaigns-page', {}); }} >Campaigns</NavLink>
-              </NavItem >
-              <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
-                <NavLink onClick={goToSwitchUser}href="">Settings</NavLink>
+              <NavItem style={{ 'bottom': '10%' }}>
+                <NavLink onClick={goToSwitchUser} style={{
+                  'padding': '0rem .5rem',
+                  'height': '3rem',
+                  'width': '4rem',
+                  'backgroundRepeat': 'no-repeat',
+                  'cursor': 'pointer'
+                }}><SettingsIcon style={{
+                    'bottom': '10%'
+                  }} />
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink style={{
+                  'height': '3rem',
+                  'width': '2rem'
+                }}></NavLink>
               </NavItem>
             </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
-    );
+          </Navbar>
+          <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100%', 'textAlign': 'center', 'padding': '0' }} light>
+            <div style={{
+              'height': '3rem',
+              'color': '#EEEEEE',
+              'fontSize': '3em',
+              'fontFamily': 'Modak, cursive',
+              'paddingBottom': '20%',
+              'display': 'inline-block',
+              'textAlign': 'center'
+            }}>AdMe</div>
+            <NavbarToggler style={{ 'float': 'right' }} onClick={this.toggleNavbar} className="mr-2" />
+            <Collapse style={{ 'padding': '0' }} isOpen={!this.state.collapsed} navbar>
+              <Nav navbar>
+                <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
+                  <NavLink onClick={goToLandingPage}>Home</NavLink>
+                </NavItem>
+                {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
+                  <NavLink onClick={goToCreatorPortfolio}>Creator Portfolio</NavLink>
+                </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
+                  <NavLink onClick={goToCompanyDashboard}>Company Dashboard</NavLink>
+                </NavItem>}
+                <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
+                  <NavLink >Messages</NavLink>
+                </NavItem>
+                <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
+                  <NavLink onClick={() => { this.context.setView('all-campaigns-page', {}); }} >Campaigns</NavLink>
+                </NavItem >
+                <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
+                  <NavLink onClick={goToSwitchUser}href="">Settings</NavLink>
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Navbar>
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 NavBar.contextType = AppContext;

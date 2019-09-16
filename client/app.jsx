@@ -55,12 +55,14 @@ export default class App extends React.Component {
       id = this.state.userOptions.companies.filter(company => {
         if (company.companyID === userID) return company.companyID;
       });
-    } else {
+      id = id[0].companyID;
+    } else if (type === 'creator') {
       id = this.state.userOptions.creators.filter(creator => {
         if (creator.creatorID === userID) return creator.creatorID;
       });
+      id = id[0].creatorID;
     }
-    this.setState({ currentUser: { type, id: id[0] } });
+    this.setState({ currentUser: { type, id } });
   }
 
   setView(name, params) {
@@ -104,6 +106,7 @@ export default class App extends React.Component {
       viewParams: this.state.view.params,
       currentUser: this.state.currentUser,
       campaignID: this.state.view.params.campaignID
+
     };
 
     return (
