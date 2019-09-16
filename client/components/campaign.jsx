@@ -18,13 +18,8 @@ export default class Campaign extends React.Component {
   render() {
     const style = {};
     style.card = {
-<<<<<<< HEAD
-      width: '100%',
-      backgroundColor: '#f8f9fa'
-=======
       width: '33.33%',
       display: 'inline-block'
->>>>>>> d1fcf0609ca35868b3247860339f6ed49470c98e
     };
     style.text = {
       color: 'black',
