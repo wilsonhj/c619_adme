@@ -20,8 +20,14 @@ export default class App extends React.Component {
         name: 'settings',
         params: {}
       },
-      currentUser: {},
-      userOptions: {}
+      currentUser: {
+        type: '',
+        id: 0
+      },
+      userOptions: {
+        creators: [],
+        companies: []
+      }
     };
     this.setView = this.setView.bind(this);
     this.setUser = this.setUser.bind(this);
@@ -30,16 +36,31 @@ export default class App extends React.Component {
     fetch('http://localhost:3000/api/user')
       .then(res => res.json())
       .then(res => {
-        var newUserOptionsArray = [];
+        var creators = [];
+        var companies = [];
         res.map(currentArray => {
-          newUserOptionsArray.push(currentArray);
+          if (currentArray.companyID) {
+            companies.push(currentArray);
+          } else {
+            creators.push(currentArray);
+          }
         });
-        this.setState({ userOptions: newUserOptionsArray });
+        this.setState({ userOptions: { creators, companies } });
       });
   }
 
-  setUser(userID) {
-    this.setState({ currentUser: this.state.userOptions[userID] });
+  setUser(userID, type) {
+    var id;
+    if (type === 'company') {
+      id = this.state.userOptions.companies.filter(company => {
+        if (company.companyID === userID) return company.companyID;
+      });
+    } else {
+      id = this.state.userOptions.creators.filter(creator => {
+        if (creator.creatorID === userID) return creator.creatorID;
+      });
+    }
+    this.setState({ currentUser: { type, id: id[0] } });
   }
 
   setView(name, params) {
