@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../context.js';
 
 export default class AllCampaigns extends React.Component {
   constructor(props) {
@@ -26,7 +27,11 @@ export default class AllCampaigns extends React.Component {
   render() {
     let campaigns = this.state.recentCampaigns.map(campaign => {
       return (
-        <div className=' glassCard' style={{ 'flex': '0 0 auto', 'width': '20em', 'height': '18em', 'margin': '1rem', 'borderRadius': '10%' }} key={campaign.campaignID}>
+        <div className=' glassCard' style={{ 'flex': '0 0 auto', 'width': '20em', 'height': '18em', 'margin': '1rem', 'borderRadius': '10%' }}
+          onClick={event => {
+            this.context.setView('campaign-details', { campaignID: campaign.campaignID });
+          }}
+          key={campaign.campaignID}>
 
           <div className="container">
             <div style={{ 'textAlign': 'center', 'fontSize': '2em' }}>
@@ -52,3 +57,4 @@ export default class AllCampaigns extends React.Component {
   }
 
 }
+AllCampaigns.contextType = AppContext;
