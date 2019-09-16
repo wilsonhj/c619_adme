@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
-import classnames from 'classnames';
 import AppContext from '../context';
+import classnames from 'classnames';
 // import { ClientHttp2Session } from 'http2';
 
 export default class CreatorPortfolio extends React.Component {
@@ -39,7 +39,7 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserInfo() {
-    fetch('http://localhost:3000/api/creators/2')
+    fetch('http://localhost:3000/api/creators/' + this.context.viewParams.creatorID)
       .then(res => res.json())
       .then(res => {
         this.setState({ creatorInfo: {
@@ -55,13 +55,12 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserSubmissions() {
-    fetch('http://localhost:3000/api/creators/2/submissions').then(res => res.json()).then(res => {
+    fetch('http://localhost:3000/api/creators/' + this.context.viewParams.creatorID + '/submissions').then(res => res.json()).then(res => {
       var creatorSubmissionsArray = [];
       res.map(currentEntry => {
-        var newSubmissionContent = currentEntry.submissionContent.substring(currentEntry.submissionContent.indexOf('uploads'));
         var submissionObject = {
           requestID: currentEntry.requestID,
-          submissionContent: newSubmissionContent,
+          submissionContent: currentEntry.submissionContent,
           submissionDescription: currentEntry.submissionDescription,
           submissionID: currentEntry.submissionID,
           submissionThumbnail: currentEntry.submissionThumbnail,
@@ -102,6 +101,7 @@ export default class CreatorPortfolio extends React.Component {
                 <NavItem>
                   <NavLink
                     className={classnames({ active: this.state.activeTab === '1' })}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => { this.toggle('1'); }}
                   >
                     Experience
@@ -110,6 +110,7 @@ export default class CreatorPortfolio extends React.Component {
                 <NavItem>
                   <NavLink
                     className={classnames({ active: this.state.activeTab === '2' })}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => { this.toggle('2'); }}
                   >
                     Bio
@@ -124,12 +125,12 @@ export default class CreatorPortfolio extends React.Component {
                         {this.state.submissionsInfo.map(currentEntry => {
                           return (
                             <React.Fragment key={currentEntry.submissionID}>
-                              <h5 className="mx-auto" name={currentEntry.submissionID} onClick={this.props.goToSubmissionDetails}>{currentEntry.title}
+                              <h5 className="mx-auto" name={currentEntry.submissionID} >{currentEntry.title}
                               </h5>
 
-                              <video className = "pb-4 mx-auto" src={currentEntry.submissionContent} controls
+                              <img className="pb-4 mx-auto" src={currentEntry.submissionThumbnail} onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }} controls
                                 style={{ width: '90%' }}>
-                              </video>
+                              </img>
                             </React.Fragment>
                           );
                         })}
@@ -149,5 +150,6 @@ export default class CreatorPortfolio extends React.Component {
       </React.Fragment>
     );
   }
+
 }
 CreatorPortfolio.contextType = AppContext;

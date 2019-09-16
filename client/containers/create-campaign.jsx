@@ -1,15 +1,17 @@
 import React from 'react';
-import AppContext from '../context';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import AppContext from '../context.js';
 
 export default class CreateCampaign extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
       description: '',
       requirements: '',
       runSpace: '',
-      rewards: ''
+      rewards: '',
+      preferredContentType: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,7 +22,6 @@ export default class CreateCampaign extends React.Component {
       { [event.target.name]: event.target.value }
     );
   }
-
   handleSubmit(event) {
     event.preventDefault();
     var data = new FormData(event.target);
@@ -38,7 +39,11 @@ export default class CreateCampaign extends React.Component {
   render() {
     return (
       <Form className="p-4 rounded m-3 creatorSubmissionForm" onSubmit={this.handleSubmit}>
-        <h4 className="mb-3 mx-auto font-weight-bold">Upload Your Submission</h4>
+        <h4 className="mb-3 mx-auto font-weight-bold">Create Campaign</h4>
+        <FormGroup>
+          <Label>Campaign Title </Label>
+          <Input className="shadow-sm" type="text" name="title" onChange={this.handleChange} required/>
+        </FormGroup>
         <FormGroup>
           <Label>Description </Label>
           <Input className="shadow-sm" type="text" name="description" onChange={this.handleChange} required/>
@@ -56,10 +61,18 @@ export default class CreateCampaign extends React.Component {
           <Input className="shadow-sm" onChange={this.handleChange} type="text" name="rewards" required/>
         </FormGroup>
         <FormGroup>
-          <Label for="file">File</Label>
+          <Label>Specify type of media to be uploaded by content creators</Label>
+          <Input className="shadow-sm" onChange={this.handleChange} type="select" name="preferredContentType" required>
+            <option></option>
+            <option value="Video">Video</option>
+            <option value="Image">Image</option>
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label for="file">Upload Campaign Image</Label>
           <Input onChange={this.handleChange} type="file" name="campaignContent" id="file" required/>
           <FormText color="muted">
-            Please upload a file:
+            Upload an Image:
           </FormText>
         </FormGroup>
         <Button className="shadow creatorSubmitButton">Submit</Button>
@@ -67,5 +80,4 @@ export default class CreateCampaign extends React.Component {
     );
   }
 }
-
 CreateCampaign.contextType = AppContext;
