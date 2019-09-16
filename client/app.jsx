@@ -10,6 +10,7 @@ import ViewSubmissionDetails from './containers/submission-details';
 import CompanyHeader from './containers/company-header.jsx';
 import SwitchUserPage from './containers/switch-user-page';
 import ViewCampaignDetails from './containers/campaign-details';
+import AllCampaigns from './containers/all-campaigns-page';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -91,6 +92,8 @@ export default class App extends React.Component {
         return <ViewCampaignDetails pageID={this.state.view.params.campaignID}/>;
       case 'settings':
         return <SwitchUserPage setUser = {this.setUser}/>;
+      case 'all-campaigns-page':
+        return <AllCampaigns />;
     }
   }
 
