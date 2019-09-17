@@ -11,6 +11,8 @@ import CompanyHeader from './containers/company-header.jsx';
 import SwitchUserPage from './containers/switch-user-page';
 import ViewCampaignDetails from './containers/campaign-details';
 import AllCampaigns from './containers/all-campaigns-page';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -106,14 +108,38 @@ export default class App extends React.Component {
       viewParams: this.state.view.params,
       currentUser: this.state.currentUser,
       campaignID: this.state.view.params.campaignID
-
     };
-
     return (
       <AppContext.Provider value={appContext} >
         <>
+          <Router>
+            <nav>
+              <Link to='/'>Landing Page</Link>{' '}
+              <Link to='/company-dashboard'>Company Dashboard</Link>{' '}
+              <Link to='/create-campaign'>Create Campaign</Link>{' '}
+              <Link to='/creator-portfolio'>Creator Portfolio</Link>{' '}
+              <Link to='/company-header'>Company Header</Link>{' '}
+              <Link to='/upload-submission'>Upload Submission</Link>{' '}
+              <Link to='/submission-details'>Submission Details</Link>{' '}
+              <Link to='/campaign-details'>View Campaign Details</Link>{' '}
+              <Link to='/settings'>Settings</Link>{' '}
+              <Link to='/all-campaigsn-page'>All Campaigns</Link>{' '}
+            </nav>
+            <Route exact path='/' component={LandingPage} />
+            <Route path='/company-dashboard' component={CompanyDashboard} />
+            <Route exact path='/create-campaign' component={CreateCampaign} />
+            <Route path='/creator-portfolio' component={CreatorPortfolio} />
+            <Route path='/company-header' component={CompanyHeader}></Route>
+            <Route path='/upload-submission' component={UploadSubmission}></Route>
+            <Route path='/submission-details' component={ViewSubmissionDetails}></Route>  {/* pageID={this.state.view.params.submissionID} */}
+            <Route path='/campaign-details' component={ViewCampaignDetails}></Route>
+            <Route path='/settings' component={SwitchUserPage}></Route>
+            <Route path='/all-campaigns-page' component={AllCampaigns}></Route>
+          </Router>
+        </>
+        <>
           <NavBar />
-        {this.renderView()}
+        {/* {this.renderView()} */}
         </>
       </AppContext.Provider>
     );

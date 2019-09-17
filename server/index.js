@@ -1,4 +1,5 @@
 require('dotenv/config');
+const path = require('path');
 const connection = require('./connection');
 const express = require('express');
 const companies = require('./companies');
@@ -19,6 +20,9 @@ server.use('/api/campaigns', campaigns);
 server.use('/api/submissions', submissions);
 server.use('/api/winningAds', winningAds);
 server.use('/api/user', user);
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 server.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log('its listening closely');
