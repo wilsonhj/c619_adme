@@ -34,6 +34,9 @@ module.exports = {
     port: process.env.DEV_PORT,
     contentBase: publicPath,
     watchContentBase: true,
+    watchOptions: {
+      ignored: /uploads/
+    },
     stats: 'minimal',
     proxy: {
       '/api': 'http://localhost:' + process.env.PORT

@@ -27,7 +27,7 @@ export default class CreateCampaign extends React.Component {
     var data = new FormData(event.target);
     data.append('submissionsReceived', '0');
     data.append('companyID', '1');
-    fetch('http://localhost:3000/api/campaigns',
+    fetch('/api/campaigns',
       {
         method: 'POST',
         body: data

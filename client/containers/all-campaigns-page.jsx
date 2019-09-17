@@ -15,7 +15,7 @@ export default class AllCampaigns extends React.Component {
   }
 
   getCampaigns() {
-    fetch('http://localhost:3000/api/campaigns')
+    fetch('/api/campaigns')
       .then(res => res.json())
       .then(res => {
         this.setState({

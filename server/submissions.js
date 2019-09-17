@@ -43,7 +43,7 @@ router.get('/:submissionID', (req, res, next) => {
 });
 
 router.delete('/:submissionID', jsonParser, (req, res, next) => {
-  connection.query(`DELETE from submissions WHERE submissionsID = ${req.params.submissionID}`, (err, rows, fields) => {
+  connection.query(`DELETE from submissions WHERE submissionID = ${req.params.submissionID}`, (err, rows, fields) => {
     if (err) throw err;
     res.send(rows);
   });
