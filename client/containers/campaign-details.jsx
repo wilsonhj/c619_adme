@@ -32,6 +32,7 @@ export default class ViewCampaignDetails extends React.Component {
       }]
     };
     this.getCampaignData = this.getCampaignData.bind(this);
+    this.chooseWinner = this.chooseWinner.bind(this);
   }
 
   componentDidMount() {
@@ -63,17 +64,17 @@ export default class ViewCampaignDetails extends React.Component {
       });
   }
 
-  chooseWinner(id) {
-
+  chooseWinner(id, body) {
+    let subBody = JSON.stringify({ submissionID: body });
     const init = {
-      method: 'POST'
+      method: 'POST',
+      body: subBody,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
-    fetch(`http://localhost:3000/api/winningAds/${id}`, init)
+    fetch(`/api/winningAds/${id}`, init)
       .then(res => res.json())
-      .then(res => {
-        // eslint-disable-next-line no-console
-        console.log(res);
-      })
       .catch(err => {
         // eslint-disable-next-line no-console
         console.log(err);
@@ -90,10 +91,10 @@ export default class ViewCampaignDetails extends React.Component {
             <h2 className="mt-5 text-center">Top submission</h2>
             <div className="d-flex justify-content-between align-items-center">
               <h4 className="mt-1 submissionTitle" onClick={() => {
-                this.context.setView('submission-details', { submissionID: submissionObj.submissionID });
+                this.context.setView('submission-details', { submissionID: parseInt(submissionObj.submissionID) });
               }}>{submissionObj.submissionTitle}</h4>
               <div className="fas fa-star pickWinner" style={{ color: 'white' }} onClick={() => {
-                this.chooseWinner(submissionObj.submissionID);
+                this.chooseWinner(this.state.campaignDetails.campaignID, submissionObj.submissionID);
 
               }}>
 
