@@ -106,7 +106,6 @@ export default class App extends React.Component {
       viewParams: this.state.view.params,
       currentUser: this.state.currentUser,
       campaignID: this.state.view.params.campaignID
-
     };
 
     return (

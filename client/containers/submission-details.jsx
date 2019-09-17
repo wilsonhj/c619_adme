@@ -82,16 +82,16 @@ export default class ViewSubmissionDetails extends React.Component {
   render() {
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
-        {this.context.currentUser.creatorID
+        {this.context.currentUser.type === 'creator'
           ? <div className="d-inline ml-2 fas fa-arrow-left" onClick = {() => {
-            this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.creatorID });
+            this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
           }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
           : <div className="d-inline ml-2 fas fa-arrow-left" onClick={() => {
-            this.context.setView('company-dashboard', { companyID: this.context.currentUser.companyID });
+            this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
           }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
         }
         <div className='ml-2 mt-3 d-inline-block' style={{ width: '60%' }} onClick={() => {
-          this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.creatorID });
+          this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
         }}>
           <img className="d-inline-block rounded-circle shadow mx-auto"
             style={{ backgroundSize: 'contain', height: '9vmin' }}

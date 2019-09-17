@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import AppContext from '../context';
 
 export default class UploadSubmission extends React.Component {
   constructor(props) {
@@ -22,11 +23,10 @@ export default class UploadSubmission extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
     var formData = new FormData(event.target);
     formData.append('likes', '0');
-    formData.append('creatorID', '1');
-    formData.append('requestID', '1');
+    formData.append('creatorID', this.context.viewParams.creatorID);
+    formData.append('campaignID', this.context.viewParams.campaignID);
 
     fetch('http://localhost:3000/api/submissions',
       {
@@ -35,6 +35,8 @@ export default class UploadSubmission extends React.Component {
 
       })
       .then(res => res.json()).catch(err => { throw err; });
+    this.context.setView('submission-details', { submissionsID: this.context.viewParams.creatorID });
+    event.preventDefault();
 
   }
 
@@ -77,3 +79,5 @@ export default class UploadSubmission extends React.Component {
     );
   }
 }
+
+UploadSubmission.contextType = AppContext;
