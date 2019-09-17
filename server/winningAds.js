@@ -3,16 +3,27 @@ const connection = require('./connection');
 const router = express.Router();
 
 // pick a winner by submissionID
-router.post('/:submisionID', (req, res, next) => {
+router.post('/:campaignID', express.json(), (req, res, next) => {
+  console.log(req.body.submissionID);
   let params = [
-    req.params.submissionID
-    // req.body.campaignID
+    req.params.campaignID,
+    req.body.submissionID
   ];
-  // connection.execute(`SELECT * FROM winningAds`)
-  connection.execute(`INSERT INTO winningAds (submissionID) VALUES ( ? );`, params, (err, rows, fields) => {
+
+  connection.query(`SELECT * FROM winningAds WHERE campaignID = ?`, params, (err, rows, fields) => {
     if (err) throw err;
-    res.json(rows);
-  });
+
+    if (rows.length !== 0) {
+      res.send('WINNER ALREADY EXISTS');
+    } else {
+      connection.query(`INSERT INTO winningAds (campaignID, submissionID) VALUES ( ?, ? );`, params, (err, rows, fields) => {
+        if (err) throw err;
+        res.json(rows);
+      });
+
+    }
+  }
+  );
 });
 
 // select all winners

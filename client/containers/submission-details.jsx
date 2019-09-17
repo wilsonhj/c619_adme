@@ -14,7 +14,8 @@ export default class ViewSubmissionDetails extends React.Component {
       campaignCompanyID: null,
       submissionCreatorID: null,
       submissionAuthorName: '',
-      submissionsAuthorPicture: ''
+      submissionsAuthorPicture: '',
+      campaignID: null
     };
     this.getSubmissionData = this.getSubmissionData.bind(this);
     this.updateLikes = this.updateLikes.bind(this);
@@ -38,7 +39,8 @@ export default class ViewSubmissionDetails extends React.Component {
           submissionAuthorName: res[0].first_name + ' ' + res[0].last_name,
           submissionAuthorPicture: res[0].profilePicture,
           submissionCreatorID: res[0].creatorID,
-          campaignCompanyID: res[0].companyID
+          campaignCompanyID: res[0].companyID,
+          campaignID: res[0].campaignID
         });
       });
   }
@@ -71,10 +73,14 @@ export default class ViewSubmissionDetails extends React.Component {
     }
   }
 
-  chooseWinner(id) {
-
+  chooseWinner(id, body) {
+    let subBody = JSON.stringify({ submissionID: body });
     const init = {
-      method: 'POST'
+      method: 'POST',
+      body: subBody,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
     fetch(`/api/winningAds/${id}`, init)
       .then(res => res.json())
@@ -121,7 +127,7 @@ export default class ViewSubmissionDetails extends React.Component {
         <div className="d-flex mt-2 submission-details-title justify-content-between align-items-center">
           <p className="ml-2 my-auto">{this.state.title}</p>
           {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.campaignCompanyID) ? <div className="fas fa-star mr-2 pickWinner" style={{ color: 'white' }} onClick={() => {
-            this.chooseWinner(this.props.pageID);
+            this.chooseWinner(this.state.campaignID, this.props.pageID);
           }}>
           </div> : null}
         </div>
