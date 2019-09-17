@@ -119,10 +119,10 @@ export default class ViewCampaignDetails extends React.Component {
               <h4 className="mt-1 submissionTitle" onClick={() => {
                 this.context.setView('submission-details', { submissionID: submissionObj.submissionID });
               }}>{submissionObj.submissionTitle}</h4>
-              <div className="fas fa-star pickWinner" style={{ color: 'white' }} onClick={() => {
+              {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.companyInfo.companyID) ? <div className="fas fa-star pickWinner" style={{ color: 'white' }} onClick={() => {
                 this.chooseWinner(submissionObj.submissionID);
               }}>
-              </div>
+              </div> : null}
 
             </div>
             <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}

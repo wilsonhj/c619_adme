@@ -9,7 +9,8 @@ export default class ViewSubmissionDetails extends React.Component {
       submissionContent: '',
       title: '',
       likes: 0,
-      submissionDescription: ''
+      submissionDescription: '',
+      campaignCompanyID: null
     };
     this.getSubmissionData = this.getSubmissionData.bind(this);
     this.updateLikes = this.updateLikes.bind(this);
@@ -29,7 +30,9 @@ export default class ViewSubmissionDetails extends React.Component {
           likes: res[0].likes,
           submissionDescription: res[0].submissionDescription,
           submissionAuthorName: res[0].first_name + ' ' + res[0].last_name,
-          submissionAuthorPicture: res[0].profilePicture
+          submissionAuthorPicture: res[0].profilePicture,
+          submissionCreatorID: res[0].creatorID,
+          campaignCompanyID: res[0].companyID
         });
       });
   }
@@ -91,22 +94,19 @@ export default class ViewSubmissionDetails extends React.Component {
           }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
         }
         <div className='ml-2 mt-3 d-inline-block' style={{ width: '60%' }} onClick={() => {
-          this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
+          this.context.setView('creator-portfolio', { creatorID: this.state.submissionCreatorID });
         }}>
           <img className="d-inline-block rounded-circle shadow mx-auto"
             style={{ backgroundSize: 'contain', height: '9vmin' }}
             src={this.state.submissionAuthorPicture} alt="Author avatar not available" />
           <div className="ml-1 d-inline-block submission-details-author-name">{this.state.submissionAuthorName}</div>
-
         </div>
-
         <div className="d-flex mt-2 submission-details-title justify-content-between align-items-center">
           <p className="ml-2 my-auto">{this.state.title}</p>
-          <div className="fas fa-star mr-2 pickWinner" style={{ color: 'white' }} onClick={() => {
+          {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.campaignCompanyID) ? <div className="fas fa-star mr-2 pickWinner" style={{ color: 'white' }} onClick={() => {
             this.chooseWinner(this.props.pageID);
           }}>
-
-          </div>
+          </div> : null}
         </div>
         <video src={this.state.submissionContent} className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
         </video>
