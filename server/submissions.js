@@ -42,6 +42,13 @@ router.get('/:submissionID', (req, res, next) => {
   });
 });
 
+router.delete('/:submissionID', jsonParser, (req, res, next) => {
+  connection.query(`DELETE from submissions WHERE submissionsID = ${req.params.submissionID}`, (err, rows, fields) => {
+    if (err) throw err;
+    res.send(rows);
+  });
+});
+
 router.post('/likes/:submissionID', jsonParser, (req, res, next) => {
   connection.execute('UPDATE submissions SET `likes` = likes + 1 WHERE `submissionID` = ?', [req.params.submissionID], (err, rows, fields) => {
     if (err) throw err;
