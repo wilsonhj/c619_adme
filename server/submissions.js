@@ -25,7 +25,12 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:submissionID', (req, res, next) => {
-  connection.query('SELECT * FROM `submissions` AS s JOIN `creators` AS c ON s.creatorID = c.creatorID WHERE s.submissionID = ' + req.params.submissionID, (err, rows, fields) => {
+  connection.query(`SELECT * FROM submissions AS s
+   JOIN campaigns as c
+   ON s.campaignID = c.campaignID
+   JOIN  creators
+   ON s.creatorID = creators.creatorID
+   WHERE s.submissionID = ${req.params.submissionID}`, (err, rows, fields) => {
     if (err) throw err;
     if (rows[0].submissionThumbnail) {
       rows[0].submissionThumbnail = rows[0].submissionThumbnail.substring(rows[0].submissionThumbnail.indexOf('uploads'));
@@ -37,14 +42,9 @@ router.get('/:submissionID', (req, res, next) => {
   });
 });
 
-router.get('/trending/submissions', (req, res, next) => {
-  const query = 'SELECT c.creatorID, c.first_name AS firstName, c.last_name AS lastName, c.profilePicture AS profilePicture, s.submissionID AS subID, s.creatorID, s.title AS title, s.likes, s.submissionThumbnail FROM `creators` AS c JOIN `submissions` AS s ON s.creatorID = c.creatorID ORDER BY `likes` DESC';
-  connection.query(query, (err, rows, fields) => {
+router.delete('/:submissionID', jsonParser, (req, res, next) => {
+  connection.query(`DELETE from submissions WHERE submissionID = ${req.params.submissionID}`, (err, rows, fields) => {
     if (err) throw err;
-    rows.forEach(rows => {
-      rows.submissionThumbnail = rows.submissionThumbnail.substring(rows.submissionThumbnail.indexOf('uploads'));
-    });
-
     res.send(rows);
   });
 });

@@ -19,7 +19,7 @@ export default class LandingPage extends React.Component {
   }
 
   getCampaigns() {
-    fetch('http://localhost:3000/api/campaigns').then(res => res.json())
+    fetch('/api/campaigns').then(res => res.json())
       .then(res => {
         this.setState({
           recentCampaigns: res
@@ -28,7 +28,7 @@ export default class LandingPage extends React.Component {
   }
 
   getTrending() {
-    fetch('http://localhost:3000/api/submissions/trending/submissions').then(res => res.json())
+    fetch('/api/submissions/trending/submissions').then(res => res.json())
       .then(res => {
         this.setState({
           trendingAds: res

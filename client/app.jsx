@@ -10,6 +10,7 @@ import ViewSubmissionDetails from './containers/submission-details';
 import CompanyHeader from './containers/company-header.jsx';
 import SwitchUserPage from './containers/switch-user-page';
 import ViewCampaignDetails from './containers/campaign-details';
+import AllCampaigns from './containers/all-campaigns-page';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export default class App extends React.Component {
     this.setUser = this.setUser.bind(this);
   }
   componentDidMount() {
-    fetch('http://localhost:3000/api/user')
+    fetch('/api/user')
       .then(res => res.json())
       .then(res => {
         var creators = [];
@@ -54,12 +55,14 @@ export default class App extends React.Component {
       id = this.state.userOptions.companies.filter(company => {
         if (company.companyID === userID) return company.companyID;
       });
-    } else {
+      id = id[0].companyID;
+    } else if (type === 'creator') {
       id = this.state.userOptions.creators.filter(creator => {
         if (creator.creatorID === userID) return creator.creatorID;
       });
+      id = id[0].creatorID;
     }
-    this.setState({ currentUser: { type, id: id[0] } });
+    this.setState({ currentUser: { type, id } });
   }
 
   setView(name, params) {
@@ -91,6 +94,8 @@ export default class App extends React.Component {
         return <ViewCampaignDetails pageID={this.state.view.params.campaignID}/>;
       case 'settings':
         return <SwitchUserPage setUser = {this.setUser}/>;
+      case 'all-campaigns-page':
+        return <AllCampaigns />;
     }
   }
 

@@ -5,14 +5,21 @@ export default class ViewSubmissionDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      submissionID: null,
       isLikedByThisUser: false,
       submissionContent: '',
       title: '',
       likes: 0,
-      submissionDescription: ''
+      submissionDescription: '',
+      campaignCompanyID: null,
+      submissionCreatorID: null,
+      submissionAuthorName: '',
+      submissionsAuthorPicture: '',
+      campaignID: null
     };
     this.getSubmissionData = this.getSubmissionData.bind(this);
     this.updateLikes = this.updateLikes.bind(this);
+    this.deleteSubmission = this.deleteSubmission.bind(this);
   }
 
   componentDidMount() {
@@ -20,23 +27,27 @@ export default class ViewSubmissionDetails extends React.Component {
   }
 
   getSubmissionData() {
-    fetch(`http://localhost:3000/api/submissions/${this.props.pageID}`)
+    fetch(`/api/submissions/${this.props.pageID}`)
       .then(res => res.json())
       .then(res => {
         this.setState({
+          submissionID: res[0].submissionID,
           submissionContent: res[0].submissionContent,
           title: res[0].title,
           likes: res[0].likes,
           submissionDescription: res[0].submissionDescription,
           submissionAuthorName: res[0].first_name + ' ' + res[0].last_name,
-          submissionAuthorPicture: res[0].profilePicture
+          submissionAuthorPicture: res[0].profilePicture,
+          submissionCreatorID: res[0].creatorID,
+          campaignCompanyID: res[0].companyID,
+          campaignID: res[0].campaignID
         });
       });
   }
 
   updateLikes() {
     if (!this.state.isLikedByThisUser) {
-      fetch('http://localhost:3000/api/submissions/likes/' + this.props.pageID,
+      fetch('/api/submissions/likes/' + this.props.pageID,
         {
           method: 'POST'
         })
@@ -48,7 +59,7 @@ export default class ViewSubmissionDetails extends React.Component {
           });
         });
     } else if (this.state.isLikedByThisUser) {
-      fetch('http://localhost:3000/api/submissions/dislikes/' + this.props.pageID,
+      fetch('/api/submissions/dislikes/' + this.props.pageID,
         {
           method: 'POST'
         })
@@ -62,12 +73,16 @@ export default class ViewSubmissionDetails extends React.Component {
     }
   }
 
-  chooseWinner(id) {
-
+  chooseWinner(id, body) {
+    let subBody = JSON.stringify({ submissionID: body });
     const init = {
-      method: 'POST'
+      method: 'POST',
+      body: subBody,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
-    fetch(`http://localhost:3000/api/winningAds/${id}`, init)
+    fetch(`/api/winningAds/${id}`, init)
       .then(res => res.json())
       .then(res => {
         // eslint-disable-next-line no-console
@@ -79,34 +94,42 @@ export default class ViewSubmissionDetails extends React.Component {
       });
   }
 
+  deleteSubmission() {
+    const init = {
+      method: 'delete'
+
+    };
+    fetch(`/api/submissions/${this.state.submissionID}`, init)
+      .then(res => res.json()).then(res => {
+        this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
+      });
+  }
+
   render() {
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
-        {this.context.currentUser.creatorID
+        {this.context.currentUser.type === 'creator'
           ? <div className="d-inline ml-2 fas fa-arrow-left" onClick = {() => {
-            this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.creatorID });
+            this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
           }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
           : <div className="d-inline ml-2 fas fa-arrow-left" onClick={() => {
-            this.context.setView('company-dashboard', { companyID: this.context.currentUser.companyID });
+            this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
           }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
         }
         <div className='ml-2 mt-3 d-inline-block' style={{ width: '60%' }} onClick={() => {
-          this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.creatorID });
+          this.context.setView('creator-portfolio', { creatorID: this.state.submissionCreatorID });
         }}>
           <img className="d-inline-block rounded-circle shadow mx-auto"
             style={{ backgroundSize: 'contain', height: '9vmin' }}
             src={this.state.submissionAuthorPicture} alt="Author avatar not available" />
           <div className="ml-1 d-inline-block submission-details-author-name">{this.state.submissionAuthorName}</div>
-
         </div>
-
         <div className="d-flex mt-2 submission-details-title justify-content-between align-items-center">
           <p className="ml-2 my-auto">{this.state.title}</p>
-          <div className="fas fa-star mr-2 pickWinner" style={{ color: 'white' }} onClick={() => {
-            this.chooseWinner(this.props.pageID);
+          {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.campaignCompanyID) ? <div className="fas fa-star mr-2 pickWinner" style={{ color: 'white' }} onClick={() => {
+            this.chooseWinner(this.state.campaignID, this.props.pageID);
           }}>
-
-          </div>
+          </div> : null}
         </div>
         <video src={this.state.submissionContent} className="mx-auto my-2 shadow" style={{ width: '95%' }} controls>
         </video>
@@ -119,7 +142,9 @@ export default class ViewSubmissionDetails extends React.Component {
             )}
           </div>
           <div>{this.state.submissionDescription}</div>
-
+          {this.context.currentUser.type === 'creator' && this.context.currentUser.id === this.state.submissionCreatorID ? (
+            <button onClick={this.deleteSubmission} className="btn-danger my-3">Delete This Post</button>
+          ) : null }
         </div>
       </div>
     );
