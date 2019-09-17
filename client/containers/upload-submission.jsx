@@ -23,21 +23,15 @@ export default class UploadSubmission extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     var formData = new FormData(event.target);
     formData.append('likes', '0');
     formData.append('creatorID', this.context.viewParams.creatorID);
     formData.append('campaignID', this.context.viewParams.campaignID);
-
-    fetch('http://localhost:3000/api/submissions',
-      {
-        method: 'POST',
-        body: formData
-
-      })
-      .then(res => res.json()).catch(err => { throw err; });
-    this.context.setView('submission-details', { submissionsID: this.context.viewParams.creatorID });
-    event.preventDefault();
-
+    fetch('/api/submissions', {
+      method: 'POST',
+      body: formData
+    }).then(this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id }));
   }
 
   render() {
@@ -74,7 +68,7 @@ export default class UploadSubmission extends React.Component {
             Please select the image your would like to use for the thumbnail.
           </FormText>
         </FormGroup>
-        <Button className="shadow creatorSubmitButton">Submit</Button>
+        <Button type ="submit" className="shadow creatorSubmitButton">Submit</Button>
       </Form>
     );
   }

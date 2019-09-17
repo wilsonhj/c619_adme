@@ -18,6 +18,7 @@ export default class ViewSubmissionDetails extends React.Component {
     };
     this.getSubmissionData = this.getSubmissionData.bind(this);
     this.updateLikes = this.updateLikes.bind(this);
+    this.deleteSubmission = this.deleteSubmission.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +26,7 @@ export default class ViewSubmissionDetails extends React.Component {
   }
 
   getSubmissionData() {
-    fetch(`http://localhost:3000/api/submissions/${this.props.pageID}`)
+    fetch(`/api/submissions/${this.props.pageID}`)
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -44,7 +45,7 @@ export default class ViewSubmissionDetails extends React.Component {
 
   updateLikes() {
     if (!this.state.isLikedByThisUser) {
-      fetch('http://localhost:3000/api/submissions/likes/' + this.props.pageID,
+      fetch('/api/submissions/likes/' + this.props.pageID,
         {
           method: 'POST'
         })
@@ -56,7 +57,7 @@ export default class ViewSubmissionDetails extends React.Component {
           });
         });
     } else if (this.state.isLikedByThisUser) {
-      fetch('http://localhost:3000/api/submissions/dislikes/' + this.props.pageID,
+      fetch('/api/submissions/dislikes/' + this.props.pageID,
         {
           method: 'POST'
         })
@@ -75,7 +76,7 @@ export default class ViewSubmissionDetails extends React.Component {
     const init = {
       method: 'POST'
     };
-    fetch(`http://localhost:3000/api/winningAds/${id}`, init)
+    fetch(`/api/winningAds/${id}`, init)
       .then(res => res.json())
       .then(res => {
         // eslint-disable-next-line no-console
@@ -89,9 +90,13 @@ export default class ViewSubmissionDetails extends React.Component {
 
   deleteSubmission() {
     const init = {
-      method: 'DELETE'
+      method: 'delete'
+
     };
-    fetch(`/api/submissions/${this.state.submissionID}`, init);
+    fetch(`/api/submissions/${this.state.submissionID}`, init)
+      .then(res => res.json()).then(res => {
+        this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
+      });
   }
 
   render() {
@@ -132,7 +137,7 @@ export default class ViewSubmissionDetails extends React.Component {
           </div>
           <div>{this.state.submissionDescription}</div>
           {this.context.currentUser.type === 'creator' && this.context.currentUser.id === this.state.submissionCreatorID ? (
-            <button className="btn-danger my-3">Delete This Post</button>
+            <button onClick={this.deleteSubmission} className="btn-danger my-3">Delete This Post</button>
           ) : null }
         </div>
       </div>

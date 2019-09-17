@@ -33,7 +33,7 @@ export default class App extends React.Component {
     this.setUser = this.setUser.bind(this);
   }
   componentDidMount() {
-    fetch('http://localhost:3000/api/user')
+    fetch('/api/user')
       .then(res => res.json())
       .then(res => {
         var creators = [];
