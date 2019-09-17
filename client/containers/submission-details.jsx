@@ -1,4 +1,5 @@
 import React from 'react';
+import ConfirmationModal from '../components/confirmation-modal';
 import AppContext from '../context';
 
 export default class ViewSubmissionDetails extends React.Component {
@@ -19,6 +20,7 @@ export default class ViewSubmissionDetails extends React.Component {
     this.getSubmissionData = this.getSubmissionData.bind(this);
     this.updateLikes = this.updateLikes.bind(this);
     this.deleteSubmission = this.deleteSubmission.bind(this);
+    this.createConfirmation = this.createConfirmation.bind(this);
   }
 
   componentDidMount() {
@@ -99,6 +101,10 @@ export default class ViewSubmissionDetails extends React.Component {
       });
   }
 
+  createConfirmation() {
+    return <ConfirmationModal />;
+  }
+
   render() {
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
@@ -135,9 +141,9 @@ export default class ViewSubmissionDetails extends React.Component {
               <i className="ml-1 far fa-heart" onClick={this.updateLikes} style={{ color: 'rgb(132, 29, 158)' }}></i>
             )}
           </div>
-          <div>{this.state.submissionDescription}</div>
+          <div className='mt-2 mb-3'>{this.state.submissionDescription}</div>
           {this.context.currentUser.type === 'creator' && this.context.currentUser.id === this.state.submissionCreatorID ? (
-            <button onClick={this.deleteSubmission} className="btn-danger my-3">Delete This Post</button>
+            <ConfirmationModal deleteSubmission={this.deleteSubmission} />
           ) : null }
         </div>
       </div>
