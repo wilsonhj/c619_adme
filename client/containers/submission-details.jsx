@@ -5,6 +5,7 @@ export default class ViewSubmissionDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      submissionID: null,
       isLikedByThisUser: false,
       submissionContent: '',
       title: '',
@@ -28,6 +29,7 @@ export default class ViewSubmissionDetails extends React.Component {
       .then(res => res.json())
       .then(res => {
         this.setState({
+          submissionID: res[0].submissionID,
           submissionContent: res[0].submissionContent,
           title: res[0].title,
           likes: res[0].likes,
@@ -85,6 +87,13 @@ export default class ViewSubmissionDetails extends React.Component {
       });
   }
 
+  deleteSubmission() {
+    const init = {
+      method: 'DELETE'
+    };
+    fetch(`/api/submissions/${this.state.submissionID}`, init);
+  }
+
   render() {
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
@@ -122,7 +131,9 @@ export default class ViewSubmissionDetails extends React.Component {
             )}
           </div>
           <div>{this.state.submissionDescription}</div>
-
+          {this.context.currentUser.type === 'creator' && this.context.currentUser.id === this.state.submissionCreatorID ? (
+            <button className="btn-danger my-3">Delete This Post</button>
+          ) : null }
         </div>
       </div>
     );
