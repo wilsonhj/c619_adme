@@ -49,6 +49,10 @@ export default class SwitchUserPage extends React.Component {
                   this.context.setUser(2, 'company');
                   this.context.setView('company-dashboard', { companyID: 2 });
                 }}>San Diego Zoo</DropdownItem>
+                <DropdownItem onClick={() => {
+                  this.context.setUser(3, 'company');
+                  this.context.setView('company-dashboard', { companyID: 3 });
+                }}>Tampax</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
