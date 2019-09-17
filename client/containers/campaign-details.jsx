@@ -82,6 +82,7 @@ export default class ViewCampaignDetails extends React.Component {
   makeSubmissionButton() {
     const style = {};
     style.button = {
+      width: '30%',
       backgroundColor: '#0070c9',
       color: 'white',
       fontSize: '0.75rem',
@@ -105,7 +106,7 @@ export default class ViewCampaignDetails extends React.Component {
       cursor: 'pointer',
       textAlign: 'center',
       fontWeight: '400',
-      display: 'inline-block',
+      display: 'block',
       whiteSpace: 'nowrap'
     };
     var counter = 0;
@@ -140,7 +141,7 @@ export default class ViewCampaignDetails extends React.Component {
         );
       } else {
         return (
-          <div className="" key={submissionObj.submissionID} style={{ width: '33.33%' }}>
+          <div className="mr-5" key={submissionObj.submissionID} style={{ width: '33.33%' }}>
             <h4 className="mt-5 submission-details-author-name submissionTitle" onClick={() => {
               this.context.setView('submission-details', { submissionID: submissionObj.submissionID });
             }}>{submissionObj.submissionTitle}</h4>
@@ -177,7 +178,12 @@ export default class ViewCampaignDetails extends React.Component {
           <p className="text-center mt-1 ">Reward: {this.state.campaignDetails.rewards}</p>
           <p className="text-center mt-1 ">{this.state.campaignDetails.preferredContentType}s will be accepted</p>
         </div>
-        {this.makeSubmissionButton()}
+        <div className='d-flex justify-content-center mt-4'>
+          <div>Add a submission to this campaign</div>
+        </div>
+        <div className='d-flex justify-content-center mt-1'>
+          {this.makeSubmissionButton()}
+        </div>
         <div className="d-inline-flex flex-wrap container">
           {submissions}
         </div>
