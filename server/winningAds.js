@@ -4,7 +4,6 @@ const router = express.Router();
 
 // pick a winner by submissionID
 router.post('/:campaignID', express.json(), (req, res, next) => {
-  console.log(req.body.submissionID);
   let params = [
     req.params.campaignID,
     req.body.submissionID
@@ -14,7 +13,7 @@ router.post('/:campaignID', express.json(), (req, res, next) => {
     if (err) throw err;
 
     if (rows.length !== 0) {
-      res.send('WINNER ALREADY EXISTS');
+      res.json('WINNER ALREADY EXISTS');
     } else {
       connection.query(`INSERT INTO winningAds (campaignID, submissionID) VALUES ( ?, ? );`, params, (err, rows, fields) => {
         if (err) throw err;

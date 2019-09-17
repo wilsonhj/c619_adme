@@ -24,6 +24,26 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/trending', (req, res, next) => {
+  connection.query(`SELECT * FROM submissions AS s
+   JOIN campaigns as c
+   ON s.campaignID = c.campaignID
+   JOIN  creators
+   ON s.creatorID = creators.creatorID
+   ORDER BY s.likes`, (err, rows, fields) => {
+    if (err) throw err;
+    rows.forEach(row => {
+      if (row.submissionThumbnail) {
+        row.submissionThumbnail = row.submissionThumbnail.substring(row.submissionThumbnail.indexOf('uploads'));
+      }
+      if (row.submissionContent) {
+        row.submissionContent = row.submissionContent.substring(row.submissionContent.indexOf('uploads'));
+      }
+    });
+    res.send(rows);
+  });
+});
+
 router.get('/:submissionID', (req, res, next) => {
   connection.query(`SELECT * FROM submissions AS s
    JOIN campaigns as c
