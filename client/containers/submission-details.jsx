@@ -10,7 +10,10 @@ export default class ViewSubmissionDetails extends React.Component {
       title: '',
       likes: 0,
       submissionDescription: '',
-      campaignCompanyID: null
+      campaignCompanyID: null,
+      submissionCreatorID: null,
+      submissionAuthorName: '',
+      submissionsAuthorPicture: ''
     };
     this.getSubmissionData = this.getSubmissionData.bind(this);
     this.updateLikes = this.updateLikes.bind(this);
