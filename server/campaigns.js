@@ -30,13 +30,13 @@ router.post('/', upload.single('campaignContent'), (req, res, next) => {
                         ( companyID,campaignTitle, description, preferredContentType, campaignContent, runSpace, requirements, rewards, submissionsReceived)
                       VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, 0);`, params, (err, rows, fields) => {
 
-    if (err) throw err;
+    if (err) return next(err);
     let response = {
       requestBody: req.body,
       requestFileStorageInfo: req.file,
       mySqlRows: rows
     };
-    res.json(response);
+    res.status(201).json(response);
   });
 
 });
@@ -77,7 +77,7 @@ router.get('/company/:id', (req, res, next) => {
           }
         }
       });
-      res.send(rows);
+      res.status(200).send(rows);
     });
   });
 });
@@ -108,7 +108,7 @@ router.get('/prevcompany/:id', (req, res, next) => {
           }
         }
       });
-      res.send(rows);
+      res.status(200).send(rows);
     });
   });
 });
