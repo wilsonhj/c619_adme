@@ -61,7 +61,8 @@ export default class CompanyHeader extends React.Component {
     const style = {};
     style.image = {
       backgroundSize: 'contain',
-      height: '75px'
+      height: '5rem',
+      width: '7.8rem'
     };
     style.div = {
       color: '#9067C6'

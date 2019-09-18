@@ -1,5 +1,6 @@
 import React from 'react';
 import AppContext from '../context';
+import StarWinnerConfirmationModal from '../components/star-winner-confirmation-modal';
 
 export default class ViewCampaignDetails extends React.Component {
   constructor(props) {
@@ -94,11 +95,12 @@ export default class ViewCampaignDetails extends React.Component {
       whiteSpace: 'nowrap'
     };
     return (this.context.currentUser.type === 'creator'
-      ? <button style={style.button} onClick={() => this.context.setView('upload-submission', { creatorID: this.context.currentUser.id, campaignID: this.context.campaignID })}>Make Submission</button>
+      ? <React.Fragment><div className='block'><div>Add a submission to this campaign</div></div> <button style={style.button} onClick={() => this.context.setView('upload-submission', { creatorID: this.context.currentUser.id, campaignID: this.context.campaignID })}>Make Submission</button></React.Fragment>
       : null);
   }
 
   render() {
+
     const style = {};
     style.button = {
       backgroundColor: '#0070c9',
@@ -121,10 +123,12 @@ export default class ViewCampaignDetails extends React.Component {
               <h4 className="mt-1 submissionTitle" onClick={() => {
                 this.context.setView('submission-details', { submissionID: parseInt(submissionObj.submissionID) });
               }}>{submissionObj.submissionTitle}</h4>
-              {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.companyInfo.companyID) ? <div className="fas fa-star pickWinner" style={{ color: 'white' }} onClick={() => {
-                this.chooseWinner(this.state.campaignDetails.campaignID, submissionObj.submissionID);
-              }}>
-              </div> : null}
+              {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.companyInfo.companyID)
+                ? <StarWinnerConfirmationModal chooseWinner={this.chooseWinner}
+                  message="Are you sure you would like to choose this submission as this campaign's winner?"
+                  campaignID = {this.state.campaignDetails.campaignID}
+                  submissionID={submissionObj.submissionID}/>
+                : null}
 
             </div>
             <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
@@ -180,7 +184,7 @@ export default class ViewCampaignDetails extends React.Component {
           <p className="text-center mt-1 ">{this.state.campaignDetails.preferredContentType}s will be accepted</p>
         </div>
         <div className='d-flex justify-content-center mt-4'>
-          <div>Add a submission to this campaign</div>
+
         </div>
         <div className='d-flex justify-content-center mt-1'>
           {this.makeSubmissionButton()}

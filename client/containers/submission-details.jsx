@@ -149,7 +149,7 @@ export default class ViewSubmissionDetails extends React.Component {
           </div>
           <div className='mt-2 mb-3'>{this.state.submissionDescription}</div>
           {this.context.currentUser.type === 'creator' && this.context.currentUser.id === this.state.submissionCreatorID ? (
-            <ConfirmationModal deleteSubmission={this.deleteSubmission} />
+            <ConfirmationModal deleteSubmission={this.deleteSubmission} message={'Are you sure you want to delete this posting?'}/>
           ) : null }
         </div>
       </div>
