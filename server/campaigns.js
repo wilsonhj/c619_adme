@@ -68,7 +68,48 @@ router.get('/company/:id', (req, res, next) => {
         row.campaignContent = '';
       }
     });
-    res.send(rows);
+    connection.execute(`SELECT * FROM winningAds`, (err, winningRows, fields) => {
+      if (err) throw err;
+      winningRows.forEach(winner => {
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].campaignID === winner.campaignID) {
+            rows[i] = null;
+          }
+        }
+      });
+      res.send(rows);
+    });
+  });
+});
+
+router.get('/prevcompany/:id', (req, res, next) => {
+
+  const query = `
+    SELECT *
+      FROM campaigns
+     WHERE companyID = ?
+  `;
+
+  connection.execute(query, [req.params.id], (err, rows, fields) => {
+    if (err) throw err;
+    rows.forEach(row => {
+      if (row.campaignContent !== null) {
+        row.campaignContent = row.campaignContent.substring(row.campaignContent.indexOf('uploads'));
+      } else {
+        row.campaignContent = '';
+      }
+    });
+    connection.execute(`SELECT * FROM winningAds`, (err, winningRows, fields) => {
+      if (err) throw err;
+      winningRows.forEach(winner => {
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].campaignID !== winner.campaignID) {
+            rows[i] = null;
+          }
+        }
+      });
+      res.send(rows);
+    });
   });
 });
 
@@ -107,9 +148,6 @@ router.get('/:id', (req, res, next) => {
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {
     if (err) throw err;
-    // connection.execute('SELECT likes FROM submissions', (err, rows, fields) => {
-
-    // });
     if (rows[0]) {
 
       rows[0].submissions = [];

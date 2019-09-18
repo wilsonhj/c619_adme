@@ -15,38 +15,68 @@ export default class CompanyHeader extends React.Component {
         companyLogo: '',
         companyType: ''
       },
-      campaignsInfo: [{
+      currentcampaignsInfo: [{
+        campaignTitle: '',
+        campaignContent: '',
+        campaignID: ''
+      }],
+      previouscampaignsInfo: [{
         campaignTitle: '',
         campaignContent: '',
         campaignID: ''
       }]
     };
     this.toggle = this.toggle.bind(this);
-    this.retrieveCompanyData = this.retrieveCompanyData.bind(this);
+    this.retrieveCurrentCompanyData = this.retrieveCurrentCompanyData.bind(this);
+    this.retrievePreviousCompanyData = this.retrievePreviousCompanyData.bind(this);
   }
   componentDidMount() {
-    this.retrieveCompanyData();
+    this.retrieveCurrentCompanyData();
+    this.retrievePreviousCompanyData();
   }
-  retrieveCompanyData() {
+  retrieveCurrentCompanyData() {
     fetch('/api/campaigns/company/' + this.context.viewParams.companyID)
       .then(res => res.json())
       .then(res => {
-        const campaignsArr = res.map(campaign => {
-          const campaignObj = {
-            campaignTitle: campaign.campaignTitle,
-            submissionsContent: campaign.campaignContent,
-            campaignID: campaign.campaignID
-          };
-          return campaignObj;
+        const campaignsArr = res.filter(campaign => {
+          if (campaign !== null) {
+            const campaignObj = {
+              campaignTitle: campaign.campaignTitle,
+              campaignContent: campaign.campaignContent,
+              campaignID: campaign.campaignID
+            };
+            return campaignObj;
+          }
+
         });
         this.setState({
           companyInfo: {
-            companyID: res[0].companyID,
-            companyName: res[0].companyName,
-            companyLogo: res[0].companyLogo,
-            companyType: res[0].companyType
+            companyID: campaignsArr[0].companyID,
+            companyName: campaignsArr[0].companyName,
+            companyLogo: campaignsArr[0].companyLogo,
+            companyType: campaignsArr[0].companyType
           },
-          campaignsInfo: campaignsArr
+          currentcampaignsInfo: campaignsArr
+        });
+      });
+  }
+  retrievePreviousCompanyData() {
+    fetch('/api/campaigns/prevcompany/' + this.context.viewParams.companyID)
+      .then(res => res.json())
+      .then(res => {
+        const campaignsArr = res.filter(campaign => {
+          if (campaign !== null) {
+            const campaignObj = {
+              campaignTitle: campaign.campaignTitle,
+              campaignContent: campaign.campaignContent,
+              campaignID: campaign.campaignID
+            };
+            return campaignObj;
+          }
+
+        });
+        this.setState({
+          previouscampaignsInfo: campaignsArr
         });
       });
   }
@@ -130,16 +160,16 @@ export default class CompanyHeader extends React.Component {
             <TabPane tabId="1">
               <Row >
                 <Col sm='12' >
-                  {this.state.campaignsInfo.map((campaignObj, idx) => {
+                  {this.state.currentcampaignsInfo.map((campaignObj, idx) => {
                     return (
                       <Campaign key={idx}
                         imageSource={this.state.companyInfo.companyLogo}
                         companyName={this.state.companyInfo.companyName}
                         companyType={this.state.companyInfo.companyType}
                         campaignTitle={campaignObj.campaignTitle}
-                        campaignContent={campaignObj.submissionsContent}
+                        campaignContent={campaignObj.campaignContent}
                         campaignID={campaignObj.campaignID}
-                        campaignsInfo={this.state.campaignsInfo}>
+                        campaignsInfo={this.state.currentcampaignsInfo}>
                       </Campaign>
                     );
                   })}
@@ -147,7 +177,23 @@ export default class CompanyHeader extends React.Component {
               </Row>
             </TabPane>
             <TabPane tabId="2">
-              <div className="bg-white p-1 vh-100 creatorTab" >SDFAGSFGG</div>
+              <Row >
+                <Col sm='12' >
+                  {this.state.previouscampaignsInfo.map((campaignObj, idx) => {
+                    return (
+                      <Campaign key={idx}
+                        imageSource={this.state.companyInfo.companyLogo}
+                        companyName={this.state.companyInfo.companyName}
+                        companyType={this.state.companyInfo.companyType}
+                        campaignTitle={campaignObj.campaignTitle}
+                        campaignContent={campaignObj.campaignContent}
+                        campaignID={campaignObj.campaignID}
+                        campaignsInfo={this.state.previouscampaignsInfo}>
+                      </Campaign>
+                    );
+                  })}
+                </Col>
+              </Row>
             </TabPane>
           </TabContent>
         </div>
