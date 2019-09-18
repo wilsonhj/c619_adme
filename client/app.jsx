@@ -33,9 +33,10 @@ export default class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.setUser = this.setUser.bind(this);
+    localStorage.getItem('id');
   }
   componentDidMount() {
-    fetch('http://localhost:3000/api/user')
+    fetch('/api/user')
       .then(res => res.json())
       .then(res => {
         var creators = [];

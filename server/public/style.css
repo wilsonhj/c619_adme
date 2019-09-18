@@ -1,3 +1,7 @@
+body{
+  color: #11071be1;
+}
+
 .creatorInfoContainer, .switchUserContainer{
   background-image: linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240));
   color: #11071be1;
@@ -65,8 +69,13 @@
 .glassCard{
   -moz-box-shadow:    inset 0 0 10px rgba(139, 8, 179, 0.63);
    -webkit-box-shadow: inset 0 0 10px rgba(139, 8, 179, 0.63);
-   box-shadow: inset 0 0 15px rgb(191, 62, 230), 0 8px 6px 2px  rgba(79, 2, 102, 0.63);
+   box-shadow: inset 0 0 15px rgb(191, 62, 230), 0 5px 6px 2px  rgba(79, 2, 102, 0.63);
    font-family: 'Patua One', cursive;
+   background-color:  rgb(238, 232, 240);
+}
+
+.glassCard:hover {
+   box-shadow: inset 0 0 15px rgb(191, 62, 230), 0 9px 8px 4px  rgba(79, 2, 102, 0.63);
 }
 
 .playButton{
@@ -79,6 +88,11 @@
   display: inline-block;
   margin-top: 15%;
 }
+
+.campaignCard, .profilePicSmall {
+  cursor: pointer;
+}
+
 .switchUserDropDown{
   color: #242038;
 }
@@ -113,7 +127,7 @@
 }
 @media(max-width: 500px){
   .campaignContent{
-    width: 100%; 
+    width: 100%;
     height: 125px;
   }
   .campaignTitleText{
@@ -122,7 +136,7 @@
 }
 @media(min-width: 500px){
   .campaignContent{
-    width: 100%; 
+    width: 100%;
     height: 15%;
   }
   .campaignTitleText{
@@ -130,7 +144,7 @@
   }
 }
 #campaignBackgroundDiv:hover > .campaignContent{
-  width: 350px; 
+  width: 350px;
   height: 350px
 }
 

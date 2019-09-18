@@ -1,6 +1,7 @@
 import React from 'react';
 import AppContext from '../context';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import StarWinnerConfirmationModal from '../components/star-winner-confirmation-modal';
 
 export default class ViewCampaignDetails extends React.Component {
   constructor(props) {
@@ -33,6 +34,7 @@ export default class ViewCampaignDetails extends React.Component {
       }]
     };
     this.getCampaignData = this.getCampaignData.bind(this);
+    this.chooseWinner = this.chooseWinner.bind(this);
   }
 
   componentDidMount() {
@@ -64,10 +66,14 @@ export default class ViewCampaignDetails extends React.Component {
       });
   }
 
-  chooseWinner(id) {
-
+  chooseWinner(id, body) {
+    let subBody = JSON.stringify({ submissionID: body });
     const init = {
-      method: 'POST'
+      method: 'POST',
+      body: subBody,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
     fetch(`http://localhost:3000/api/winningAds/${id}`, init)
       .then(res => res.json())
@@ -83,6 +89,7 @@ export default class ViewCampaignDetails extends React.Component {
   makeSubmissionButton() {
     const style = {};
     style.button = {
+      width: '30%',
       backgroundColor: '#0070c9',
       color: 'white',
       fontSize: '0.75rem',
@@ -94,10 +101,22 @@ export default class ViewCampaignDetails extends React.Component {
     };
     return (this.context.currentUser.type === 'creator'
       ? <Link to='/upload-submission' style={style.button}>Make Submission</Link>
+      ? <React.Fragment><div className='block'><div>Add a submission to this campaign</div></div> <button style={style.button} onClick={() => this.context.setView('upload-submission', { creatorID: this.context.currentUser.id, campaignID: this.context.campaignID })}>Make Submission</button></React.Fragment>
       : null);
   }
 
   render() {
+    const style = {};
+    style.button = {
+      backgroundColor: '#0070c9',
+      color: 'white',
+      fontSize: '0.75rem',
+      cursor: 'pointer',
+      textAlign: 'center',
+      fontWeight: '400',
+      display: 'block',
+      whiteSpace: 'nowrap'
+    };
     var counter = 0;
     const submissions = this.state.submissions.map(submissionObj => {
       if (!counter) {
@@ -113,7 +132,15 @@ export default class ViewCampaignDetails extends React.Component {
                 this.chooseWinner(submissionObj.submissionID);
               }}>
               </div>
-              
+              <h4 className="mt-1 submissionTitle" onClick={() => {
+                this.context.setView('submission-details', { submissionID: parseInt(submissionObj.submissionID) });
+              }}>{submissionObj.submissionTitle}</h4>
+              {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.companyInfo.companyID)
+                ? <StarWinnerConfirmationModal chooseWinner={this.chooseWinner}
+                  message="Are you sure you would like to choose this submission as this campaign's winner?"
+                  campaignID = {this.state.campaignDetails.campaignID}
+                  submissionID={submissionObj.submissionID}/>
+                : null}
             </div>
             <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
               className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
@@ -151,14 +178,6 @@ export default class ViewCampaignDetails extends React.Component {
     });
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
-        {/* {this.context.currentUser.creatorID
-          ? <div className="d-inline ml-2 fas fa-arrow-left" onClick = {() => {
-            this.context.setView('creator-portfolio', {});
-          }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
-          : <div className="d-inline ml-2 fas fa-arrow-left" onClick={() => {
-            this.context.setView('company-dashboard', {});
-          }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
-        } */}
         <div className="container bg-white glassCard rounded mt-2">
           <h1 className="text-center mt-2 submission-details-title">{this.state.campaignDetails.campaignTitle}</h1>
           <p className="text-center mt-1 ">Decription: {this.state.campaignDetails.description}</p>

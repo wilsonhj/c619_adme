@@ -1,5 +1,5 @@
 import React from 'react';
-// import AppContext from '../context';
+import AppContext from '../context';
 
 export default class LandingPage extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ export default class LandingPage extends React.Component {
   }
 
   getCampaigns() {
-    fetch('http://localhost:3000/api/campaigns').then(res => res.json())
+    fetch('/api/campaigns').then(res => res.json())
       .then(res => {
         this.setState({
           recentCampaigns: res
@@ -28,7 +28,7 @@ export default class LandingPage extends React.Component {
   }
 
   getTrending() {
-    fetch('http://localhost:3000/api/submissions/trending/submissions').then(res => res.json())
+    fetch('/api/submissions/trending').then(res => res.json())
       .then(res => {
         this.setState({
           trendingAds: res
@@ -37,22 +37,23 @@ export default class LandingPage extends React.Component {
   }
 
   render() {
+
     let trending = this.state.trendingAds.map(ads => {
       return (
-        <div className='glassCard' style={{ display: 'inline-block', width: '25em', height: '20em', backgroundColor: 'white', margin: '1rem', borderRadius: '10%' }} key={ads.subID} >
+        <div className='glassCard' style={{ display: 'inline-block', width: '25em', height: '20em', backgroundColor: 'white', margin: '1rem', borderRadius: '10%' }} key={ads.submissionID} >
 
-          <div style={{ marginLeft: '8%', marginTop: '7%', border: 'solid .12em #841D9E', height: '5em', width: '5em', borderRadius: '10%', backgroundImage: 'url(' + ads.profilePicture + ')', backgroundSize: 'contain', display: 'inline-block', backgroundRepeat: 'no-repeat' }}>
+          <div className='profilePicSmall' onClick={() => { this.context.setView('creator-portfolio', { creatorID: ads.creatorID }); }} style={{ marginLeft: '8%', marginTop: '7%', border: 'solid .12em #841D9E', height: '5em', width: '5em', borderRadius: '10%', backgroundImage: 'url(' + ads.profilePicture + ')', backgroundSize: 'contain', display: 'inline-block', backgroundRepeat: 'no-repeat' }} key={ads.creatorID}>
           </div>
           <div className="row" style={{ marginTop: '10%', verticalAlign: 'top', display: 'inline-block' }}>
             <div style={{ marginLeft: '20%', display: 'inline-block' }}>
-              {ads.firstName} {ads.lastName}
+              {ads.first_name} {ads.last_name}
             </div>
             <div style={{ marginTop: '5%', marginLeft: '20%', textOverflow: 'ellipsis' }}>
               {ads.title}
             </div>
           </div>
           <div className="container" style={{ backgroundImage: 'url(' + ads.submissionThumbnail + ')', height: '50%', width: '80%', marginTop: '4%', backgroundSize: '100%', backgroundRepeat: 'no-repeat', border: 'solid .12em #841D9E' }}>
-            <div className="playButton" style={{ marginLeft: '40%', verticalAlign: 'center' }}></div>
+            <div className="playButton" onClick={() => { this.context.setView('submission-details', { submissionID: ads.submissionID }); }} style={{ marginLeft: '40%', verticalAlign: 'center' }}></div>
           </div>
         </div>
       );
@@ -60,7 +61,7 @@ export default class LandingPage extends React.Component {
     });
     let campaigns = this.state.recentCampaigns.map(campaign => {
       return (
-        <div className=' glassCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%' }} key={campaign.campaignID}>
+        <div className=' glassCard campaignCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%' }} onClick={() => { this.context.setView('campaign-details', { campaignID: campaign.campaignID }); }} key={campaign.campaignID}>
           <div className='row' style={{ 'width': '95%', 'paddingLeft': '8%', 'paddingTop': '3%' }}>
             <div className="col" style={{ 'textAlign': 'center', 'fontSize': '2em' }}>
               {campaign.campaignTitle}
@@ -127,3 +128,4 @@ export default class LandingPage extends React.Component {
     );
   }
 }
+LandingPage.contextType = AppContext;

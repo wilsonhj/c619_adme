@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import AppContext from '../context';
 
 export default class UploadSubmission extends React.Component {
   constructor(props) {
@@ -25,17 +26,12 @@ export default class UploadSubmission extends React.Component {
     event.preventDefault();
     var formData = new FormData(event.target);
     formData.append('likes', '0');
-    formData.append('creatorID', '1');
-    formData.append('requestID', '1');
-
-    fetch('http://localhost:3000/api/submissions',
-      {
-        method: 'POST',
-        body: formData
-
-      })
-      .then(res => res.json()).catch(err => { throw err; });
-
+    formData.append('creatorID', this.context.viewParams.creatorID);
+    formData.append('campaignID', this.context.viewParams.campaignID);
+    fetch('/api/submissions', {
+      method: 'POST',
+      body: formData
+    }).then(this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id }));
   }
 
   render() {
@@ -72,8 +68,10 @@ export default class UploadSubmission extends React.Component {
             Please select the image your would like to use for the thumbnail.
           </FormText>
         </FormGroup>
-        <Button className="shadow creatorSubmitButton">Submit</Button>
+        <Button type ="submit" className="shadow creatorSubmitButton">Submit</Button>
       </Form>
     );
   }
 }
+
+UploadSubmission.contextType = AppContext;

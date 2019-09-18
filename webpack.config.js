@@ -35,6 +35,9 @@ module.exports = {
     contentBase: publicPath,
     historyApiFallback: true,
     watchContentBase: true,
+    watchOptions: {
+      ignored: /uploads/
+    },
     stats: 'minimal',
     proxy: {
       '/api': 'http://localhost:' + process.env.PORT
