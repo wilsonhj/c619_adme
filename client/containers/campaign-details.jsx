@@ -1,5 +1,6 @@
 import React from 'react';
 import AppContext from '../context';
+import StarWinnerConfirmationModal from '../components/star-winner-confirmation-modal';
 
 export default class ViewCampaignDetails extends React.Component {
   constructor(props) {
@@ -99,6 +100,7 @@ export default class ViewCampaignDetails extends React.Component {
   }
 
   render() {
+
     const style = {};
     style.button = {
       backgroundColor: '#0070c9',
@@ -121,10 +123,12 @@ export default class ViewCampaignDetails extends React.Component {
               <h4 className="mt-1 submissionTitle" onClick={() => {
                 this.context.setView('submission-details', { submissionID: parseInt(submissionObj.submissionID) });
               }}>{submissionObj.submissionTitle}</h4>
-              {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.companyInfo.companyID) ? <div className="fas fa-star pickWinner" style={{ color: 'white' }} onClick={() => {
-                this.chooseWinner(this.state.campaignDetails.campaignID, submissionObj.submissionID);
-              }}>
-              </div> : null}
+              {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.companyInfo.companyID)
+                ? <StarWinnerConfirmationModal chooseWinner={this.chooseWinner}
+                  message="Are you sure you would like to choose this submission as this campaign's winner?"
+                  campaignID = {this.state.campaignDetails.campaignID}
+                  submissionID={submissionObj.submissionID}/>
+                : null}
 
             </div>
             <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
