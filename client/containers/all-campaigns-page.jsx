@@ -27,7 +27,7 @@ export default class AllCampaigns extends React.Component {
   render() {
     let campaigns = this.state.recentCampaigns.map(campaign => {
       return (
-        <div className='campaignCard glassCard' style={{ 'flex': '0 0 auto', 'width': '20em', 'height': '18em', 'margin': '1rem', 'borderRadius': '10%', 'cursor': 'pointer' }}
+        <div className='glassCard' style={{ 'flex': '0 0 auto', 'width': '20em', 'height': '18em', 'margin': '1rem', 'borderRadius': '10%', 'cursor': 'pointer' }}
           onClick={event => {
             this.context.setView('campaign-details', { campaignID: campaign.campaignID });
           }}
