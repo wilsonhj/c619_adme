@@ -101,6 +101,14 @@ export default class App extends React.Component {
     }
   }
 
+  checkCurrentUser() {
+    return (
+      this.state.currentUser.id === 0
+        ? <Route path='/settings' component={SwitchUserPage} />
+        : <Route exact path='/' component={LandingPage} />
+    );
+  }
+
   render() {
     const appContext = {
       setView: this.setView,
@@ -109,39 +117,23 @@ export default class App extends React.Component {
       currentUser: this.state.currentUser,
       campaignID: this.state.view.params.campaignID
     };
+    
     return (
-      <AppContext.Provider value={appContext} >
-        <>
-          <Router>
-            <nav>
-              <Link to='/'>Landing Page</Link>{' '}
-              <Link to='/company-dashboard'>Company Dashboard</Link>{' '}
-              <Link to='/create-campaign'>Create Campaign</Link>{' '}
-              <Link to='/creator-portfolio'>Creator Portfolio</Link>{' '}
-              <Link to='/company-header'>Company Header</Link>{' '}
-              <Link to='/upload-submission'>Upload Submission</Link>{' '}
-              <Link to='/submission-details'>Submission Details</Link>{' '}
-              <Link to='/campaign-details'>View Campaign Details</Link>{' '}
-              <Link to='/settings'>Settings</Link>{' '}
-              <Link to='/all-campaigsn-page'>All Campaigns</Link>{' '}
-            </nav>
-            <Route exact path='/' component={LandingPage} />
-            <Route path='/company-dashboard' component={CompanyDashboard} />
-            <Route exact path='/create-campaign' component={CreateCampaign} />
-            <Route path='/creator-portfolio' component={CreatorPortfolio} />
-            <Route path='/company-header' component={CompanyHeader}></Route>
-            <Route path='/upload-submission' component={UploadSubmission}></Route>
-            <Route path='/submission-details' component={ViewSubmissionDetails}></Route>  {/* pageID={this.state.view.params.submissionID} */}
-            <Route path='/campaign-details' component={ViewCampaignDetails}></Route>
-            <Route path='/settings' component={SwitchUserPage}></Route>
-            <Route path='/all-campaigns-page' component={AllCampaigns}></Route>
-          </Router>
-        </>
-        <>
+      <Router>
+        <AppContext.Provider value={appContext} >
+          <Route exact path='/' component={LandingPage} />
+          <Route path='/company-dashboard/:companyID' component={CompanyDashboard} />
+          <Route exact path='/create-campaign' component={CreateCampaign} />
+          <Route path='/creator-portfolio/:creatorID' component={CreatorPortfolio} />       
+          <Route path='/upload-submission' component={UploadSubmission}></Route>
+          <Route path='/submission-details/:submissionID' component={ViewSubmissionDetails}></Route>  {/* pageID={this.state.view.params.submissionID} */}
+          <Route path='/campaign-details' component={ViewCampaignDetails}></Route>
+          <Route path='/settings' component={SwitchUserPage}></Route>
+          <Route path='/all-campaigns-page' component={AllCampaigns}></Route>
+
           <NavBar />
-        {/* {this.renderView()} */}
-        </>
-      </AppContext.Provider>
+        </AppContext.Provider>
+      </Router>
     );
   }
 

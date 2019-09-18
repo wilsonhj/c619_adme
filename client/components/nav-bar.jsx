@@ -14,6 +14,7 @@ import PortfolioIcon from './portfolioIcon';
 import SettingsIcon from './settingsIcon';
 import CompanyIcon from './company-dashboard-icon';
 import AppContext from '../context';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -58,7 +59,7 @@ export default class NavBar extends React.Component {
       });
       this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
     };
-    if (this.context.currentUser.type === 'company' || this.context.currentUser.type === 'creator') {
+    if (this.context.currentUser.id === 'company' || this.context.currentUser.id === 'creator') {
       return (
         <div>
           <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
@@ -80,7 +81,7 @@ export default class NavBar extends React.Component {
                 }}></NavLink>
               </NavItem>
               <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink onClick = {() => { this.context.setView('all-campaigns-page', {}); }} style={{
+                <Link to='/all-campaigns-page' style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -89,7 +90,7 @@ export default class NavBar extends React.Component {
                 }}><CampaignIcon style={{
                     'bottom': '10%'
                   }}/>
-                </NavLink>
+                </Link>
               </NavItem>
               <NavItem>
                 <NavLink style={{
@@ -134,7 +135,7 @@ export default class NavBar extends React.Component {
                 }}></NavLink>
               </NavItem>
               {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink onClick={goToCreatorPortfolio} style={{
+                <Link to={`/creator-portfolio/${this.context.currentUser.id}`} style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -143,7 +144,7 @@ export default class NavBar extends React.Component {
                 }}><PortfolioIcon style={{
                     'bottom': '10%'
                   }} />
-                </NavLink>
+                </Link>
               </NavItem> : <NavItem style={{ 'bottom': '10%' }}>
                 <NavLink onClick={goToCompanyDashboard} style={{
                   'padding': '0rem .5rem',
@@ -197,21 +198,21 @@ export default class NavBar extends React.Component {
             <Collapse style={{ 'padding': '0' }} isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <NavLink onClick={goToLandingPage}>Home</NavLink>
+                  <Link to='/landing-page'>Home</Link>
                 </NavItem>
                 {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <NavLink onClick={goToCreatorPortfolio}>Creator Portfolio</NavLink>
+                  <Link to={`/creator-portfolio/${this.props.match.params.id}`}>Creator Portfolio</Link>
                 </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <NavLink onClick={goToCompanyDashboard}>Company Dashboard</NavLink>
+                  <Link to={`/company-dashboard/${this.props.match.params.id}`}>Company Dashboard</Link>
                 </NavItem>}
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <NavLink >Messages</NavLink>
+                  <Link to='/messages'>Messages</Link>
                 </NavItem>
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <NavLink onClick={() => { this.context.setView('all-campaigns-page', {}); }} >Campaigns</NavLink>
+                  <Link to='/all-campaigns-page'>Campaigns</Link>
                 </NavItem >
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
-                  <NavLink onClick={goToSwitchUser}href="">Settings</NavLink>
+                  <Link to='/settings'>Settings</Link>
                 </NavItem>
               </Nav>
             </Collapse>

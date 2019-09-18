@@ -6,7 +6,7 @@ export default class CompanyDashboard extends React.Component {
   render() {
     return (
       <div className="p-3 shadow" style={{ width: '100%' }}>
-        <CompanyHeader></CompanyHeader>
+        <CompanyHeader companyID={this.props.match.params.companyID}></CompanyHeader>
       </div>
     );
   }

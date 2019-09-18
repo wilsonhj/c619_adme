@@ -2,7 +2,7 @@ import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import AppContext from '../context';
 import classnames from 'classnames';
-// import { ClientHttp2Session } from 'http2';
+import { Link } from 'react-router-dom';
 
 export default class CreatorPortfolio extends React.Component {
 
@@ -39,7 +39,7 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserInfo() {
-    fetch('http://localhost:3000/api/creators/' + this.context.viewParams.creatorID)
+    fetch('http://localhost:3000/api/creators/' + this.props.match.params.creatorID)
       .then(res => res.json())
       .then(res => {
         this.setState({ creatorInfo: {
@@ -55,7 +55,7 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserSubmissions() {
-    fetch('http://localhost:3000/api/creators/' + this.context.viewParams.creatorID + '/submissions').then(res => res.json()).then(res => {
+    fetch('http://localhost:3000/api/creators/' + this.props.match.params.creatorID + '/submissions').then(res => res.json()).then(res => {
       var creatorSubmissionsArray = [];
       res.map(currentEntry => {
         var submissionObject = {
@@ -127,10 +127,11 @@ export default class CreatorPortfolio extends React.Component {
                             <React.Fragment key={currentEntry.submissionID}>
                               <h5 className="mx-auto" name={currentEntry.submissionID} >{currentEntry.title}
                               </h5>
-
-                              <img className="pb-4 mx-auto" src={currentEntry.submissionThumbnail} onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }} controls
-                                style={{ width: '90%' }}>
-                              </img>
+                              <Link to={`/submission-details/${currentEntry.submissionID}`}>
+                                <img className="pb-4 mx-auto" src={'/' + currentEntry.submissionThumbnail}
+                                  style={{ width: '90%' }}>
+                                </img>
+                              </Link>
                             </React.Fragment>
                           );
                         })}
