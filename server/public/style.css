@@ -118,7 +118,7 @@
 }
 @media(max-width: 500px){
   .campaignContent{
-    width: 100%; 
+    width: 100%;
     height: 125px;
   }
   .campaignTitleText{
@@ -127,7 +127,7 @@
 }
 @media(min-width: 500px){
   .campaignContent{
-    width: 100%; 
+    width: 100%;
     height: 15%;
   }
   .campaignTitleText{
@@ -135,7 +135,7 @@
   }
 }
 #campaignBackgroundDiv:hover > .campaignContent{
-  width: 350px; 
+  width: 350px;
   height: 350px
 }
 
