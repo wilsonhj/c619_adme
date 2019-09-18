@@ -80,7 +80,7 @@ export default class NavBar extends React.Component {
                 }}></NavLink>
               </NavItem>
               <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink onClick = {() => { this.context.setView('all-campaigns-page', {}); }} style={{
+                <NavLink data-toggle="tooltip" data-placement="bottom" title="Current Campaigns" onClick = {() => { this.context.setView('all-campaigns-page', {}); }} style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -134,7 +134,7 @@ export default class NavBar extends React.Component {
                 }}></NavLink>
               </NavItem>
               {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink onClick={goToCreatorPortfolio} style={{
+                <NavLink data-toggle="tooltip" data-placement="bottom" title="Creator Portfolio" onClick={goToCreatorPortfolio} style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -145,7 +145,7 @@ export default class NavBar extends React.Component {
                   }} />
                 </NavLink>
               </NavItem> : <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink onClick={goToCompanyDashboard} style={{
+                <NavLink data-toggle="tooltip" data-placement="bottom" title="Company Dashboard" onClick={goToCompanyDashboard} style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -164,7 +164,7 @@ export default class NavBar extends React.Component {
                 }}></NavLink>
               </NavItem>
               <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink onClick={goToSwitchUser} style={{
+                <NavLink data-toggle="tooltip" data-placement="bottom" title="Settings" onClick={goToSwitchUser} style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
