@@ -28,11 +28,11 @@ export default class CompanyHeader extends React.Component {
       }]
     };
     this.toggle = this.toggle.bind(this);
-    this.retrieveCurrentCompanyData = this.retrieveCurrentCompanyData.bind(this);
+    this.retrieveCompanyData = this.retrieveCompanyData.bind(this);
     this.retrievePreviousCompanyData = this.retrievePreviousCompanyData.bind(this);
   }
   componentDidMount() {
-    this.retrieveCurrentCompanyData();
+    this.retrieveCompanyData();
     this.retrievePreviousCompanyData();
   }
   retrieveCompanyData() {

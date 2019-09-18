@@ -100,8 +100,7 @@ export default class ViewCampaignDetails extends React.Component {
       whiteSpace: 'nowrap'
     };
     return (this.context.currentUser.type === 'creator'
-      ? <Link to='/upload-submission' style={style.button}>Make Submission</Link>
-      ? <React.Fragment><div className='block'><div>Add a submission to this campaign</div></div> <button style={style.button} onClick={() => this.context.setView('upload-submission', { creatorID: this.context.currentUser.id, campaignID: this.context.campaignID })}>Make Submission</button></React.Fragment>
+      ? <Link to={`/upload-submission/${this.props.match.params.campaignID}`} style={style.button}>Make Submission</Link>
       : null);
   }
 
@@ -132,9 +131,8 @@ export default class ViewCampaignDetails extends React.Component {
                 this.chooseWinner(submissionObj.submissionID);
               }}>
               </div>
-              <h4 className="mt-1 submissionTitle" onClick={() => {
-                this.context.setView('submission-details', { submissionID: parseInt(submissionObj.submissionID) });
-              }}>{submissionObj.submissionTitle}</h4>
+              <Link className="mt-1 submissionTitle" to={`/submission-details/${submissionObj.submissionID}`}
+              >{submissionObj.submissionTitle}</Link>
               {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.companyInfo.companyID)
                 ? <StarWinnerConfirmationModal chooseWinner={this.chooseWinner}
                   message="Are you sure you would like to choose this submission as this campaign's winner?"
@@ -186,15 +184,6 @@ export default class ViewCampaignDetails extends React.Component {
           <p className="text-center mt-1 ">Reward: {this.state.campaignDetails.rewards}</p>
           <p className="text-center mt-1 ">{this.state.campaignDetails.preferredContentType}s will be accepted</p>
         </div>
-        <button style={{
-          backgroundColor: '#0070c9',
-          color: 'white',
-          fontSize: '0.75rem',
-          cursor: 'pointer',
-          textAlign: 'center',
-          fontWeight: '400',
-          display: 'inline-block',
-          whiteSpace: 'nowrap' }} onClick={() => this.context.setView('upload-submission', {})}>Make Submission</button>
         {this.makeSubmissionButton()}
         <div className="d-inline-flex flex-wrap container">
           {submissions}

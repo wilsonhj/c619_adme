@@ -1,5 +1,6 @@
 import React from 'react';
 import AppContext from '../context';
+import { Link } from 'react-router-dom';
 
 export default class LandingPage extends React.Component {
   constructor(props) {
@@ -42,8 +43,8 @@ export default class LandingPage extends React.Component {
       return (
         <div className='glassCard' style={{ display: 'inline-block', width: '25em', height: '20em', backgroundColor: 'white', margin: '1rem', borderRadius: '10%' }} key={ads.submissionID} >
 
-          <div className='profilePicSmall' onClick={() => { this.context.setView('creator-portfolio', { creatorID: ads.creatorID }); }} style={{ marginLeft: '8%', marginTop: '7%', border: 'solid .12em #841D9E', height: '5em', width: '5em', borderRadius: '10%', backgroundImage: 'url(' + ads.profilePicture + ')', backgroundSize: 'contain', display: 'inline-block', backgroundRepeat: 'no-repeat' }} key={ads.creatorID}>
-          </div>
+          <Link to={`/creator-portfolio/${ads.creatorID}`} className='profilePicSmall' style={{ marginLeft: '8%', marginTop: '7%', border: 'solid .12em #841D9E', height: '5em', width: '5em', borderRadius: '10%', backgroundImage: 'url(' + ads.profilePicture + ')', backgroundSize: 'contain', display: 'inline-block', backgroundRepeat: 'no-repeat' }} key={ads.creatorID}>
+          </Link>
           <div className="row" style={{ marginTop: '10%', verticalAlign: 'top', display: 'inline-block' }}>
             <div style={{ marginLeft: '20%', display: 'inline-block' }}>
               {ads.first_name} {ads.last_name}
@@ -53,7 +54,7 @@ export default class LandingPage extends React.Component {
             </div>
           </div>
           <div className="container" style={{ backgroundImage: 'url(' + ads.submissionThumbnail + ')', height: '50%', width: '80%', marginTop: '4%', backgroundSize: '100%', backgroundRepeat: 'no-repeat', border: 'solid .12em #841D9E' }}>
-            <div className="playButton" onClick={() => { this.context.setView('submission-details', { submissionID: ads.submissionID }); }} style={{ marginLeft: '40%', verticalAlign: 'center' }}></div>
+            <Link to={`/submission-details/${ads.submissionID}`} className="playButton" style={{ marginLeft: '40%', verticalAlign: 'center' }}></Link>
           </div>
         </div>
       );
@@ -61,7 +62,8 @@ export default class LandingPage extends React.Component {
     });
     let campaigns = this.state.recentCampaigns.map(campaign => {
       return (
-        <div className=' glassCard campaignCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%' }} onClick={() => { this.context.setView('campaign-details', { campaignID: campaign.campaignID }); }} key={campaign.campaignID}>
+        <div className=' glassCard campaignCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%' }} key={campaign.campaignID}>
+          <Link to={`/campaign-details/${campaign.campaignID}`}></Link>
           <div className='row' style={{ 'width': '95%', 'paddingLeft': '8%', 'paddingTop': '3%' }}>
             <div className="col" style={{ 'textAlign': 'center', 'fontSize': '2em' }}>
               {campaign.campaignTitle}

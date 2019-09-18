@@ -31,7 +31,7 @@ export default class App extends React.Component {
         companies: []
       }
     };
-    this.setView = this.setView.bind(this);
+    // this.setView = this.setView.bind(this);
     this.setUser = this.setUser.bind(this);
     localStorage.getItem('id');
   }
@@ -68,14 +68,14 @@ export default class App extends React.Component {
     this.setState({ currentUser: { type, id } });
   }
 
-  setView(name, params) {
-    this.setState({
-      view: {
-        name: name,
-        params: params
-      }
-    });
-  }
+  // setView(name, params) {
+  //   this.setState({
+  //     view: {
+  //       name: name,
+  //       params: params
+  //     }
+  //   });
+  // }
 
   renderView() {
     switch (this.state.view.name) {
@@ -112,7 +112,7 @@ export default class App extends React.Component {
 
   render() {
     const appContext = {
-      setView: this.setView,
+      // setView: this.setView,
       setUser: this.setUser,
       viewParams: this.state.view.params,
       currentUser: this.state.currentUser,
@@ -126,7 +126,7 @@ export default class App extends React.Component {
           <Route path='/company-dashboard/:companyID' component={CompanyDashboard} />
           <Route exact path='/create-campaign' component={CreateCampaign} />
           <Route path='/creator-portfolio/:creatorID' component={CreatorPortfolio} />       
-          <Route path='/upload-submission' component={UploadSubmission}></Route>
+          <Route path='/upload-submission/:campaignID' component={UploadSubmission}></Route>
           <Route path='/submission-details/:submissionID' component={ViewSubmissionDetails}></Route>  {/* pageID={this.state.view.params.submissionID} */}
           <Route path='/campaign-details' component={ViewCampaignDetails}></Route>
           <Route path='/settings' component={SwitchUserPage}></Route>

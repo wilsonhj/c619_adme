@@ -31,7 +31,7 @@ export default class UploadSubmission extends React.Component {
     fetch('/api/submissions', {
       method: 'POST',
       body: formData
-    }).then(this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id }));
+    }).then(this.props.history.push(`/creator-portfolio/${this.context.currentUser.id}`));
   }
 
   render() {

@@ -104,7 +104,7 @@ export default class ViewSubmissionDetails extends React.Component {
     };
     fetch(`/api/submissions/${this.state.submissionID}`, init)
       .then(res => res.json()).then(res => {
-        this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
+        this.props.history.push(`/creator-portfolio/${this.context.currentUser.id}`);
       });
   }
 
@@ -117,7 +117,6 @@ export default class ViewSubmissionDetails extends React.Component {
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2">
         <Link to={`/creator-portfolio/${this.context.currentUser.creatorID}`} className='ml-2 mt-3 d-inline-block' style={{ width: '60%' }}
-          // this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.creatorID });
         >
           <img className="d-inline-block rounded-circle shadow mx-auto"
             style={{ backgroundSize: 'contain', height: '9vmin' }}
