@@ -42,7 +42,7 @@ export default class ViewCampaignDetails extends React.Component {
   }
 
   getCampaignData() {
-    fetch('http://localhost:3000/api/campaigns/' + this.props.match.params.campaignID)
+    fetch('/api/campaigns/' + this.props.match.params.campaignID)
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -75,7 +75,7 @@ export default class ViewCampaignDetails extends React.Component {
         'Content-Type': 'application/json'
       }
     };
-    fetch(`http://localhost:3000/api/winningAds/${id}`, init)
+    fetch(`/api/winningAds/${id}`, init)
       .then(res => res.json())
       .then(res => {
         // eslint-disable-next-line no-console

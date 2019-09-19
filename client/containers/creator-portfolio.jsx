@@ -38,7 +38,7 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserInfo() {
-    fetch('http://localhost:3000/api/creators/' + this.props.match.params.creatorID)
+    fetch('/api/creators/' + this.props.match.params.creatorID)
       .then(res => res.json())
       .then(res => {
         this.setState({ creatorInfo: {
@@ -54,7 +54,7 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserSubmissions() {
-    fetch('http://localhost:3000/api/creators/' + this.props.match.params.creatorID + '/submissions').then(res => res.json()).then(res => {
+    fetch('/api/creators/' + this.props.match.params.creatorID + '/submissions').then(res => res.json()).then(res => {
       var creatorSubmissionsArray = [];
       res.map(currentEntry => {
         var submissionObject = {
