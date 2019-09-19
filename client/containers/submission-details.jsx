@@ -87,13 +87,8 @@ export default class ViewSubmissionDetails extends React.Component {
     };
     fetch(`/api/winningAds/${id}`, init)
       .then(res => res.json())
-      .then(res => {
-        // eslint-disable-next-line no-console
-        console.log(res);
-      })
       .catch(err => {
-        // eslint-disable-next-line no-console
-        console.log(err);
+        console.error(err);
       });
   }
 
@@ -113,7 +108,6 @@ export default class ViewSubmissionDetails extends React.Component {
   }
 
   render() {
-    // console.log(this.state.submissionContent);
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2">
         <Link to={`/creator-portfolio/${this.state.submissionCreatorID}`} className='ml-2 mt-3 d-inline-block' style={{ width: '60%' }}

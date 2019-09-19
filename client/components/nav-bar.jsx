@@ -8,13 +8,14 @@ import {
   NavLink
 } from 'reactstrap';
 import CampaignIcon from './campaignIcon';
-import MessagesIcon from './messagesIcon';
-import NotificationIcon from './notificationIcon';
+// import MessagesIcon from './messagesIcon';
+// import NotificationIcon from './notificationIcon';
 import PortfolioIcon from './portfolioIcon';
 import SettingsIcon from './settingsIcon';
 import CompanyIcon from './company-dashboard-icon';
 import AppContext from '../context';
 import { Link } from 'react-router-dom';
+import HomeIcon from './homeIcon';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export default class NavBar extends React.Component {
     });
   }
   checkUserExists() {
-    if (this.context.currentUser.type === 'creator' || this.context.currentUser.type === 'company'){
+    if (this.context.currentUser.type === 'creator' || this.context.currentUser.type === 'company') {
       return true;
     }
     return false;
@@ -80,7 +81,18 @@ export default class NavBar extends React.Component {
               'cursor': 'pointer'
             }} >AdMe</Link>
             <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
-
+              <NavItem style={{ 'bottom': '10%' }}>
+                <NavLink data-toggle="tooltip" data-placement="bottom" title="Home" onClick={() => { this.context.setView('landing-page', {}); }} style={{
+                  'padding': '0rem .5rem',
+                  'height': '3rem',
+                  'width': '4rem',
+                  'backgroundRepeat': 'no-repeat',
+                  'cursor': 'pointer'
+                }}><HomeIcon style={{
+                    'bottom': '10%'
+                  }} />
+                </NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink style={{
                   'height': '3rem',
@@ -99,13 +111,13 @@ export default class NavBar extends React.Component {
                   }}/>
                 </Link>
               </NavItem>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink style={{
                   'height': '3rem',
                   'width': '2rem'
                 }}></NavLink>
-              </NavItem>
-              <NavItem style={{ 'bottom': '10%' }}>
+              </NavItem> */}
+              {/* <NavItem style={{ 'bottom': '10%' }}>
                 <NavLink style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
@@ -116,14 +128,14 @@ export default class NavBar extends React.Component {
                     'bottom': '10%'
                   }} />
                 </NavLink>
-              </NavItem>
-              <NavItem>
+              </NavItem> */}
+              {/* <NavItem>
                 <NavLink style={{
                   'height': '3rem',
                   'width': '2rem'
                 }}></NavLink>
-              </NavItem>
-              <NavItem style={{ 'bottom': '10%' }}>
+              </NavItem> */}
+              {/* <NavItem style={{ 'bottom': '10%' }}>
                 <NavLink style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
@@ -134,7 +146,7 @@ export default class NavBar extends React.Component {
                     'bottom': '10%'
                   }} />
                 </NavLink>
-              </NavItem>
+              </NavItem> */}
               <NavItem>
                 <NavLink style={{
                   'height': '3rem',
@@ -193,7 +205,9 @@ export default class NavBar extends React.Component {
           </Navbar>
         }
         {this.checkUserExists() &&
-          <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100%', 'textAlign': 'center', 'padding': '0' }} light>
+          <>
+          <div className="row" style={{ height: '4rem' }}></div>
+          <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100vw', 'textAlign': 'center', 'padding': '0', position: 'fixed', zIndex: '1', top: '0px' }} light>
             <div style={{
               'height': '3rem',
               'color': '#EEEEEE',
@@ -226,8 +240,10 @@ export default class NavBar extends React.Component {
               </Nav>
             </Collapse>
           </Navbar>
+          </>
         }
-      </div>  
+        <div className="row" style={{ height: '2rem' }}></div>
+      </div>
     );
   }
 }
