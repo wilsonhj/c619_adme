@@ -31,6 +31,7 @@ export default class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.setUser = this.setUser.bind(this);
+    localStorage.getItem('id');
   }
   componentDidMount() {
     fetch('/api/user')
@@ -107,7 +108,6 @@ export default class App extends React.Component {
       currentUser: this.state.currentUser,
       campaignID: this.state.view.params.campaignID
     };
-
     return (
       <AppContext.Provider value={appContext} >
         <>

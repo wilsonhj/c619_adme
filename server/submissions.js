@@ -19,8 +19,8 @@ const upload = multer({ storage: storage });
 
 router.get('/', (req, res, next) => {
   connection.query('SELECT * FROM `submissions`', (err, rows, fields) => {
-    if (err) throw err;
-    res.send(rows);
+    if (err) return next(err);
+    res.status(200).send(rows);
   });
 });
 
@@ -31,7 +31,7 @@ router.get('/trending', (req, res, next) => {
    JOIN  creators
    ON s.creatorID = creators.creatorID
    ORDER BY s.likes`, (err, rows, fields) => {
-    if (err) throw err;
+    if (err) return next(err);
     rows.forEach(row => {
       if (row.submissionThumbnail) {
         row.submissionThumbnail = row.submissionThumbnail.substring(row.submissionThumbnail.indexOf('uploads'));
@@ -40,7 +40,7 @@ router.get('/trending', (req, res, next) => {
         row.submissionContent = row.submissionContent.substring(row.submissionContent.indexOf('uploads'));
       }
     });
-    res.send(rows);
+    res.status(200).send(rows);
   });
 });
 
@@ -51,35 +51,35 @@ router.get('/:submissionID', (req, res, next) => {
    JOIN  creators
    ON s.creatorID = creators.creatorID
    WHERE s.submissionID = ${req.params.submissionID}`, (err, rows, fields) => {
-    if (err) throw err;
+    if (err) return next(err);
     if (rows[0].submissionThumbnail) {
       rows[0].submissionThumbnail = rows[0].submissionThumbnail.substring(rows[0].submissionThumbnail.indexOf('uploads'));
     }
     if (rows[0].submissionContent) {
       rows[0].submissionContent = rows[0].submissionContent.substring(rows[0].submissionContent.indexOf('uploads'));
     }
-    res.send(rows);
+    res.status(200).send(rows);
   });
 });
 
 router.delete('/:submissionID', jsonParser, (req, res, next) => {
   connection.query(`DELETE from submissions WHERE submissionID = ${req.params.submissionID}`, (err, rows, fields) => {
-    if (err) throw err;
-    res.send(rows);
+    if (err) return next(err);
+    res.status(204).send(rows);
   });
 });
 
 router.post('/likes/:submissionID', jsonParser, (req, res, next) => {
   connection.execute('UPDATE submissions SET `likes` = likes + 1 WHERE `submissionID` = ?', [req.params.submissionID], (err, rows, fields) => {
-    if (err) throw err;
-    res.send(rows);
+    if (err) return next(err);
+    res.status(201).send(rows);
   });
 });
 
 router.post('/dislikes/:submissionID', jsonParser, (req, res, next) => {
   connection.execute('UPDATE submissions SET `likes` = likes - 1 WHERE `submissionID` = ?', [req.params.submissionID], (err, rows, fields) => {
-    if (err) throw err;
-    res.send(rows);
+    if (err) return next(err);
+    res.status(204).send(rows);
   });
 });
 
@@ -88,14 +88,14 @@ router.post('/', upload.fields([{ name: 'submissionThumbnail' }, { name: 'submis
 
   connection.execute('INSERT INTO `submissions` ( `creatorID`, `typeOfContent`, `submissionThumbnail`, `submissionContent`, `title`, `campaignID`, `likes`, `submissionDescription`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);', params, (err, rows, fields) => {
 
-    if (err) throw err;
+    if (err) return next(err);
     let response = {
       requestBody: req.body,
       requestFileStorageInfo: req.files,
       mySqlRows: rows
     };
     if (!err) {
-      res.json(response);
+      res.status(201).json(response);
     }
   });
 
