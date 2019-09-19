@@ -76,6 +76,9 @@ export default class ViewCampaignDetails extends React.Component {
     };
     fetch(`/api/winningAds/${id}`, init)
       .then(res => res.json())
+      .then(res => {
+        this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
+      })
       .catch(err => {
         // eslint-disable-next-line no-console
         console.log(err);
