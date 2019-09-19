@@ -94,7 +94,7 @@ export default class LandingPage extends React.Component {
     });
     let campaigns = this.state.recentCampaigns.map(campaign => {
       return (
-        <div className=' glassCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%' }} onClick={() => { this.context.setView('campaign-details', { campaignID: campaign.campaignID }); }} key={campaign.campaignID}>
+        <div className='campaignCard glassCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%', backgroundColor: 'white' }} onClick={() => { this.context.setView('campaign-details', { campaignID: campaign.campaignID }); }} key={campaign.campaignID}>
           <div className='row' style={{ 'width': '95%', 'paddingLeft': '8%', 'paddingTop': '3%' }}>
             <div className="col" style={{ 'textAlign': 'center', 'fontSize': '2em' }}>
               {campaign.campaignTitle}

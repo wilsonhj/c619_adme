@@ -90,9 +90,9 @@ export default class CompanyHeader extends React.Component {
   render() {
     const style = {};
     style.image = {
-      backgroundSize: 'contain',
-      height: '5rem',
-      width: '7.8rem'
+      objectFit: 'cover',
+      height: '10rem',
+      width: '10rem'
     };
     style.div = {
       color: '#9067C6'
@@ -130,7 +130,7 @@ export default class CompanyHeader extends React.Component {
     return (
       <div className="row background-light justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ paddingLeft: '3%', paddingRight: '3%' }}>
         <div className="row background-light justify-content-around align-items-center companyHeader">
-          <img src={this.state.companyInfo.companyLogo} className="rounded-circle  profilePicShadow mt-2 mx-auto" style={style.image}></img>
+          <img src={this.state.companyInfo.companyLogo} className="rounded-circle  profilePicShadow " style={style.image}></img>
           <div className="mt-1" style={style.div}>
             <h4 className="mb-0 font-weight-bold" style={{ color: '#242038' }}>{this.state.companyInfo.companyName}</h4>
             <p className="ml-1 my-1" style={{ fontSize: '1rem' }}>{this.state.companyInfo.companyType}</p>
@@ -138,7 +138,7 @@ export default class CompanyHeader extends React.Component {
           </div>
         </div>
 
-        <div className="col light tab-text p-0">
+        <div className=" col light tab-text p-0" style={{ marginTop: '10%' }}>
           <Nav tabs>
             <NavItem>
               <NavLink

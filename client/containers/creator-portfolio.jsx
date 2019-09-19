@@ -125,7 +125,7 @@ export default class CreatorPortfolio extends React.Component {
                         {this.state.submissionsInfo.map(currentEntry => {
                           return (
                             <React.Fragment key={currentEntry.submissionID}>
-                              <h5 className="mx-auto" name={currentEntry.submissionID} >{currentEntry.title}
+                              <h5 className="pt-5 mx-auto" name={currentEntry.submissionID} >{currentEntry.title}
                               </h5>
                               <div style={{ textAlign: 'center', position: 'relative' }}>
                                 <img className=" mx-auto glassCard " src={currentEntry.submissionThumbnail} onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }} controls

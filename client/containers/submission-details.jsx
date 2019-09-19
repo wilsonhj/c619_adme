@@ -117,10 +117,10 @@ export default class ViewSubmissionDetails extends React.Component {
         {this.context.currentUser.type === 'creator'
           ? <div className="d-inline ml-2 fas fa-arrow-left" onClick = {() => {
             this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
-          }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
+          }} style={{ cursor: 'pointer', width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
           : <div className="d-inline ml-2 fas fa-arrow-left" onClick={() => {
             this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
-          }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
+          }} style={{ cursor: 'pointer', width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
         }
         <div className='ml-2 mt-3 d-inline-block' style={{ width: '60%' }} onClick={() => {
           this.context.setView('creator-portfolio', { creatorID: this.state.submissionCreatorID });
