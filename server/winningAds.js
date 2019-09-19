@@ -30,8 +30,14 @@ router.post('/:campaignID', express.json(), (req, res, next) => {
 
 // select all winners
 router.get('/', (req, res, next) => {
-  connection.query('SELECT * FROM winningAds', (err, rows, fields) => {
+  connection.query('SELECT * FROM winningAds AS w JOIN submissions AS s ON w.submissionID = s.submissionID JOIN creators AS c ON s.creatorID = c.creatorID', (err, rows, fields) => {
     if (err) return next(err);
+    if (rows[0].submissionThumbnail) {
+      rows[0].submissionThumbnail = rows[0].submissionThumbnail.substring(rows[0].submissionThumbnail.indexOf('uploads'));
+    }
+    if (rows[0].submissionContent) {
+      rows[0].submissionContent = rows[0].submissionContent.substring(rows[0].submissionContent.indexOf('uploads'));
+    }
     res.send(rows);
   });
 });
