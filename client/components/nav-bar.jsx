@@ -14,6 +14,7 @@ import PortfolioIcon from './portfolioIcon';
 import SettingsIcon from './settingsIcon';
 import CompanyIcon from './company-dashboard-icon';
 import AppContext from '../context';
+import { Link } from 'react-router-dom';
 import HomeIcon from './homeIcon';
 
 export default class NavBar extends React.Component {
@@ -24,6 +25,7 @@ export default class NavBar extends React.Component {
     this.state = {
       collapsed: true
     };
+    this.checkUserExists = this.checkUserExists.bind(this);
   }
 
   toggleNavbar() {
@@ -31,39 +33,45 @@ export default class NavBar extends React.Component {
       collapsed: !this.state.collapsed
     });
   }
+  checkUserExists() {
+    if (this.context.currentUser.type === 'creator' || this.context.currentUser.type === 'company') {
+      return true;
+    }
+    return false;
+  }
 
   render() {
-    const goToLandingPage = () => {
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-      this.context.setView('landing-page', {});
-    };
-    const goToCreatorPortfolio = () => {
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-      this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
-    };
-    const goToSwitchUser = () => {
-      event.preventDefault();
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-      this.context.setView('settings', {});
-    };
-    const goToCompanyDashboard = () => {
-      event.preventDefault();
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-      this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
-    };
-    if (this.context.currentUser.type === 'company' || this.context.currentUser.type === 'creator') {
-      return (
-        <div>
-          <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E', width: '100%', position: 'fixed', zIndex: '1', top: '0px' }} light expand="md">
-            <div style={{
+    // const goToLandingPage = () => {
+    //   this.setState({
+    //     collapsed: !this.state.collapsed
+    //   });
+    //   this.context.setView('landing-page', {});
+    // };
+    // const goToCreatorPortfolio = () => {
+    //   this.setState({
+    //     collapsed: !this.state.collapsed
+    //   });
+    //   this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
+    // };
+    // const goToSwitchUser = () => {
+    //   event.preventDefault();
+    //   this.setState({
+    //     collapsed: !this.state.collapsed
+    //   });
+    //   this.context.setView('settings', {});
+    // };
+    // const goToCompanyDashboard = () => {
+    //   event.preventDefault();
+    //   this.setState({
+    //     collapsed: !this.state.collapsed
+    //   });
+    //   this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
+    // };
+    return (
+      <div>
+        {this.checkUserExists() &&
+          <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
+            <Link to='/landing-page' style={{
               'height': '3rem',
               'color': '#EEEEEE',
               'fontSize': '3em',
@@ -71,7 +79,7 @@ export default class NavBar extends React.Component {
               'lineHeight': '100%',
               'display': 'inline-block',
               'cursor': 'pointer'
-            }} onClick={goToLandingPage}>AdMe</div>
+            }} >AdMe</Link>
             <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
               <NavItem style={{ 'bottom': '10%' }}>
                 <NavLink data-toggle="tooltip" data-placement="bottom" title="Home" onClick={() => { this.context.setView('landing-page', {}); }} style={{
@@ -92,7 +100,7 @@ export default class NavBar extends React.Component {
                 }}></NavLink>
               </NavItem>
               <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink data-toggle="tooltip" data-placement="bottom" title="Current Campaigns" onClick = {() => { this.context.setView('all-campaigns-page', {}); }} style={{
+                <Link to='/all-campaigns-page' style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -101,7 +109,7 @@ export default class NavBar extends React.Component {
                 }}><CampaignIcon style={{
                     'bottom': '10%'
                   }}/>
-                </NavLink>
+                </Link>
               </NavItem>
               {/* <NavItem>
                 <NavLink style={{
@@ -146,7 +154,7 @@ export default class NavBar extends React.Component {
                 }}></NavLink>
               </NavItem>
               {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink data-toggle="tooltip" data-placement="bottom" title="Creator Portfolio" onClick={goToCreatorPortfolio} style={{
+                <Link to={`/creator-portfolio/${this.context.currentUser.id}`} style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -155,9 +163,9 @@ export default class NavBar extends React.Component {
                 }}><PortfolioIcon style={{
                     'bottom': '10%'
                   }} />
-                </NavLink>
+                </Link>
               </NavItem> : <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink data-toggle="tooltip" data-placement="bottom" title="Company Dashboard" onClick={goToCompanyDashboard} style={{
+                <Link to={`/company-dashboard/${this.context.currentUser.id}`} data-toggle="tooltip" data-placement="bottom" title="Company Dashboard" style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -166,7 +174,7 @@ export default class NavBar extends React.Component {
                 }}><CompanyIcon style={{
                     'bottom': '10%'
                   }} />
-                </NavLink>
+                </Link>
               </NavItem>}
 
               <NavItem>
@@ -176,7 +184,7 @@ export default class NavBar extends React.Component {
                 }}></NavLink>
               </NavItem>
               <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink data-toggle="tooltip" data-placement="bottom" title="Settings" onClick={goToSwitchUser} style={{
+                <Link to='/settings' data-toggle="tooltip" data-placement="bottom" title="Settings" style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -185,7 +193,7 @@ export default class NavBar extends React.Component {
                 }}><SettingsIcon style={{
                     'bottom': '10%'
                   }} />
-                </NavLink>
+                </Link>
               </NavItem>
               <NavItem>
                 <NavLink style={{
@@ -195,6 +203,9 @@ export default class NavBar extends React.Component {
               </NavItem>
             </Nav>
           </Navbar>
+        }
+        {this.checkUserExists() &&
+          <>
           <div className="row" style={{ height: '4rem' }}></div>
           <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100vw', 'textAlign': 'center', 'padding': '0', position: 'fixed', zIndex: '1', top: '0px' }} light>
             <div style={{
@@ -210,31 +221,30 @@ export default class NavBar extends React.Component {
             <Collapse style={{ 'padding': '0' }} isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <NavLink onClick={goToLandingPage}>Home</NavLink>
+                  <Link to='/landing-page'>Home</Link>
                 </NavItem>
                 {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <NavLink onClick={goToCreatorPortfolio}>Creator Portfolio</NavLink>
+                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`}>Creator Portfolio</Link>
                 </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <NavLink onClick={goToCompanyDashboard}>Company Dashboard</NavLink>
+                  <Link to={`/company-dashboard/${this.context.currentUser.id}`}>Company Dashboard</Link>
                 </NavItem>}
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <NavLink >Messages</NavLink>
+                  <Link to='/messages'>Messages</Link>
                 </NavItem>
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <NavLink onClick={() => { this.context.setView('all-campaigns-page', {}); }} >Campaigns</NavLink>
+                  <Link to='/all-campaigns-page'>Campaigns</Link>
                 </NavItem >
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
-                  <NavLink onClick={goToSwitchUser}href="">Settings</NavLink>
+                  <Link to='/settings'>Settings</Link>
                 </NavItem>
               </Nav>
             </Collapse>
           </Navbar>
-          <div className="row" style={{ height: '2rem' }}></div>
-        </div>
-      );
-    } else {
-      return null;
-    }
+          </>
+        }
+        <div className="row" style={{ height: '2rem' }}></div>
+      </div>
+    );
   }
 }
 NavBar.contextType = AppContext;

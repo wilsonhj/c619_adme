@@ -33,6 +33,7 @@ module.exports = {
     host: '0.0.0.0',
     port: process.env.DEV_PORT,
     contentBase: publicPath,
+    historyApiFallback: true,
     watchContentBase: true,
     watchOptions: {
       ignored: /uploads/

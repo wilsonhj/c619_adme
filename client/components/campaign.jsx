@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink } from 'reactstrap';
 import AppContext from '../context.js';
+import { Link } from 'react-router-dom';
 
 export default class Campaign extends React.Component {
   constructor(props) {
@@ -38,14 +38,11 @@ export default class Campaign extends React.Component {
       <div style={style.card} id="campaignBackgroundDiv" className="creatorTab justify-content-center align-items-center rounded pb-2 mb-1 mt-1">
         <p className="mt-2 campaignTitleText" style={style.text}>{this.props.campaignTitle}</p>
         <div className="d-flex justify-content-center " style={{ width: '100%', height: '30%' }}>
-          <img className = "pb-1 campaignContent" src={this.props.campaignContent} style={style.video}/>
+          <img className = "pb-1 campaignContent" src={'/' + this.props.campaignContent} style={style.video}/>
         </div>
-        <NavLink style={style.link} onClick={event => {
-
-          this.context.setView('campaign-details', { campaignID: this.props.campaignID });
-        }}>
+        <Link style={style.link} to={`/campaign-details/${this.props.campaignID}`}>
           <span className="campaignDetailsLink">View More <i className="fas fa-plus-circle"></i></span>
-        </NavLink>
+        </Link>
       </div>
     );
   }

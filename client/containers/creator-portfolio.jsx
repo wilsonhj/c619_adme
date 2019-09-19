@@ -2,7 +2,7 @@ import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import AppContext from '../context';
 import classnames from 'classnames';
-// import { ClientHttp2Session } from 'http2';
+import { Link } from 'react-router-dom';
 
 export default class CreatorPortfolio extends React.Component {
 
@@ -30,7 +30,6 @@ export default class CreatorPortfolio extends React.Component {
     };
     this.toggle = this.toggle.bind(this);
     this.getUserSubmissions = this.getUserSubmissions.bind(this);
-
   }
 
   componentDidMount() {
@@ -39,7 +38,7 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserInfo() {
-    fetch('/api/creators/' + this.context.viewParams.creatorID)
+    fetch('http://localhost:3000/api/creators/' + this.props.match.params.creatorID)
       .then(res => res.json())
       .then(res => {
         this.setState({ creatorInfo: {
@@ -55,7 +54,7 @@ export default class CreatorPortfolio extends React.Component {
   }
 
   getUserSubmissions() {
-    fetch('/api/creators/' + this.context.viewParams.creatorID + '/submissions').then(res => res.json()).then(res => {
+    fetch('http://localhost:3000/api/creators/' + this.props.match.params.creatorID + '/submissions').then(res => res.json()).then(res => {
       var creatorSubmissionsArray = [];
       res.map(currentEntry => {
         var submissionObject = {
@@ -129,18 +128,15 @@ export default class CreatorPortfolio extends React.Component {
                               <h5 className="pt-5 mx-auto" name={currentEntry.submissionID} >{currentEntry.title}
 
                               </h5>
-                              <div style={{ textAlign: 'center', position: 'relative' }}>
-                                <img className=" mx-auto glassCard " src={currentEntry.submissionThumbnail} onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }} controls
-                                  style={{ 'display': 'inline-block', 'width': '75%', 'height': '60%', 'backgroundColor': 'white', 'margin': '1rem', 'border': 'solid .25em #841D9E' }}>
+                              <Link to={`/submission-details/${currentEntry.submissionID}`}>
+                                <img className="pb-4 mx-auto" src={'/' + currentEntry.submissionThumbnail}
+                                  style={{ width: '90%' }}>
                                 </img>
-                                <span className="playButton" onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }} style={{ position: 'absolute', verticalAlign: 'center', display: 'inline', right: '47%' }}></span>
-                              </div>
+                              </Link>
                             </React.Fragment>
                           );
                         })}
-
                       </div>
-
                     </Col>
                   </Row>
                 </TabPane>

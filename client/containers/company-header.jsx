@@ -3,6 +3,7 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap
 import classnames from 'classnames';
 import Campaign from '../components/campaign.jsx';
 import AppContext from '../context';
+import { Link } from 'react-router-dom';
 
 export default class CompanyHeader extends React.Component {
   constructor(props) {
@@ -27,15 +28,16 @@ export default class CompanyHeader extends React.Component {
       }]
     };
     this.toggle = this.toggle.bind(this);
-    this.retrieveCurrentCompanyData = this.retrieveCurrentCompanyData.bind(this);
+    this.retrieveCompanyData = this.retrieveCompanyData.bind(this);
     this.retrievePreviousCompanyData = this.retrievePreviousCompanyData.bind(this);
   }
   componentDidMount() {
-    this.retrieveCurrentCompanyData();
+    this.retrieveCompanyData();
     this.retrievePreviousCompanyData();
   }
-  retrieveCurrentCompanyData() {
-    fetch('/api/campaigns/company/' + this.context.viewParams.companyID)
+  retrieveCompanyData() {
+
+    fetch('/api/campaigns/company/' + this.props.companyID)
       .then(res => res.json())
       .then(res => {
         const campaignsArr = res.filter(campaign => {
@@ -64,7 +66,7 @@ export default class CompanyHeader extends React.Component {
 
   }
   retrievePreviousCompanyData() {
-    fetch('/api/campaigns/prevcompany/' + this.context.viewParams.companyID)
+    fetch('/api/campaigns/prevcompany/' + this.props.companyID)
       .then(res => res.json())
       .then(res => {
         const campaignsArr = res.filter(campaign => {
@@ -101,10 +103,14 @@ export default class CompanyHeader extends React.Component {
       color: '#9067C6'
     };
     style.button = {
-      height: '30px',
-      width: '130px',
-      backgroundColor: 'white',
-      fontSize: '0.75rem'
+      backgroundColor: '#0070c9',
+      color: 'white',
+      fontSize: '0.75rem',
+      cursor: 'pointer',
+      textAlign: 'center',
+      fontWeight: '400',
+      display: 'inline-block',
+      whiteSpace: 'nowrap'
     };
     style.logo = {
       height: '40px',
@@ -130,23 +136,26 @@ export default class CompanyHeader extends React.Component {
       height: '60vmin',
       width: '100%'
     };
+    style.tabs = {
+      padding: '.3rem .3rem'
+    };
     return (
       <div className="row background-light justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ paddingLeft: '3%', paddingRight: '3%' }}>
         <div className="row background-light justify-content-around align-items-center companyHeader">
-          <img src={this.state.companyInfo.companyLogo} className="rounded-circle  profilePicShadow " style={style.image}></img>
-          <div className="mt-1" style={style.div}>
+          <img src={this.state.companyInfo.companyLogo} className="rounded-circle profilePicShadow" style={style.image}></img>
+          <div className="mt-1 flex-wrap" style={style.div}>
             <h4 className="mb-0 font-weight-bold" style={{ color: '#242038' }}>{this.state.companyInfo.companyName}</h4>
-            <p className="ml-1 my-1" style={{ fontSize: '1rem' }}>{this.state.companyInfo.companyType}</p>
-            <button className="btn shadow my-auto createCampaignButton" onClick={() => this.context.setView('create-campaign', {})} style={style.button}>Create Campaign</button>
+            <Link className="btn shadow mb-3 p-1 createCampaignButton" to='/create-campaign' style={style.button}>Create Campaign</Link>
           </div>
         </div>
 
-        <div className=" col light tab-text p-0" style={{ marginTop: '10%' }}>
+        <div className="col light tab-text p-0" style={{ marginTop: '10%' }}>
           <Nav tabs>
             <NavItem>
               <NavLink
                 className={classnames({ active: this.state.activeTab === '1' })}
                 onClick={() => { this.toggle('1'); }}
+                style={style.tabs}
               >Current Campaigns
               </NavLink>
             </NavItem>
@@ -154,6 +163,7 @@ export default class CompanyHeader extends React.Component {
               <NavLink
                 className={classnames({ active: this.state.activeTab === '2' })}
                 onClick={() => { this.toggle('2'); }}
+                style={style.tabs}
               >
                 Previous Campaigns
               </NavLink>

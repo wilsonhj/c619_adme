@@ -1,5 +1,6 @@
 import React from 'react';
 import AppContext from '../context';
+import { Link } from 'react-router-dom';
 import StarWinnerConfirmationModal from '../components/star-winner-confirmation-modal';
 
 export default class ViewCampaignDetails extends React.Component {
@@ -41,7 +42,7 @@ export default class ViewCampaignDetails extends React.Component {
   }
 
   getCampaignData() {
-    fetch('/api/campaigns/' + this.context.campaignID)
+    fetch('http://localhost:3000/api/campaigns/' + this.props.match.params.campaignID)
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -74,10 +75,11 @@ export default class ViewCampaignDetails extends React.Component {
         'Content-Type': 'application/json'
       }
     };
-    fetch(`/api/winningAds/${id}`, init)
+    fetch(`http://localhost:3000/api/winningAds/${id}`, init)
       .then(res => res.json())
       .then(res => {
-        this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
+        // eslint-disable-next-line no-console
+        console.log(res);
       })
       .catch(err => {
         // eslint-disable-next-line no-console
@@ -98,14 +100,11 @@ export default class ViewCampaignDetails extends React.Component {
       whiteSpace: 'nowrap'
     };
     return (this.context.currentUser.type === 'creator'
-      ? <button className= 'mx-auto' style={style.button}
-        onClick={() => this.context.setView('upload-submission', { creatorID: this.context.currentUser.id, campaignID: this.context.campaignID })}>
-        Make Submission</button>
+      ? <Link to={`/upload-submission/${this.props.match.params.campaignID}`} style={style.button}>Make Submission</Link>
       : null);
   }
 
   render() {
-
     const style = {};
     style.button = {
       backgroundColor: '#0070c9',
@@ -125,18 +124,23 @@ export default class ViewCampaignDetails extends React.Component {
           <div style={{ width: '150%' }} key={submissionObj.submissionID}>
             <h2 className="mt-5 text-center">Top submission</h2>
             <div className="d-flex justify-content-between align-items-center">
-              <h4 className="mt-1 submissionTitle" onClick={() => {
-                this.context.setView('submission-details', { submissionID: parseInt(submissionObj.submissionID) });
-              }}>{submissionObj.submissionTitle}</h4>
+              <h4 className="mt-1 submissionTitle">
+                <Link to={`/submission-details/${submissionObj.submissionID}`}>{submissionObj.submissionTitle}</Link>
+              </h4>
+              <div className="fas fa-star pickWinner" style={{ color: 'white' }} onClick={() => {
+                this.chooseWinner(submissionObj.submissionID);
+              }}>
+              </div>
+              <Link className="mt-1 submissionTitle" to={`/submission-details/${submissionObj.submissionID}`}
+              >{submissionObj.submissionTitle}</Link>
               {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.companyInfo.companyID)
                 ? <StarWinnerConfirmationModal chooseWinner={this.chooseWinner}
                   message="Are you sure you would like to choose this submission as this campaign's winner?"
                   campaignID = {this.state.campaignDetails.campaignID}
                   submissionID={submissionObj.submissionID}/>
                 : null}
-
             </div>
-            <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
+            <video src={'/' + submissionObj.submissionContent} poster={'/' + submissionObj.submissionThumbnail}
               className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
             </video>
             <div className=" d-flex justify-content-between">
@@ -151,11 +155,11 @@ export default class ViewCampaignDetails extends React.Component {
         );
       } else {
         return (
-          <div className="mr-5" key={submissionObj.submissionID} style={{ width: '33.33%' }}>
-            <h4 className="mt-5 submission-details-author-name submissionTitle" onClick={() => {
-              this.context.setView('submission-details', { submissionID: submissionObj.submissionID });
-            }}>{submissionObj.submissionTitle}</h4>
-            <img className="mx-auto my-2 shadow" src={submissionObj.submissionThumbnail} style={{ width: '100%' }}/>
+          <div className="" key={submissionObj.submissionID} style={{ width: '33.33%' }}>
+            <h4 className="mt-5 submission-details-author-name submissionTitle">
+              <Link to={`submission-details/${submissionObj.submissionID}`}>{submissionObj.submissionTitle}</Link>
+            </h4>
+            <img className="mx-auto my-2 shadow" src={'/' + submissionObj.submissionThumbnail} style={{ width: '100%' }}/>
             {/* <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
               className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
             </video> */}
@@ -172,14 +176,6 @@ export default class ViewCampaignDetails extends React.Component {
     });
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2" >
-        {this.context.currentUser.creatorID
-          ? <div className="d-inline ml-2 fas fa-arrow-left" onClick = {() => {
-            this.context.setView('creator-portfolio', {});
-          }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
-          : <div className="d-inline ml-2 fas fa-arrow-left" onClick={() => {
-            this.context.setView('company-dashboard', { companyID: this.state.companyInfo.companyID });
-          }} style={{ width: '10%', fontSize: '7.5vmin', color: 'rgba(132, 29, 158, .8)' }}></div>
-        }
         <div className="container bg-white glassCard rounded mt-2">
           <h1 className="text-center mt-2 submission-details-title">{this.state.campaignDetails.campaignTitle}</h1>
           <p className="text-center mt-1 ">Decription: {this.state.campaignDetails.description}</p>
