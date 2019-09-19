@@ -95,7 +95,9 @@ export default class ViewCampaignDetails extends React.Component {
       whiteSpace: 'nowrap'
     };
     return (this.context.currentUser.type === 'creator'
-      ? <React.Fragment><div className='block'><div>Add a submission to this campaign</div></div> <button style={style.button} onClick={() => this.context.setView('upload-submission', { creatorID: this.context.currentUser.id, campaignID: this.context.campaignID })}>Make Submission</button></React.Fragment>
+      ? <button className= 'mx-auto' style={style.button}
+        onClick={() => this.context.setView('upload-submission', { creatorID: this.context.currentUser.id, campaignID: this.context.campaignID })}>
+        Make Submission</button>
       : null);
   }
 
@@ -184,6 +186,8 @@ export default class ViewCampaignDetails extends React.Component {
           <p className="text-center mt-1 ">{this.state.campaignDetails.preferredContentType}s will be accepted</p>
         </div>
         <div className='d-flex justify-content-center mt-4'>
+          {this.context.currentUser.type === 'creator' &&
+          <div className='mx-auto'>Add a submission to this campaign</div>}
 
         </div>
         <div className='d-flex justify-content-center mt-1'>
