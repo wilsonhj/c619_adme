@@ -19,6 +19,16 @@ server.use('/api/campaigns', campaigns);
 server.use('/api/submissions', submissions);
 server.use('/api/winningAds', winningAds);
 server.use('/api/user', user);
+
+server.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({
+    error: 'Internal Server Error',
+    message: 'An unexpected error has occurred'
+  });
+
+});
+
 server.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log('its listening closely');

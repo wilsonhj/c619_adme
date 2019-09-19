@@ -88,7 +88,7 @@ export default class CreatorPortfolio extends React.Component {
           <div className="row rounded my-3  creatorInfoContainer">
             <div className="col-12 text-center">
               <div className="row" style={{ backgroundColor: 'none' }}>
-                <img className="rounded-circle glassCard profilePicShadow mt-2 mx-auto" style={{ backgroundSize: 'contain', height: '23vh' }} src={this.state.creatorInfo.profilePicture} alt="profile picture" />
+                <img className="rounded-circle  profilePicShadow mt-2 mx-auto" style={{ backgroundSize: 'contain', height: '23vh' }} src={this.state.creatorInfo.profilePicture} alt="profile picture" />
               </div>
               <div className="row" style={{ backgroundColor: 'none' }}>
                 <h4 className="font-weight-bold m-2 p-2 d-inline-block mx-auto" style={{ 'color': 'rgba(0, 0, 0, 0.7)' }}>
