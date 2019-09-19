@@ -121,11 +121,11 @@ export default class CreatorPortfolio extends React.Component {
                 <TabPane tabId="1">
                   <Row>
                     <Col sm="12">
-                      <div className="d-flex flex-column justify-content-center bg-white p-1 pt-0 creatorTab">
+                      <div className="d-flex flex-column justify-content-center p-1 creatorTab">
                         {this.state.submissionsInfo.map(currentEntry => {
                           return (
                             <React.Fragment key={currentEntry.submissionID}>
-                              <h5 className="mx-auto" name={currentEntry.submissionID} >{currentEntry.title}
+                              <h5 className="mx-auto my-auto pt-1" name={currentEntry.submissionID} >{currentEntry.title}
                               </h5>
                               <div style={{ textAlign: 'center', position: 'relative' }}>
                                 <img className=" mx-auto glassCard " src={currentEntry.submissionThumbnail} onClick={() => { this.context.setView('submission-details', { submissionID: currentEntry.submissionID }); }} controls
