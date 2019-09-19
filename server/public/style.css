@@ -8,10 +8,22 @@ body{
 }
 
 .creatorTab{
-  border-left: 1px solid #dee2e6;
-  border-right: 1px solid #dee2e6
+ border-top: 2px solid #dee2e6;
+ margin-top: 0;
 }
 
+a.active.nav-link {
+  background-color: #dee2e6;
+  border-top: 2px solid #dee2e6;
+  border-left: 2px solid #dee2e6;
+  border-right: 2px solid #dee2e6;
+}
+
+.nav-tabs .nav-link.active{
+  background-color: #dee2e6;
+  margin-bottom: 0;
+  border-color:  #dee2e6;
+}
 
 .creatorSubmissionForm{
   background-image: linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240));

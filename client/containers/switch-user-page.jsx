@@ -26,7 +26,7 @@ export default class SwitchUserPage extends React.Component {
                   localStorage.setItem('currentUser', currentUser);
                   this.context.setUser(2, 'creator');
                   this.context.setView('creator-portfolio', { creatorID: 2 });
-                }}>Tim H.</DropdownItem>
+                }}>Shane McGrath</DropdownItem>
                 <DropdownItem onClick={() => {
                   const currentUser = JSON.stringify({ 'id': 1, 'type': 'creator' });
                   localStorage.setItem('currentUser', currentUser);
@@ -39,6 +39,18 @@ export default class SwitchUserPage extends React.Component {
                   this.context.setUser(3, 'creator');
                   this.context.setView('creator-portfolio', { creatorID: 3 });
                 }}>Sam Durant</DropdownItem>
+                <DropdownItem onClick={() => {
+                  const currentUser = JSON.stringify({ 'id': 4, 'type': 'creator' });
+                  localStorage.setItem('currentUser', currentUser);
+                  this.context.setUser(4, 'creator');
+                  this.context.setView('creator-portfolio', { creatorID: 4 });
+                }}>John South</DropdownItem>
+                <DropdownItem onClick={() => {
+                  const currentUser = JSON.stringify({ 'id': 5, 'type': 'creator' });
+                  localStorage.setItem('currentUser', currentUser);
+                  this.context.setUser(5, 'creator');
+                  this.context.setView('creator-portfolio', { creatorID: 5 });
+                }}>Rachael Yamagata</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
 
@@ -65,6 +77,18 @@ export default class SwitchUserPage extends React.Component {
                   this.context.setUser(3, 'company');
                   this.context.setView('company-dashboard', { companyID: 3 });
                 }}>Tampax</DropdownItem>
+                <DropdownItem onClick={() => {
+                  const currentUser = JSON.stringify({ 'id': 4, 'type': 'company' });
+                  localStorage.setItem('currentUser', currentUser);
+                  this.context.setUser(4, 'company');
+                  this.context.setView('company-dashboard', { companyID: 4 });
+                }}>Volkswagen</DropdownItem>
+                <DropdownItem onClick={() => {
+                  const currentUser = JSON.stringify({ 'id': 5, 'type': 'company' });
+                  localStorage.setItem('currentUser', currentUser);
+                  this.context.setUser(5, 'company');
+                  this.context.setView('company-dashboard', { companyID: 5 });
+                }}>TM Productions</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>

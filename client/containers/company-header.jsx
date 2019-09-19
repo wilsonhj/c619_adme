@@ -39,26 +39,29 @@ export default class CompanyHeader extends React.Component {
       .then(res => res.json())
       .then(res => {
         const campaignsArr = res.filter(campaign => {
-          if (campaign !== null) {
-            const campaignObj = {
+          if (campaign.isWinner !== true) {
+            var campaignObj = {
               campaignTitle: campaign.campaignTitle,
               campaignContent: campaign.campaignContent,
               campaignID: campaign.campaignID
             };
-            return campaignObj;
           }
+
+          return campaignObj;
 
         });
         this.setState({
           companyInfo: {
-            companyID: campaignsArr[0].companyID,
-            companyName: campaignsArr[0].companyName,
-            companyLogo: campaignsArr[0].companyLogo,
-            companyType: campaignsArr[0].companyType
+            companyID: res[0].companyID,
+            companyName: res[0].companyName,
+            companyLogo: res[0].companyLogo,
+            companyType: res[0].companyType
           },
           currentcampaignsInfo: campaignsArr
         });
+
       });
+
   }
   retrievePreviousCompanyData() {
     fetch('/api/campaigns/prevcompany/' + this.context.viewParams.companyID)
@@ -160,7 +163,7 @@ export default class CompanyHeader extends React.Component {
             <TabPane tabId="1">
               <Row >
                 <Col sm='12' >
-                  {this.state.currentcampaignsInfo.map((campaignObj, idx) => {
+                  {this.state.currentcampaignsInfo[0] && this.state.currentcampaignsInfo.map((campaignObj, idx) => {
                     return (
                       <Campaign key={idx}
                         imageSource={this.state.companyInfo.companyLogo}

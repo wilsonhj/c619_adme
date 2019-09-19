@@ -34,11 +34,11 @@ export default class AllCampaigns extends React.Component {
           key={campaign.campaignID}>
 
           <div className="container">
-            <div style={{ 'textAlign': 'center', 'fontSize': '2em' }}>
+            <div style={{ 'textAlign': 'center', 'fontSize': '2em', 'marginTop': '3%' }}>
               {campaign.campaignTitle}
             </div>
-            <div style={{ 'marginTop': '1em', 'height': '2em', 'width': '100%', 'borderRadius': '15%', 'textAlign': 'center' }}> {campaign.runSpace} </div>
-            <div style={{ 'marginTop': '2em', 'marginBottom': '2em', 'width': '100%', 'textAlign': 'center' }}> {campaign.requirements} </div>
+            <div style={{ 'marginTop': '1em', 'marginBottom': '1em', 'height': '2em', 'width': '100%', 'borderRadius': '15%', 'textAlign': 'center' }}> {campaign.runSpace} </div>
+            <div style={{ 'marginTop': '1em', 'marginBottom': '1em', 'width': '100%', 'textAlign': 'center' }}> {campaign.requirements} </div>
             <div style={{ 'height': '2em', 'width': '100%', 'borderRadius': '15%', 'textAlign': 'center' }}> {campaign.rewards} </div>
           </div>
         </div>
