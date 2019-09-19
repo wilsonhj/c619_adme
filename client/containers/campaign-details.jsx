@@ -42,7 +42,7 @@ export default class ViewCampaignDetails extends React.Component {
   }
 
   getCampaignData() {
-    fetch('http://localhost:3000/api/campaigns/' + this.context.campaignID)
+    fetch('http://localhost:3000/api/campaigns/' + this.props.match.params.campaignID)
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -140,7 +140,7 @@ export default class ViewCampaignDetails extends React.Component {
                   submissionID={submissionObj.submissionID}/>
                 : null}
             </div>
-            <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
+            <video src={'/' + submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
               className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
             </video>
             <div className=" d-flex justify-content-between">
@@ -159,7 +159,7 @@ export default class ViewCampaignDetails extends React.Component {
             <h4 className="mt-5 submission-details-author-name submissionTitle">
               <Link to={`submission-details/${submissionObj.submissionID}`}>{submissionObj.submissionTitle}</Link>
             </h4>
-            <img className="mx-auto my-2 shadow" src={submissionObj.submissionThumbnail} style={{ width: '100%' }}/>
+            <img className="mx-auto my-2 shadow" src={'/' + submissionObj.submissionThumbnail} style={{ width: '100%' }}/>
             {/* <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
               className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
             </video> */}

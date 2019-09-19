@@ -30,7 +30,7 @@ export default class CreatorPortfolio extends React.Component {
     };
     this.toggle = this.toggle.bind(this);
     this.getUserSubmissions = this.getUserSubmissions.bind(this);
-
+    console.log(this.props);
   }
 
   componentDidMount() {
@@ -135,9 +135,7 @@ export default class CreatorPortfolio extends React.Component {
                             </React.Fragment>
                           );
                         })}
-
                       </div>
-
                     </Col>
                   </Row>
                 </TabPane>

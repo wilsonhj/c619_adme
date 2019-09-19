@@ -14,7 +14,7 @@ import PortfolioIcon from './portfolioIcon';
 import SettingsIcon from './settingsIcon';
 import CompanyIcon from './company-dashboard-icon';
 import AppContext from '../context';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -59,11 +59,11 @@ export default class NavBar extends React.Component {
       });
       this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
     };
-    if (this.context.currentUser.id === 'company' || this.context.currentUser.id === 'creator') {
+    if (this.context.currentUser.type === 'company' || this.context.currentUser.type === 'creator') {
       return (
         <div>
           <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
-            <div style={{
+            <Link to='/landing-page' style={{
               'height': '3rem',
               'color': '#EEEEEE',
               'fontSize': '3em',
@@ -71,7 +71,7 @@ export default class NavBar extends React.Component {
               'lineHeight': '100%',
               'display': 'inline-block',
               'cursor': 'pointer'
-            }} onClick={goToLandingPage}>AdMe</div>
+            }} >AdMe</Link>
             <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
 
               <NavItem>
@@ -146,7 +146,7 @@ export default class NavBar extends React.Component {
                   }} />
                 </Link>
               </NavItem> : <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink data-toggle="tooltip" data-placement="bottom" title="Company Dashboard" onClick={goToCompanyDashboard} style={{
+                <Link to={`/company-dashboard/${this.context.currentUser.id}`} data-toggle="tooltip" data-placement="bottom" title="Company Dashboard" style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -155,7 +155,7 @@ export default class NavBar extends React.Component {
                 }}><CompanyIcon style={{
                     'bottom': '10%'
                   }} />
-                </NavLink>
+                </Link>
               </NavItem>}
 
               <NavItem>
@@ -165,7 +165,7 @@ export default class NavBar extends React.Component {
                 }}></NavLink>
               </NavItem>
               <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink data-toggle="tooltip" data-placement="bottom" title="Settings" onClick={goToSwitchUser} style={{
+                <Link to='/settings' data-toggle="tooltip" data-placement="bottom" title="Settings" style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -174,7 +174,7 @@ export default class NavBar extends React.Component {
                 }}><SettingsIcon style={{
                     'bottom': '10%'
                   }} />
-                </NavLink>
+                </Link>
               </NavItem>
               <NavItem>
                 <NavLink style={{
@@ -201,9 +201,9 @@ export default class NavBar extends React.Component {
                   <Link to='/landing-page'>Home</Link>
                 </NavItem>
                 {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/creator-portfolio/${this.props.match.params.id}`}>Creator Portfolio</Link>
+                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`}>Creator Portfolio</Link>
                 </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/company-dashboard/${this.props.match.params.id}`}>Company Dashboard</Link>
+                  <Link to={`/company-dashboard/${this.context.currentUser.id}`}>Company Dashboard</Link>
                 </NavItem>}
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
                   <Link to='/messages'>Messages</Link>

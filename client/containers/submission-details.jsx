@@ -23,6 +23,7 @@ export default class ViewSubmissionDetails extends React.Component {
     this.updateLikes = this.updateLikes.bind(this);
     this.deleteSubmission = this.deleteSubmission.bind(this);
     this.createConfirmation = this.createConfirmation.bind(this);
+    console.log(this.props, "submission-details");
   }
 
   componentDidMount() {
@@ -116,7 +117,7 @@ export default class ViewSubmissionDetails extends React.Component {
     // console.log(this.state.submissionContent);
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2">
-        <Link to={`/creator-portfolio/${this.context.currentUser.creatorID}`} className='ml-2 mt-3 d-inline-block' style={{ width: '60%' }}
+        <Link to={`/creator-portfolio/${this.state.submissionCreatorID}`} className='ml-2 mt-3 d-inline-block' style={{ width: '60%' }}
         >
           <img className="d-inline-block rounded-circle shadow mx-auto"
             style={{ backgroundSize: 'contain', height: '9vmin' }}

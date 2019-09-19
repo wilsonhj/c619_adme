@@ -118,23 +118,21 @@ export default class App extends React.Component {
       currentUser: this.state.currentUser,
       campaignID: this.state.view.params.campaignID
     };
-    
     return (
-      <Router>
-        <AppContext.Provider value={appContext} >
+      <AppContext.Provider value={appContext} >
+        <Router>
+          <NavBar />
           <Route exact path='/' component={LandingPage} />
           <Route path='/company-dashboard/:companyID' component={CompanyDashboard} />
-          <Route exact path='/create-campaign' component={CreateCampaign} />
-          <Route path='/creator-portfolio/:creatorID' component={CreatorPortfolio} />       
+          <Route exact path='/create-campaign/:companyID' component={CreateCampaign} />
+          <Route path='/creator-portfolio/:creatorID' component={CreatorPortfolio}/>
           <Route path='/upload-submission/:campaignID' component={UploadSubmission}></Route>
           <Route path='/submission-details/:submissionID' component={ViewSubmissionDetails}></Route>  {/* pageID={this.state.view.params.submissionID} */}
-          <Route path='/campaign-details' component={ViewCampaignDetails}></Route>
+          <Route path='/campaign-details/:campaignID' component={ViewCampaignDetails}></Route>
           <Route path='/settings' component={SwitchUserPage}></Route>
           <Route path='/all-campaigns-page' component={AllCampaigns}></Route>
-
-          <NavBar />
-        </AppContext.Provider>
-      </Router>
+        </Router>
+      </AppContext.Provider>
     );
   }
 
