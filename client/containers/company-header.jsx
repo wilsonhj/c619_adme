@@ -41,29 +41,32 @@ export default class CompanyHeader extends React.Component {
       .then(res => res.json())
       .then(res => {
         const campaignsArr = res.filter(campaign => {
-          if (campaign !== null) {
-            const campaignObj = {
+          if (campaign.isWinner !== true) {
+            var campaignObj = {
               campaignTitle: campaign.campaignTitle,
               campaignContent: campaign.campaignContent,
               campaignID: campaign.campaignID
             };
-            return campaignObj;
           }
+
+          return campaignObj;
 
         });
         this.setState({
           companyInfo: {
-            companyID: campaignsArr[0].companyID,
-            companyName: campaignsArr[0].companyName,
-            companyLogo: campaignsArr[0].companyLogo,
-            companyType: campaignsArr[0].companyType
+            companyID: res[0].companyID,
+            companyName: res[0].companyName,
+            companyLogo: res[0].companyLogo,
+            companyType: res[0].companyType
           },
           currentcampaignsInfo: campaignsArr
         });
+
       });
+
   }
   retrievePreviousCompanyData() {
-    fetch('/api/campaigns/prevcompany/' + this.context.viewParams.companyID)
+    fetch('/api/campaigns/prevcompany/' + this.props.companyID)
       .then(res => res.json())
       .then(res => {
         const campaignsArr = res.filter(campaign => {
@@ -137,7 +140,7 @@ export default class CompanyHeader extends React.Component {
       padding: '.3rem .3rem'
     };
     return (
-      <div className="row background-light justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ backgroundImage: 'linear-gradient(to top right, #CAC4CE, rgb(234, 224, 240))', paddingLeft: '3%', paddingRight: '3%' }}>
+      <div className="row background-light justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ paddingLeft: '3%', paddingRight: '3%' }}>
         <div className="row background-light justify-content-around align-items-center companyHeader">
           <img src={this.state.companyInfo.companyLogo} className="rounded-circle shadow" style={style.image}></img>
           <div className="flex-wrap" style={style.div}>
@@ -170,7 +173,7 @@ export default class CompanyHeader extends React.Component {
             <TabPane tabId="1">
               <Row >
                 <Col sm='12' >
-                  {this.state.currentcampaignsInfo.map((campaignObj, idx) => {
+                  {this.state.currentcampaignsInfo[0] && this.state.currentcampaignsInfo.map((campaignObj, idx) => {
                     return (
                       <Campaign key={idx}
                         imageSource={this.state.companyInfo.companyLogo}

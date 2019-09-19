@@ -53,8 +53,8 @@ router.get('/company/:id', (req, res, next) => {
            co.companyName,
            co.companyLogo,
            co.companyType
-      FROM campaigns AS ca
-      JOIN companies AS co
+      FROM companies AS co
+      LEFT JOIN campaigns AS ca
         ON co.companyID = ca.companyID
      WHERE ca.companyID = ?
   `;
@@ -73,7 +73,7 @@ router.get('/company/:id', (req, res, next) => {
       winningRows.forEach(winner => {
         for (var i = 0; i < rows.length; i++) {
           if (rows[i].campaignID === winner.campaignID) {
-            rows[i] = null;
+            rows[i].isWinner = true;
           }
         }
       });
@@ -101,6 +101,10 @@ router.get('/prevcompany/:id', (req, res, next) => {
     });
     connection.execute(`SELECT * FROM winningAds`, (err, winningRows, fields) => {
       if (err) return next(err);
+      // console.log(rows[0])
+      if (winningRows[0] === undefined) {
+        res.send(winningRows);
+      }
       winningRows.forEach(winner => {
         for (var i = 0; i < rows.length; i++) {
           if (rows[i].campaignID !== winner.campaignID) {

@@ -23,7 +23,6 @@ export default class ViewSubmissionDetails extends React.Component {
     this.updateLikes = this.updateLikes.bind(this);
     this.deleteSubmission = this.deleteSubmission.bind(this);
     this.createConfirmation = this.createConfirmation.bind(this);
-    console.log(this.props, "submission-details");
   }
 
   componentDidMount() {

@@ -24,6 +24,7 @@ export default class NavBar extends React.Component {
     this.state = {
       collapsed: true
     };
+    this.checkUserExists = this.checkUserExists.bind(this);
   }
 
   toggleNavbar() {
@@ -31,37 +32,43 @@ export default class NavBar extends React.Component {
       collapsed: !this.state.collapsed
     });
   }
+  checkUserExists() {
+    if (this.context.currentUser.type === 'creator' || this.context.currentUser.type === 'company'){
+      return true;
+    }
+    return false;
+  }
 
   render() {
-    const goToLandingPage = () => {
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-      this.context.setView('landing-page', {});
-    };
-    const goToCreatorPortfolio = () => {
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-      this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
-    };
-    const goToSwitchUser = () => {
-      event.preventDefault();
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-      this.context.setView('settings', {});
-    };
-    const goToCompanyDashboard = () => {
-      event.preventDefault();
-      this.setState({
-        collapsed: !this.state.collapsed
-      });
-      this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
-    };
-    if (this.context.currentUser.type === 'company' || this.context.currentUser.type === 'creator') {
-      return (
-        <div>
+    // const goToLandingPage = () => {
+    //   this.setState({
+    //     collapsed: !this.state.collapsed
+    //   });
+    //   this.context.setView('landing-page', {});
+    // };
+    // const goToCreatorPortfolio = () => {
+    //   this.setState({
+    //     collapsed: !this.state.collapsed
+    //   });
+    //   this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
+    // };
+    // const goToSwitchUser = () => {
+    //   event.preventDefault();
+    //   this.setState({
+    //     collapsed: !this.state.collapsed
+    //   });
+    //   this.context.setView('settings', {});
+    // };
+    // const goToCompanyDashboard = () => {
+    //   event.preventDefault();
+    //   this.setState({
+    //     collapsed: !this.state.collapsed
+    //   });
+    //   this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
+    // };
+    return (
+      <div>
+        {this.checkUserExists() &&
           <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
             <Link to='/landing-page' style={{
               'height': '3rem',
@@ -184,6 +191,8 @@ export default class NavBar extends React.Component {
               </NavItem>
             </Nav>
           </Navbar>
+        }
+        {this.checkUserExists() &&
           <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100%', 'textAlign': 'center', 'padding': '0' }} light>
             <div style={{
               'height': '3rem',
@@ -217,11 +226,9 @@ export default class NavBar extends React.Component {
               </Nav>
             </Collapse>
           </Navbar>
-        </div>
-      );
-    } else {
-      return null;
-    }
+        }
+      </div>  
+    );
   }
 }
 NavBar.contextType = AppContext;

@@ -1,6 +1,6 @@
 import React from 'react';
 import AppContext from '../context';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import StarWinnerConfirmationModal from '../components/star-winner-confirmation-modal';
 
 export default class ViewCampaignDetails extends React.Component {
@@ -140,7 +140,7 @@ export default class ViewCampaignDetails extends React.Component {
                   submissionID={submissionObj.submissionID}/>
                 : null}
             </div>
-            <video src={'/' + submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}
+            <video src={'/' + submissionObj.submissionContent} poster={'/' + submissionObj.submissionThumbnail}
               className="mx-auto my-2 shadow" style={{ width: '100%' }} controls>
             </video>
             <div className=" d-flex justify-content-between">
@@ -184,7 +184,14 @@ export default class ViewCampaignDetails extends React.Component {
           <p className="text-center mt-1 ">Reward: {this.state.campaignDetails.rewards}</p>
           <p className="text-center mt-1 ">{this.state.campaignDetails.preferredContentType}s will be accepted</p>
         </div>
-        {this.makeSubmissionButton()}
+        <div className='d-flex justify-content-center mt-4'>
+          {this.context.currentUser.type === 'creator' &&
+          <div className='mx-auto'>Add a submission to this campaign</div>}
+
+        </div>
+        <div className='d-flex justify-content-center mt-1'>
+          {this.makeSubmissionButton()}
+        </div>
         <div className="d-inline-flex flex-wrap container">
           {submissions}
         </div>

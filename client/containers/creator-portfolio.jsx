@@ -85,12 +85,12 @@ export default class CreatorPortfolio extends React.Component {
     return (
       <React.Fragment>
         <div className="container">
-          <div className="row rounded my-3 shadow creatorInfoContainer">
+          <div className="row rounded my-3  creatorInfoContainer">
             <div className="col-12 text-center">
-              <div className="row">
-                <img className="rounded-circle shadow mt-2 mx-auto" style={{ backgroundSize: 'contain', height: '23vh' }} src={this.state.creatorInfo.profilePicture} alt="profile picture" />
+              <div className="row" style={{ backgroundColor: 'none' }}>
+                <img className="rounded-circle  profilePicShadow mt-2 mx-auto" style={{ backgroundSize: 'contain', height: '23vh' }} src={this.state.creatorInfo.profilePicture} alt="profile picture" />
               </div>
-              <div className="row">
+              <div className="row" style={{ backgroundColor: 'none' }}>
                 <h4 className="font-weight-bold m-2 p-2 d-inline-block mx-auto" style={{ 'color': 'rgba(0, 0, 0, 0.7)' }}>
                   {this.state.creatorInfo.first_name} {this.state.creatorInfo.last_name}
                 </h4>
@@ -98,7 +98,7 @@ export default class CreatorPortfolio extends React.Component {
             </div>
             <div className="col pb-3">
               <Nav tabs>
-                <NavItem>
+                <NavItem className = 'tabs '>
                   <NavLink
                     className={classnames({ active: this.state.activeTab === '1' })}
                     style={{ cursor: 'pointer' }}
@@ -107,7 +107,7 @@ export default class CreatorPortfolio extends React.Component {
                     Experience
                   </NavLink>
                 </NavItem>
-                <NavItem>
+                <NavItem className='tabs '>
                   <NavLink
                     className={classnames({ active: this.state.activeTab === '2' })}
                     style={{ cursor: 'pointer' }}
@@ -117,7 +117,7 @@ export default class CreatorPortfolio extends React.Component {
                   </NavLink>
                 </NavItem>
               </Nav>
-              <TabContent activeTab={this.state.activeTab}>
+              <TabContent className= 'tabBod' activeTab={this.state.activeTab}>
                 <TabPane tabId="1">
                   <Row>
                     <Col sm="12">

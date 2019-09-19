@@ -11,8 +11,7 @@ import CompanyHeader from './containers/company-header.jsx';
 import SwitchUserPage from './containers/switch-user-page';
 import ViewCampaignDetails from './containers/campaign-details';
 import AllCampaigns from './containers/all-campaigns-page';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -122,7 +121,7 @@ export default class App extends React.Component {
       <AppContext.Provider value={appContext} >
         <Router>
           <NavBar />
-          <Route exact path='/' component={LandingPage} />
+          <Route exact path='/landing-page' component={LandingPage} />
           <Route path='/company-dashboard/:companyID' component={CompanyDashboard} />
           <Route exact path='/create-campaign/:companyID' component={CreateCampaign} />
           <Route path='/creator-portfolio/:creatorID' component={CreatorPortfolio}/>
@@ -131,6 +130,7 @@ export default class App extends React.Component {
           <Route path='/campaign-details/:campaignID' component={ViewCampaignDetails}></Route>
           <Route path='/settings' component={SwitchUserPage}></Route>
           <Route path='/all-campaigns-page' component={AllCampaigns}></Route>
+          <Route path='/create-campaign' component={CreateCampaign}></Route>
         </Router>
       </AppContext.Provider>
     );
