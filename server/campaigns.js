@@ -101,6 +101,10 @@ router.get('/prevcompany/:id', (req, res, next) => {
     });
     connection.execute(`SELECT * FROM winningAds`, (err, winningRows, fields) => {
       if (err) return next(err);
+      // console.log(rows[0])
+      if (winningRows[0] === undefined) {
+        res.send(winningRows);
+      }
       winningRows.forEach(winner => {
         for (var i = 0; i < rows.length; i++) {
           if (rows[i].campaignID !== winner.campaignID) {
