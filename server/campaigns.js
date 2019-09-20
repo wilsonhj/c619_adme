@@ -85,38 +85,24 @@ router.get('/company/:id', (req, res, next) => {
 router.get('/prevcompany/:id', (req, res, next) => {
 
   const query = `
-    SELECT *
-      FROM campaigns
-     WHERE companyID = ?
+    SELECT campaigns.*
+      FROM winningAds
+      JOIN campaigns
+        ON winningAds.campaignID = campaigns.campaignID
+     WHERE campaigns.companyID = ?
+       AND submissionID IS NOT NULL
   `;
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {
     if (err) return next(err);
-    if (rows[0] === undefined) {
-      res.send(rows);
-    }
     rows.forEach(row => {
-      if (row.campaignContent !== null) {
-        row.campaignContent = row.campaignContent.substring(row.campaignContent.indexOf('uploads'));
-      } else {
-        row.campaignContent = '';
-      }
+      row.campaignContent = row.campaignContent
+        ? row.campaignContent.substring(row.campaignContent.indexOf('uploads'))
+        : '';
     });
-    connection.execute(`SELECT * FROM winningAds`, (err, winningRows, fields) => {
-      if (err) return next(err);
-      if (winningRows[0] === undefined) {
-        res.send(winningRows);
-      }
-      winningRows.forEach(winner => {
-        for (var i = 0; i < rows.length; i++) {
-          if (rows[i].campaignID !== winner.campaignID) {
-            rows[i] = null;
-          }
-        }
-      });
-      res.status(200).send(rows);
-    });
+    res.json(rows);
   });
+
 });
 
 // campaign details page
