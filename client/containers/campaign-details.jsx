@@ -84,7 +84,7 @@ export default class ViewCampaignDetails extends React.Component {
   makeSubmissionButton() {
     const style = {};
     style.button = {
-      width: '30%',
+      width: '50%',
       backgroundColor: '#0070c9',
       color: 'white',
       fontSize: '0.75rem',
