@@ -7,7 +7,7 @@ import CreatorPortfolio from './containers/creator-portfolio';
 import UploadSubmission from './containers/upload-submission';
 import NavBar from './components/nav-bar';
 import ViewSubmissionDetails from './containers/submission-details';
-import CompanyHeader from './containers/company-header.jsx';
+// import CompanyHeader from './containers/company-header.jsx';
 import SwitchUserPage from './containers/switch-user-page';
 import ViewCampaignDetails from './containers/campaign-details';
 import AllCampaigns from './containers/all-campaigns-page';
@@ -31,9 +31,9 @@ export default class App extends React.Component {
       }
     };
     this.setUser = this.setUser.bind(this);
-    localStorage.getItem('id');
   }
   componentDidMount() {
+    this.setUser();
     fetch('/api/user')
       .then(res => res.json())
       .then(res => {
@@ -50,45 +50,9 @@ export default class App extends React.Component {
       });
   }
 
-  setUser(userID, type) {
-    var id;
-    if (type === 'company') {
-      id = this.state.userOptions.companies.filter(company => {
-        if (company.companyID === userID) return company.companyID;
-      });
-      id = id[0].companyID;
-    } else if (type === 'creator') {
-      id = this.state.userOptions.creators.filter(creator => {
-        if (creator.creatorID === userID) return creator.creatorID;
-      });
-      id = id[0].creatorID;
-    }
-    this.setState({ currentUser: { type, id } });
-  }
-
-  renderView() {
-    switch (this.state.view.name) {
-      case 'landing-page':
-        return <LandingPage />;
-      case 'company-dashboard':
-        return <CompanyDashboard/>;
-      case 'create-campaign':
-        return <CreateCampaign />;
-      case 'creator-portfolio':
-        return <CreatorPortfolio />;
-      case 'company-header':
-        return <CompanyHeader/>;
-      case 'upload-submission':
-        return <UploadSubmission />;
-      case 'submission-details':
-        return <ViewSubmissionDetails pageID={this.state.view.params.submissionID}/>;
-      case 'campaign-details':
-        return <ViewCampaignDetails pageID={this.state.view.params.campaignID}/>;
-      case 'settings':
-        return <SwitchUserPage setUser = {this.setUser}/>;
-      case 'all-campaigns-page':
-        return <AllCampaigns />;
-    }
+  setUser() {
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.setState({ currentUser });
   }
 
   checkCurrentUser() {

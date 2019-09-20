@@ -26,7 +26,7 @@ export default class Campaign extends React.Component {
       textAlign: 'center'
     };
     style.link = {
-      color: '#0070c9',
+      color: '#000000',
       textAlign: 'center',
       cursor: 'pointer',
       fontWeight: '400'
@@ -40,9 +40,11 @@ export default class Campaign extends React.Component {
         <div className="d-flex justify-content-center " style={{ width: '100%', height: '30%' }}>
           <img className = "pb-1 campaignContent" src={'/' + this.props.campaignContent} style={style.video}/>
         </div>
-        <Link style={style.link} to={`/campaign-details/${this.props.campaignID}`}>
-          <span className="campaignDetailsLink">View More <i className="fas fa-plus-circle"></i></span>
-        </Link>
+        <div className="d-flex justify-content-center">
+          <Link style={style.link} to={`/campaign-details/${this.props.campaignID}`}>
+            <span className="campaignDetailsLink">View More <i className="fas fa-plus-circle"></i></span>
+          </Link>
+        </div>
       </div>
     );
   }
