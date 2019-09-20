@@ -70,7 +70,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
         {this.checkUserExists() &&
-          <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
+          <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E', 'width': '100vw', 'textAlign': 'center', 'padding': '0', position: 'fixed', zIndex: '1', top: '0px' }} light expand="md">
             <Link to='/landing-page' style={{
               'height': '3rem',
               'color': '#EEEEEE',
@@ -78,7 +78,9 @@ export default class NavBar extends React.Component {
               'fontFamily': 'Modak, cursive',
               'lineHeight': '100%',
               'display': 'inline-block',
-              'cursor': 'pointer'
+              'cursor': 'pointer',
+              'float': 'left',
+              'marginLeft': '1rem'
             }} >AdMe</Link>
             <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
               <NavItem style={{ 'bottom': '10%' }}>
@@ -206,7 +208,7 @@ export default class NavBar extends React.Component {
         }
         {this.checkUserExists() &&
           <>
-          <div className="row" style={{ height: '4rem' }}></div>
+          <div style={{ height: '4rem', width: '100%' }}></div>
           <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100vw', 'textAlign': 'center', 'padding': '0', position: 'fixed', zIndex: '1', top: '0px' }} light>
             <div style={{
               'height': '3rem',
@@ -242,7 +244,7 @@ export default class NavBar extends React.Component {
           </Navbar>
           </>
         }
-        <div className="row" style={{ height: '2rem' }}></div>
+        <div style={{ height: '2rem', width: '100%' }}></div>
       </div>
     );
   }
