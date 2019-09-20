@@ -9,6 +9,7 @@ export default class SwitchUserPage extends React.Component {
     this.state = {
       userOptions: []
     };
+    localStorage.setItem('currentUser', { 'type': null, 'id': 0 });
   }
 
   render() {

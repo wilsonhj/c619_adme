@@ -34,6 +34,7 @@ export default class NavBar extends React.Component {
     });
   }
   checkUserExists() {
+    // console.log(JSON.parse(this.context.currentUser) );
     if (this.context.currentUser.type === 'creator' || this.context.currentUser.type === 'company') {
       return true;
     }

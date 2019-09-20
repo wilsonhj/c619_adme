@@ -32,7 +32,7 @@ export default class App extends React.Component {
     };
     // this.setView = this.setView.bind(this);
     this.setUser = this.setUser.bind(this);
-    localStorage.getItem('id');
+    this.currentUser = localStorage.getItem('currentUser');
   }
   componentDidMount() {
     fetch('/api/user')
@@ -114,7 +114,7 @@ export default class App extends React.Component {
       // setView: this.setView,
       setUser: this.setUser,
       viewParams: this.state.view.params,
-      currentUser: this.state.currentUser,
+      currentUser: this.currentUser,
       campaignID: this.state.view.params.campaignID
     };
     return (
