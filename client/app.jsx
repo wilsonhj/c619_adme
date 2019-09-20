@@ -82,6 +82,7 @@ export default class App extends React.Component {
           <Route path='/submission-details/:submissionID' component={ViewSubmissionDetails}></Route>  {/* pageID={this.state.view.params.submissionID} */}
           <Route path='/campaign-details/:campaignID' component={ViewCampaignDetails}></Route>
           <Route path='/settings' component={SwitchUserPage}></Route>
+          <Route exact path='/' component={SwitchUserPage}></Route>
           <Route path='/all-campaigns-page' component={AllCampaigns}></Route>
           <Route path='/create-campaign' component={CreateCampaign}></Route>
         </Router>

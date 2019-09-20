@@ -26,6 +26,8 @@ export default class NavBar extends React.Component {
       collapsed: true
     };
     this.checkUserExists = this.checkUserExists.bind(this);
+    this.closeNavbar = this.closeNavbar.bind(this);
+    this.toggleNavbar = this.toggleNavbar.bind(this);
   }
 
   toggleNavbar() {
@@ -33,6 +35,13 @@ export default class NavBar extends React.Component {
       collapsed: !this.state.collapsed
     });
   }
+
+  closeNavbar() {
+    if (this.state.collapsed !== true) {
+      this.toggleNavbar();
+    }
+  }
+
   checkUserExists() {
     if (this.context.currentUser.type === 'creator' || this.context.currentUser.type === 'company') {
       return true;
@@ -162,21 +171,18 @@ export default class NavBar extends React.Component {
             <Collapse style={{ 'padding': '0' }} isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to='/landing-page' style={{ 'color': '#000000' }}>Home</Link>
+                  <Link to='/landing-page' style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Home</Link>
                 </NavItem>
                 {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`} style={{ 'color': '#000000' }}>Creator Portfolio</Link>
+                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`} style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Creator Portfolio</Link>
                 </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/company-dashboard/${this.context.currentUser.id}`} style={{ 'color': '#000000' }}>Company Dashboard</Link>
+                  <Link to={`/company-dashboard/${this.context.currentUser.id}`} style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Company Dashboard</Link>
                 </NavItem>}
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <Link to='/messages' style={{ 'color': '#000000' }}>Messages</Link>
-                </NavItem>
-                <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <Link to='/all-campaigns-page' style={{ 'color': '#000000' }}>Campaigns</Link>
+                  <Link to='/all-campaigns-page' style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Campaigns</Link>
                 </NavItem >
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
-                  <Link to='/settings' style={{ 'color': '#000000' }}>Settings</Link>
+                  <Link to='/settings' style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Settings</Link>
                 </NavItem>
               </Nav>
             </Collapse>
