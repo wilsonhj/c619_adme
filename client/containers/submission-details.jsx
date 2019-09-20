@@ -110,7 +110,7 @@ export default class ViewSubmissionDetails extends React.Component {
   render() {
     return (
       <div className="creatorInfoContainer shadow rounded d-flex flex-column justify-content-center m-2 pb-4 pt-2">
-        <Link to={`/creator-portfolio/${this.state.submissionCreatorID}`} className='ml-2 mt-3 d-inline-block' style={{ width: '60%' }}
+        <Link to={`/creator-portfolio/${this.state.submissionCreatorID}`} className='ml-2 mt-3 d-inline-block' style={{ width: '60%', color: '#841D9E' }}
         >
           <img className="d-inline-block rounded-circle shadow mx-auto"
             style={{ backgroundSize: 'contain', height: '9vmin' }}

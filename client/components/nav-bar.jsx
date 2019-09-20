@@ -171,19 +171,18 @@ export default class NavBar extends React.Component {
             <Collapse style={{ 'padding': '0' }} isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to='/landing-page' onClick={this.closeNavbar}>Home</Link>
+                  <Link to='/landing-page' style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Home</Link>
                 </NavItem>
                 {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`}
-                    onClick={this.closeNavbar}>Creator Portfolio</Link>
+                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`} style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Creator Portfolio</Link>
                 </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/company-dashboard/${this.context.currentUser.id}`} onClick={this.closeNavbar}>Company Dashboard</Link>
+                  <Link to={`/company-dashboard/${this.context.currentUser.id}`} style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Company Dashboard</Link>
                 </NavItem>}
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <Link to='/all-campaigns-page' onClick={this.closeNavbar}>Campaigns</Link>
+                  <Link to='/all-campaigns-page' style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Campaigns</Link>
                 </NavItem >
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
-                  <Link to='/settings' onClick={this.closeNavbar}>Settings</Link>
+                  <Link to='/settings' style={{ 'color': '#000000' }} onClick={this.closeNavbar}>Settings</Link>
                 </NavItem>
               </Nav>
             </Collapse>

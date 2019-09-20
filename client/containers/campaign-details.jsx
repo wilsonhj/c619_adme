@@ -125,7 +125,7 @@ export default class ViewCampaignDetails extends React.Component {
             <h2 className="mt-5 text-center">Top submission</h2>
             <div className="d-flex justify-content-between align-items-center">
               <h4 className="mt-1 submissionTitle">
-                <Link to={`/submission-details/${submissionObj.submissionID}`}>{submissionObj.submissionTitle}</Link>
+                <Link to={`/submission-details/${submissionObj.submissionID}`} style={{ color: '#000000' }}>{submissionObj.submissionTitle}</Link>
               </h4>
 
               {(this.context.currentUser.type === 'company' && this.context.currentUser.id === this.state.companyInfo.companyID)
