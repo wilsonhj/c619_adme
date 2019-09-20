@@ -162,21 +162,21 @@ export default class NavBar extends React.Component {
             <Collapse style={{ 'padding': '0' }} isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to='/landing-page'>Home</Link>
+                  <Link to='/landing-page' style={{ 'color': '#000000' }}>Home</Link>
                 </NavItem>
                 {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`}>Creator Portfolio</Link>
+                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`} style={{ 'color': '#000000' }}>Creator Portfolio</Link>
                 </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/company-dashboard/${this.context.currentUser.id}`}>Company Dashboard</Link>
+                  <Link to={`/company-dashboard/${this.context.currentUser.id}`} style={{ 'color': '#000000' }}>Company Dashboard</Link>
                 </NavItem>}
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <Link to='/messages'>Messages</Link>
+                  <Link to='/messages' style={{ 'color': '#000000' }}>Messages</Link>
                 </NavItem>
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <Link to='/all-campaigns-page'>Campaigns</Link>
+                  <Link to='/all-campaigns-page' style={{ 'color': '#000000' }}>Campaigns</Link>
                 </NavItem >
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
-                  <Link to='/settings'>Settings</Link>
+                  <Link to='/settings' style={{ 'color': '#000000' }}>Settings</Link>
                 </NavItem>
               </Nav>
             </Collapse>

@@ -103,8 +103,8 @@ export default class CompanyHeader extends React.Component {
       color: '#9067C6'
     };
     style.button = {
-      backgroundColor: '#0070c9',
-      color: 'white',
+      backgroundColor: '#FFFFFF',
+      color: '#000000',
       fontSize: '0.75rem',
       cursor: 'pointer',
       textAlign: 'center',
