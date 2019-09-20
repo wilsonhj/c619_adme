@@ -30,7 +30,6 @@ export default class App extends React.Component {
         companies: []
       }
     };
-    // this.setView = this.setView.bind(this);
     this.setUser = this.setUser.bind(this);
     localStorage.getItem('id');
   }
@@ -67,15 +66,6 @@ export default class App extends React.Component {
     this.setState({ currentUser: { type, id } });
   }
 
-  // setView(name, params) {
-  //   this.setState({
-  //     view: {
-  //       name: name,
-  //       params: params
-  //     }
-  //   });
-  // }
-
   renderView() {
     switch (this.state.view.name) {
       case 'landing-page':
@@ -111,7 +101,6 @@ export default class App extends React.Component {
 
   render() {
     const appContext = {
-      // setView: this.setView,
       setUser: this.setUser,
       viewParams: this.state.view.params,
       currentUser: this.state.currentUser,
