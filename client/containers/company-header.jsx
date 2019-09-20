@@ -96,8 +96,8 @@ export default class CompanyHeader extends React.Component {
     const style = {};
     style.image = {
       objectFit: 'cover',
-      height: '10rem',
-      width: '10rem'
+      height: '7.5rem',
+      width: '7.5rem'
     };
     style.div = {
       color: '#9067C6'
@@ -141,10 +141,10 @@ export default class CompanyHeader extends React.Component {
     };
     return (
       <div className="row background-light justify-content-around align-items-center companyHeaderContainer rounded m-0 pt-2" style={{ paddingLeft: '3%', paddingRight: '3%' }}>
-        <div className="row background-light justify-content-around align-items-center companyHeader">
+        <div className="row background-light justify-content-around align-items-center companyHeader mb-5">
           <img src={this.state.companyInfo.companyLogo} className="rounded-circle profilePicShadow" style={style.image}></img>
           <div className="mt-1 flex-wrap" style={style.div}>
-            <h4 className="mb-0 font-weight-bold" style={{ color: '#242038' }}>{this.state.companyInfo.companyName}</h4>
+            <h4 className="mb-2 font-weight-bold" style={{ color: '#242038' }}>{this.state.companyInfo.companyName}</h4>
             <Link className="btn shadow mb-3 p-1 createCampaignButton" to='/create-campaign' style={style.button}>Create Campaign</Link>
           </div>
         </div>
