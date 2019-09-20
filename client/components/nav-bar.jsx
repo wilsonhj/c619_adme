@@ -64,7 +64,8 @@ export default class NavBar extends React.Component {
               'display': 'inline-block',
               'cursor': 'pointer',
               'float': 'left',
-              'marginLeft': '1rem'
+              'marginLeft': '1rem',
+              'marginTop': '.5rem'
             }} >AdMe</Link>
             <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
               <NavItem style={{ 'bottom': '10%' }}>
