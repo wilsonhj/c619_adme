@@ -42,7 +42,7 @@ export default class AllCampaigns extends React.Component {
       );
     });
     return (
-      <div className="container" >
+      <div className="container" style={{ overflow: 'hidden' }} >
         <div style={{ textAlign: 'center', lineHeight: '300%', fontSize: '2rem', fontFamily: 'Patua One, cursive' }}>
           Current Campaigns
         </div>
