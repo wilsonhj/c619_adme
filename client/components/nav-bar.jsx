@@ -26,6 +26,8 @@ export default class NavBar extends React.Component {
       collapsed: true
     };
     this.checkUserExists = this.checkUserExists.bind(this);
+    this.closeNavbar = this.closeNavbar.bind(this);
+    this.toggleNavbar = this.toggleNavbar.bind(this);
   }
 
   toggleNavbar() {
@@ -33,6 +35,13 @@ export default class NavBar extends React.Component {
       collapsed: !this.state.collapsed
     });
   }
+
+  closeNavbar() {
+    if (this.state.collapsed !== true) {
+      this.toggleNavbar();
+    }
+  }
+
   checkUserExists() {
     if (this.context.currentUser.type === 'creator' || this.context.currentUser.type === 'company') {
       return true;
@@ -162,21 +171,19 @@ export default class NavBar extends React.Component {
             <Collapse style={{ 'padding': '0' }} isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to='/landing-page'>Home</Link>
+                  <Link to='/landing-page' onClick={this.closeNavbar}>Home</Link>
                 </NavItem>
                 {this.context.currentUser.type !== 'company' ? <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`}>Creator Portfolio</Link>
+                  <Link to={`/creator-portfolio/${this.context.currentUser.id}`}
+                    onClick={this.closeNavbar}>Creator Portfolio</Link>
                 </NavItem> : <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'cursor': 'pointer' }}>
-                  <Link to={`/company-dashboard/${this.context.currentUser.id}`}>Company Dashboard</Link>
+                  <Link to={`/company-dashboard/${this.context.currentUser.id}`} onClick={this.closeNavbar}>Company Dashboard</Link>
                 </NavItem>}
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <Link to='/messages'>Messages</Link>
-                </NavItem>
-                <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white' }}>
-                  <Link to='/all-campaigns-page'>Campaigns</Link>
+                  <Link to='/all-campaigns-page' onClick={this.closeNavbar}>Campaigns</Link>
                 </NavItem >
                 <NavItem style={{ 'border': 'solid 1px #841D9E', 'textAlign': 'center', 'backgroundColor': 'white', 'borderBottom': '2px' }}>
-                  <Link to='/settings'>Settings</Link>
+                  <Link to='/settings' onClick={this.closeNavbar}>Settings</Link>
                 </NavItem>
               </Nav>
             </Collapse>
