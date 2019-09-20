@@ -183,7 +183,6 @@ export default class NavBar extends React.Component {
           </Navbar>
           </>
         }
-        <div style={{ height: '2rem', width: '100%' }}></div>
       </div>
     );
   }
