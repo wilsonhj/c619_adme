@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+
 import AppContext from '../context.js';
 
 export default class CreateCampaign extends React.Component {
@@ -11,7 +12,8 @@ export default class CreateCampaign extends React.Component {
       requirements: '',
       runSpace: '',
       rewards: '',
-      preferredContentType: ''
+      preferredContentType: '',
+      submitSuccess: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,12 +34,14 @@ export default class CreateCampaign extends React.Component {
         method: 'POST',
         body: data
       })
-      .then(res => res.json())
-      .then(this.context.setView('company-dashboard', {}));
+      .then(res => res.json()).then(res => {
+        this.props.history.push('/company-dashboard/' + this.context.currentUser.id);
+      });
   }
 
   render() {
     return (
+      <>
       <Form className="p-4 rounded m-3 creatorSubmissionForm" onSubmit={this.handleSubmit}>
         <h4 className="mb-3 mx-auto font-weight-bold">Create Campaign</h4>
         <FormGroup>
@@ -77,6 +81,7 @@ export default class CreateCampaign extends React.Component {
         </FormGroup>
         <Button className="shadow creatorSubmitButton">Submit</Button>
       </Form>
+      </>
     );
   }
 }

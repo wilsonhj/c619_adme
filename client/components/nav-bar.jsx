@@ -41,36 +41,11 @@ export default class NavBar extends React.Component {
   }
 
   render() {
-    // const goToLandingPage = () => {
-    //   this.setState({
-    //     collapsed: !this.state.collapsed
-    //   });
-    //   this.context.setView('landing-page', {});
-    // };
-    // const goToCreatorPortfolio = () => {
-    //   this.setState({
-    //     collapsed: !this.state.collapsed
-    //   });
-    //   this.context.setView('creator-portfolio', { creatorID: this.context.currentUser.id });
-    // };
-    // const goToSwitchUser = () => {
-    //   event.preventDefault();
-    //   this.setState({
-    //     collapsed: !this.state.collapsed
-    //   });
-    //   this.context.setView('settings', {});
-    // };
-    // const goToCompanyDashboard = () => {
-    //   event.preventDefault();
-    //   this.setState({
-    //     collapsed: !this.state.collapsed
-    //   });
-    //   this.context.setView('company-dashboard', { companyID: this.context.currentUser.id });
-    // };
+
     return (
       <div>
         {this.checkUserExists() &&
-          <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E' }} light expand="md">
+          <Navbar className='d-none d-md-block shadow-lg' style={{ 'backgroundColor': '#841D9E', 'width': '100vw', 'textAlign': 'center', 'padding': '0', position: 'fixed', zIndex: '1', top: '0px' }} light expand="md">
             <Link to='/landing-page' style={{
               'height': '3rem',
               'color': '#EEEEEE',
@@ -78,11 +53,13 @@ export default class NavBar extends React.Component {
               'fontFamily': 'Modak, cursive',
               'lineHeight': '100%',
               'display': 'inline-block',
-              'cursor': 'pointer'
+              'cursor': 'pointer',
+              'float': 'left',
+              'marginLeft': '1rem'
             }} >AdMe</Link>
             <Nav className="ml-auto" style={{ 'float': 'right' }} navbar>
               <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink data-toggle="tooltip" data-placement="bottom" title="Home" onClick={() => { this.context.setView('landing-page', {}); }} style={{
+                <Link to='/landing-page' data-toggle="tooltip" data-placement="bottom" title="Home" style={{
                   'padding': '0rem .5rem',
                   'height': '3rem',
                   'width': '4rem',
@@ -91,7 +68,7 @@ export default class NavBar extends React.Component {
                 }}><HomeIcon style={{
                     'bottom': '10%'
                   }} />
-                </NavLink>
+                </Link>
               </NavItem>
               <NavItem>
                 <NavLink style={{
@@ -111,42 +88,6 @@ export default class NavBar extends React.Component {
                   }}/>
                 </Link>
               </NavItem>
-              {/* <NavItem>
-                <NavLink style={{
-                  'height': '3rem',
-                  'width': '2rem'
-                }}></NavLink>
-              </NavItem> */}
-              {/* <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink style={{
-                  'padding': '0rem .5rem',
-                  'height': '3rem',
-                  'width': '4rem',
-                  'backgroundRepeat': 'no-repeat',
-                  'cursor': 'pointer'
-                }}><MessagesIcon style={{
-                    'bottom': '10%'
-                  }} />
-                </NavLink>
-              </NavItem> */}
-              {/* <NavItem>
-                <NavLink style={{
-                  'height': '3rem',
-                  'width': '2rem'
-                }}></NavLink>
-              </NavItem> */}
-              {/* <NavItem style={{ 'bottom': '10%' }}>
-                <NavLink style={{
-                  'padding': '0rem .5rem',
-                  'height': '3rem',
-                  'width': '4rem',
-                  'backgroundRepeat': 'no-repeat',
-                  'cursor': 'pointer'
-                }}><NotificationIcon style={{
-                    'bottom': '10%'
-                  }} />
-                </NavLink>
-              </NavItem> */}
               <NavItem>
                 <NavLink style={{
                   'height': '3rem',
@@ -206,7 +147,7 @@ export default class NavBar extends React.Component {
         }
         {this.checkUserExists() &&
           <>
-          <div className="row" style={{ height: '4rem' }}></div>
+          <div style={{ height: '4rem', width: '100%' }}></div>
           <Navbar className='d-block d-md-none' style={{ 'backgroundColor': '#841D9E', 'width': '100vw', 'textAlign': 'center', 'padding': '0', position: 'fixed', zIndex: '1', top: '0px' }} light>
             <div style={{
               'height': '3rem',
@@ -242,7 +183,6 @@ export default class NavBar extends React.Component {
           </Navbar>
           </>
         }
-        <div className="row" style={{ height: '2rem' }}></div>
       </div>
     );
   }
