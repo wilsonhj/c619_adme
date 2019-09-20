@@ -28,7 +28,7 @@ export default class HomeIcon extends React.Component {
       color = '#000000';
     }
     return (
-      <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" onMouseOver={() => { this.handleHoverOn(); }} onMouseLeave={() => { this.handleHoverOff(); }} viewBox="100 90 352 940">
+      <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" onMouseOver={() => { this.handleHoverOn(); }} onMouseLeave={() => { this.handleHoverOff(); }} width='3.5rem' height='3.5rem' viewBox="0 25 470 470">
 
         <path className="st0" d="M426.1 398.1H258.5c-2.2 0-3.9-1.8-3.9-3.9v-2c0-2.2 1.8-3.9 3.9-3.9 1.5 0 2.7.8 3.4 2h160.3V220.6c0-2.2 1.8-3.9 3.9-3.9 2.2 0 3.9 1.8 3.9 3.9v173.5c0 2.2-1.8 4-3.9 4zm-167.6-51c-2.2 0-3.9-1.8-3.9-3.9V220.6c0-1.1.5-2.1 1.2-2.9l83.8-78.2c1.5-1.4 3.8-1.4 5.3 0l77.5 72.3c1.6 1.5 1.7 4 .2 5.5-1.5 1.6-4 1.7-5.5.2l-74.8-69.8-79.9 74.5V343c0 2.3-1.8 4.1-3.9 4.1z" fill={color} />
         <path className="st0" d="M451.3 248c-1 0-1.9-.4-2.7-1.1l-106.3-99.1-15 14c-1.6 1.5-4.1 1.4-5.5-.2-1.5-1.6-1.4-4.1.2-5.5l17.6-16.4c1.5-1.4 3.8-1.4 5.3 0L447.4 235v-10.2l-105.1-98-105.1 98V235l48.9-45.6c1.6-1.5 4.1-1.4 5.5.2 1.5 1.6 1.4 4.1-.2 5.5l-55.5 51.8c-1.1 1.1-2.8 1.4-4.2.7s-2.4-2-2.4-3.6v-20.9c0-1.1.5-2.1 1.2-2.9l109-101.7c1.5-1.4 3.8-1.4 5.4 0l109 101.7c.8.7 1.2 1.8 1.2 2.9V244c0 1.6-.9 3-2.4 3.6-.3.3-.9.4-1.4.4z" fill={color} />

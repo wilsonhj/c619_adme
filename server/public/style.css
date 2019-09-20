@@ -47,7 +47,6 @@ a.active.nav-link {
   }
   .companyHeader {
     display: flex;
-    height: 100px
   }
   .tab-text{
     font-size: 0.7rem;
