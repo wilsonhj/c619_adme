@@ -26,8 +26,8 @@ export default class UploadSubmission extends React.Component {
     event.preventDefault();
     var formData = new FormData(event.target);
     formData.append('likes', '0');
-    formData.append('creatorID', this.context.viewParams.creatorID);
-    formData.append('campaignID', this.context.viewParams.campaignID);
+    formData.append('creatorID', this.context.currentUser.id);
+    formData.append('campaignID', this.props.match.params.campaignID);
     fetch('/api/submissions', {
       method: 'POST',
       body: formData

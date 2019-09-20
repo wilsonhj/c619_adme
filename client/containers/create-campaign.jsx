@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 import AppContext from '../context.js';
 
@@ -36,7 +35,7 @@ export default class CreateCampaign extends React.Component {
         body: data
       })
       .then(res => res.json()).then(res => {
-        this.setState({ submitSuccess: true });
+        this.props.history.push('/company-dashboard/' + this.context.currentUser.id);
       });
   }
 
@@ -80,13 +79,8 @@ export default class CreateCampaign extends React.Component {
             Upload an Image:
           </FormText>
         </FormGroup>
-        {!this.state.submitSuccess && <Button className="shadow creatorSubmitButton">Submit</Button>}
+        <Button className="shadow creatorSubmitButton">Submit</Button>
       </Form>
-      {this.state.submitSuccess &&
-        <Link to={`/company-dashboard/${this.context.currentUser.id}`}>
-          <Button className="ml-3 mt-3 mb-5 shadow creatorSubmitButton">Confirm and Leave</Button>
-        </Link>
-      }
       </>
     );
   }
