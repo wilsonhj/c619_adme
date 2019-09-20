@@ -13,6 +13,7 @@ export default class LandingPage extends React.Component {
     this.getCampaigns = this.getCampaigns.bind(this);
     this.getTrending = this.getTrending.bind(this);
     this.getWinners = this.getWinners.bind(this);
+    this.goToCampaign = this.goToCampaign.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +49,10 @@ export default class LandingPage extends React.Component {
           winners: res
         });
       });
+  }
+
+  goToCampaign(campaignID) {
+    this.props.history.push(`campaign-details/${campaignID}`);
   }
 
   render() {
@@ -99,8 +104,7 @@ export default class LandingPage extends React.Component {
     });
     let campaigns = this.state.recentCampaigns.map(campaign => {
       return (
-        <div className=' glassCard campaignCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%', backgroundColor: 'white' }} key={campaign.campaignID}>
-          <Link to={`/campaign-details/${campaign.campaignID}`}></Link>
+        <div onClick ={() => { this.goToCampaign(campaign.campaignID); }} className=' glassCard campaignCard' style={{ 'flex': '0 0 auto', 'width': '25em', 'height': '20em', 'margin': '1rem', 'borderRadius': '10%', backgroundColor: 'white' }} key={campaign.campaignID}>
           <div className='row' style={{ 'width': '95%', 'paddingLeft': '8%', 'paddingTop': '3%' }}>
             <div className="col" style={{ 'textAlign': 'center', 'fontSize': '2em' }}>
               {campaign.campaignTitle}
