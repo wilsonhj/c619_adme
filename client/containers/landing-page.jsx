@@ -72,11 +72,12 @@ export default class LandingPage extends React.Component {
               {ads.title}
             </div>
           </div>
-          <Link to={`/submission-details/${ads.submissionID}`}>
-            <div className="container" style={{ backgroundImage: 'url(' + '/' + ads.submissionThumbnail + ')', height: '50%', width: '80%', marginTop: '4%', backgroundSize: '100%', backgroundRepeat: 'no-repeat', border: 'solid .12em yellow' }}>
+          <div className="container" style={{ backgroundImage: 'url(' + '/' + ads.submissionThumbnail + ')', height: '50%', width: '80%', marginTop: '4%', backgroundSize: '100%', backgroundRepeat: 'no-repeat', border: 'solid .12em yellow' }}>
+            <Link to={`/submission-details/${ads.submissionID}`}>
               <div className="playButton" style={{ marginLeft: '40%', verticalAlign: 'center' }}></div>
-            </div>
-          </Link>
+            </Link>
+          </div>
+
         </div>
       );
     });

@@ -27,7 +27,7 @@ export default class AllCampaigns extends React.Component {
   render() {
     let campaigns = this.state.recentCampaigns.map(campaign => {
       return (
-        <Link to={`/campaign-details/${campaign.campaignID}`} key={campaign.campaignID}>
+        <Link to={`/campaign-details/${campaign.campaignID}`} key={campaign.campaignID} style = {{ color: '#000000' }}>
           <div className='glassCard' style={{ 'flex': '0 0 auto', 'width': '20em', 'height': '18em', 'margin': '1rem', 'borderRadius': '10%', 'cursor': 'pointer', 'overflow': 'hidden' }} >
             <div className="container">
               <div style={{ 'marginTop': '.3em', 'textAlign': 'center', 'fontSize': '2em' }}>

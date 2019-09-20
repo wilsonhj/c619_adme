@@ -78,12 +78,7 @@ export default class ViewCampaignDetails extends React.Component {
     fetch(`/api/winningAds/${id}`, init)
       .then(res => res.json())
       .then(res => {
-        // eslint-disable-next-line no-console
-        console.log(res);
-      })
-      .catch(err => {
-        // eslint-disable-next-line no-console
-        console.log(err);
+        this.props.history.push(`/company-dashboard/${this.context.currentUser.id}`);
       });
   }
   makeSubmissionButton() {
@@ -152,7 +147,7 @@ export default class ViewCampaignDetails extends React.Component {
         return (
           <div className="" key={submissionObj.submissionID} style={{ width: '33.33%' }}>
             <h4 className="mt-5 submission-details-author-name submissionTitle">
-              <Link to={`submission-details/${submissionObj.submissionID}`}>{submissionObj.submissionTitle}</Link>
+              <Link to={`submission-details/${submissionObj.submissionID}`} style={{ color: '#000000' }}>{submissionObj.submissionTitle}</Link>
             </h4>
             <img className="mx-auto my-2 shadow" src={'/' + submissionObj.submissionThumbnail} style={{ width: '100%' }}/>
             {/* <video src={submissionObj.submissionContent} poster={submissionObj.submissionThumbnail}

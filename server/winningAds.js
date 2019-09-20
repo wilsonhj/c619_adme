@@ -36,12 +36,15 @@ router.get('/', (req, res, next) => {
       res.send(rows);
       return;
     }
-    if (rows[0].submissionThumbnail) {
-      rows[0].submissionThumbnail = rows[0].submissionThumbnail.substring(rows[0].submissionThumbnail.indexOf('uploads'));
-    }
-    if (rows[0].submissionContent) {
-      rows[0].submissionContent = rows[0].submissionContent.substring(rows[0].submissionContent.indexOf('uploads'));
-    }
+    rows.map(row => {
+      if (row.submissionThumbnail) {
+        row.submissionThumbnail = row.submissionThumbnail.substring(row.submissionThumbnail.indexOf('uploads'));
+      }
+      if (row.submissionContent) {
+        row.submissionContent = row.submissionContent.substring(row.submissionContent.indexOf('uploads'));
+      }
+    });
+
     res.send(rows);
   });
 });

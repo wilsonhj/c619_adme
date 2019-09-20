@@ -92,6 +92,9 @@ router.get('/prevcompany/:id', (req, res, next) => {
 
   connection.execute(query, [req.params.id], (err, rows, fields) => {
     if (err) return next(err);
+    if (rows[0] === undefined) {
+      res.send(rows);
+    }
     rows.forEach(row => {
       if (row.campaignContent !== null) {
         row.campaignContent = row.campaignContent.substring(row.campaignContent.indexOf('uploads'));
@@ -101,7 +104,6 @@ router.get('/prevcompany/:id', (req, res, next) => {
     });
     connection.execute(`SELECT * FROM winningAds`, (err, winningRows, fields) => {
       if (err) return next(err);
-      // console.log(rows[0])
       if (winningRows[0] === undefined) {
         res.send(winningRows);
       }
@@ -191,13 +193,14 @@ router.get('/:id', (req, res, next) => {
         rows[0].submissionIDs = '';
       }
       if (rows[0].submissionDescriptions !== null) {
-        rows[0].submissionDescriptions = rows[0].submissionDescriptions.split('\n');
-
+        rows[0].submissionDescriptions = rows[0].submissionDescriptions.split(',');
+        rows[0].submissionDescriptions.reverse();
       } else {
         rows[0].submissionDescriptions = '';
       }
       if (rows[0].submissionTitles !== null) {
         rows[0].submissionTitles = rows[0].submissionTitles.split(',');
+        rows[0].submissionTitles.reverse();
       } else {
         rows[0].submissionTitles = '';
       }
