@@ -97,10 +97,8 @@ export default class ViewSubmissionDetails extends React.Component {
       method: 'delete'
 
     };
-    fetch(`/api/submissions/${this.state.submissionID}`, init)
-      .then(res => res.json()).then(res => {
-        this.props.history.push(`/creator-portfolio/${this.context.currentUser.id}`);
-      });
+    fetch(`/api/submissions/${this.state.submissionID}`, init);
+
   }
 
   createConfirmation() {

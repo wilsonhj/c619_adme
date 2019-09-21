@@ -38,7 +38,7 @@ class ConfirmationModal extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
           <ModalHeader toggle={this.toggle}>{this.props.message}</ModalHeader>
           <ModalFooter>
-            <Button style={{ backgroundColor: 'rebeccapurple', color: 'white' }} onClick={this.props.deleteSubmission}>Confirm</Button>{' '}
+            <Button style={{ backgroundColor: 'rebeccapurple', color: 'white' }} onClick={() => { this.props.deleteSubmission(); this.toggle(); }}>Confirm</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
